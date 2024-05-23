@@ -6,8 +6,16 @@ import 'package:mobile/routes/app_page.dart';
 import 'package:mobile/routes/app_route.dart';
 import 'package:mobile/utils/app_token.dart';
 import 'package:mobile/utils/global_theme.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+void main() async {
+  await dotenv.load(fileName: ".env");
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const MainApp());
 }
 
@@ -30,7 +38,7 @@ class MainApp extends StatelessWidget {
               if (snapshot.hasData) {
                 return GetMaterialApp(
                   initialBinding: GlobalBinding(),
-                  title: 'Transpo',
+                  title: dotenv.env['PROJECT_NAME']!,
                   theme: globalTheme(),
                   getPages: appPage(),
                   initialRoute:
