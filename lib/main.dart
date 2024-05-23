@@ -13,6 +13,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 void main() async {
   await dotenv.load(fileName: ".env");
   await Firebase.initializeApp(
+    name: "e-port-application",
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
