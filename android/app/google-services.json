@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "776112355962",
+    "project_id": "e-port-application",
+    "storage_bucket": "e-port-application.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:776112355962:android:33b5ed4eed8dc494f699c3",
+        "android_client_info": {
+          "package_name": "com.example.mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBr7ZXFzd1p6lAt6sZXi9D0ED9JpBh_m1M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
