@@ -30,10 +30,13 @@ class ColorConstants {
   };
 
   static Map<int, Gradient> gradient = {
-    1: RadialGradient(
-      colors: [Color(0xFF34C759), Color(0xFF2A9134)],
-      center: Alignment(1.0, 0.0),
-      radius: 1.1225,
+    1: LinearGradient(
+      begin: Alignment.topCenter, // Adjust for 180deg direction
+      end: Alignment.bottomCenter,
+      colors: [
+        const Color(0xff446927).withOpacity(.4), // rgba(68, 105, 39, 0.41)
+        const Color(0xffFFFFFF).withOpacity(0), // rgba(255, 255, 255, 0.00)
+      ],
     ),
   };
 
