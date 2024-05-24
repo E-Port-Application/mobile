@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mobile/styles/color_constants.dart';
+import 'package:eport/styles/color_constants.dart';
 
 TextStyle h1TextStyle({
   double? size,

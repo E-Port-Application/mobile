@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mobile/app/controller/home_controller.dart';
+import 'package:eport/app/controller/home_controller.dart';
 
 class HomePage extends GetView<HomeController> {
   const HomePage({super.key});

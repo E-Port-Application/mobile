@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/styles/color_constants.dart';
+import 'package:eport/styles/color_constants.dart';
 
 ThemeData globalTheme() {
   return ThemeData(
-    fontFamily: "Inter",
+    fontFamily: "Kumbh",
     scaffoldBackgroundColor: ColorConstants.slate[25],
     colorScheme: appColorScheme,
   );

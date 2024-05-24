@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mobile/styles/color_constants.dart';
-import 'package:mobile/styles/text_styles.dart';
-import 'package:mobile/utils/debouncer.dart';
+import 'package:eport/styles/color_constants.dart';
+import 'package:eport/styles/text_styles.dart';
+import 'package:eport/utils/debouncer.dart';
 
 enum AppButtonType {
   contained,
@@ -46,7 +46,7 @@ class AppButton extends StatelessWidget {
       return Container(
         decoration: BoxDecoration(
           border: Border.all(
-            color: color ?? ColorConstants.primary[500]!,
+            color: color ?? ColorConstants.primary[70]!,
             width: 1.w,
           ),
           borderRadius: borderRadius ?? BorderRadius.circular(10.w),
@@ -75,7 +75,7 @@ class AppButton extends StatelessWidget {
                 text,
                 style: textStyle ??
                     h4BTextStyle(
-                      color: ColorConstants.primary[500],
+                      color: ColorConstants.primary[70],
                     ),
               ),
         ),
@@ -89,7 +89,7 @@ class AppButton extends StatelessWidget {
             (onPressed == null
                 ? ColorConstants.slate[300]
                 : variant == AppButtonVariant.primary
-                    ? ColorConstants.primary[500]
+                    ? ColorConstants.primary[70]
                     : ColorConstants.error),
         borderRadius: borderRadius ?? BorderRadius.circular(10.w),
       ),

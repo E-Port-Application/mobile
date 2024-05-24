@@ -17,16 +17,14 @@ class ColorConstants {
   };
 
   static Map<int, Color> primary = {
-    50: Color(0xffEAF4EB),
-    100: Color(0xffBDDDC0),
-    200: Color(0xff9DCCA2),
-    300: Color(0xff70B577),
-    400: Color(0xff55A75D),
-    500: Color(0xff2A9134),
-    600: Color(0xff26842F),
-    700: Color(0xff1E6725),
-    800: Color(0xff17501D),
-    900: Color(0xff123D16),
+    20: Color(0xffBCC29A),
+    30: Color(0xff8CA367),
+    40: Color(0xff6B8534),
+    50: Color(0xff4C6601),
+    60: Color(0xff1B5201),
+    70: Color(0xff143D01),
+    80: Color(0xff0B2901),
+    90: Color(0xff000B14),
   };
 
   static Map<int, Gradient> gradient = {
@@ -56,7 +54,7 @@ class ColorConstants {
 }
 
 final ColorScheme appColorScheme = ColorScheme(
-  primary: ColorConstants.primary[500]!,
+  primary: ColorConstants.primary[70]!,
   secondary: ColorConstants.slate[500]!,
   background: ColorConstants.slate[25]!,
   surface: ColorConstants.slate[50]!,
