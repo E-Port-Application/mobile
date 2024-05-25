@@ -142,7 +142,7 @@ class _AppInputState extends State<AppInput> {
                   ),
             widget.label == null
                 ? Container()
-                : SizedBox(height: widget.gap ?? 2.h),
+                : SizedBox(height: widget.gap ?? 4.h),
             AnimatedContainer(
               duration: Duration(milliseconds: 250),
               curve: Curves.easeIn,

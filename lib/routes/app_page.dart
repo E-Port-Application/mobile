@@ -27,11 +27,13 @@ List<GetPage<dynamic>> appPage() {
       name: AppRoute.login,
       page: () => LoginPage(),
       binding: AuthBinding(),
+      transition: Transition.rightToLeft,
     ),
     GetPage(
       name: AppRoute.register,
       page: () => RegisterPage(),
       binding: AuthBinding(),
+      transition: Transition.rightToLeft,
     ),
   ];
 }

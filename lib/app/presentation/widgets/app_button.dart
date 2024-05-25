@@ -26,6 +26,7 @@ class AppButton extends StatelessWidget {
   final Color? color;
   final Color? foregroundColor;
   final List<BoxShadow>? boxShadow;
+  final double? width;
 
   const AppButton({
     super.key,
@@ -40,12 +41,14 @@ class AppButton extends StatelessWidget {
     this.foregroundColor,
     this.child,
     this.boxShadow,
+    this.width,
   });
 
   @override
   Widget build(BuildContext context) {
     if (type == AppButtonType.outlined) {
       return Container(
+        width: width,
         decoration: BoxDecoration(
           border: Border.all(
             color: color ?? ColorConstants.primary[70]!,
@@ -86,6 +89,7 @@ class AppButton extends StatelessWidget {
 
     return AnimatedContainer(
       duration: Duration(milliseconds: 350),
+      width: width,
       decoration: BoxDecoration(
         color: color ??
             (onPressed == null
