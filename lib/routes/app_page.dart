@@ -1,3 +1,6 @@
+import 'package:eport/app/bindings/auth_bindings.dart';
+import 'package:eport/app/presentation/view/login_page.dart';
+import 'package:eport/app/presentation/view/register_page.dart';
 import 'package:get/get.dart';
 import 'package:eport/app/bindings/home_bindings.dart';
 import 'package:eport/app/presentation/view/home_page.dart';
@@ -19,6 +22,16 @@ List<GetPage<dynamic>> appPage() {
       name: AppRoute.home,
       page: () => HomePage(),
       binding: HomeBinding(),
+    ),
+    GetPage(
+      name: AppRoute.login,
+      page: () => LoginPage(),
+      binding: AuthBinding(),
+    ),
+    GetPage(
+      name: AppRoute.register,
+      page: () => RegisterPage(),
+      binding: AuthBinding(),
     ),
   ];
 }

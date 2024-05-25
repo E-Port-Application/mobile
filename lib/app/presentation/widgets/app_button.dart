@@ -25,6 +25,7 @@ class AppButton extends StatelessWidget {
   final TextStyle? textStyle;
   final Color? color;
   final Color? foregroundColor;
+  final List<BoxShadow>? boxShadow;
 
   const AppButton({
     super.key,
@@ -38,6 +39,7 @@ class AppButton extends StatelessWidget {
     this.color,
     this.foregroundColor,
     this.child,
+    this.boxShadow,
   });
 
   @override
@@ -90,8 +92,9 @@ class AppButton extends StatelessWidget {
                 ? ColorConstants.slate[300]
                 : variant == AppButtonVariant.primary
                     ? ColorConstants.primary[70]
-                    : ColorConstants.error),
+                    : ColorConstants.slate[50]),
         borderRadius: borderRadius ?? BorderRadius.circular(10.w),
+        boxShadow: boxShadow,
       ),
       clipBehavior: Clip.hardEdge,
       child: ElevatedButton(
@@ -118,7 +121,12 @@ class AppButton extends StatelessWidget {
         child: child ??
             Text(
               text,
-              style: textStyle ?? h4BTextStyle(color: Colors.white),
+              style: textStyle ??
+                  h4BTextStyle(
+                    color: variant == AppButtonVariant.primary
+                        ? Colors.white
+                        : ColorConstants.slate[600],
+                  ),
             ),
       ),
     );
