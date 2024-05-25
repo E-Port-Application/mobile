@@ -1,8 +1,8 @@
+import 'package:eport/routes/app_route.dart';
+import 'package:eport/styles/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:eport/routes/app_route.dart';
-import 'package:eport/styles/color_constants.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -12,9 +12,7 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  double cWidth = 150;
   bool isExpand = false;
-
   @override
   void initState() {
     super.initState();
@@ -25,7 +23,6 @@ class _SplashPageState extends State<SplashPage> {
         });
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await Future.delayed(Duration(milliseconds: 3000));
       Get.offAndToNamed(AppRoute.onboarding);
     });
   }
@@ -33,38 +30,44 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Container(width: 100.sw),
-          AnimatedPositioned(
-            duration: Duration(milliseconds: 1500),
-            curve: Curves.easeInOut,
-            left: isExpand ? -36.w : 100.w,
-            right: isExpand ? -36.w : 100.w,
-            bottom: -140.h,
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: ColorConstants.gradient[1],
-                borderRadius: BorderRadius.circular(100.sw),
-              ),
-              width: 100.sw,
-              child: AspectRatio(
-                aspectRatio: 1 / 1,
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.center.add(Alignment(0, -0.2)),
-            child: AnimatedSize(
-              duration: Duration(milliseconds: 1500),
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
+        child: Column(
+          children: [
+            Expanded(child: Container()),
+            AnimatedSize(
+              duration: Duration(milliseconds: 1000),
               curve: Curves.easeInOut,
               child: Image.asset(
                 "assets/images/app-logo.png",
                 height: isExpand ? 195.h : 10.h,
               ),
             ),
-          ),
-        ],
+            Expanded(child: Container()),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  "assets/images/batu-government.png",
+                  height: 36.h,
+                ),
+                SizedBox(width: 12.w),
+                Image.asset(
+                  "assets/images/pamong-praja.png",
+                  height: 36.h,
+                ),
+                SizedBox(width: 20.w),
+                Flexible(
+                  child: Text(
+                    "Dikelola di bawah Satuan Polisi Pamong\nPraja Kota Batu dan Pemerintah Kota Batu",
+                    style: body4TextStyle(),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 36.h),
+          ],
+        ),
       ),
     );
   }
