@@ -13,7 +13,7 @@
   },
   {
     "label": "Notifikasi",
-    "path": "/home",
+    "path": "/notification",
     "icon-inactive": "assets/icons/notification-inactive.svg",
     "icon-active": "assets/icons/notification-active.svg"
   },

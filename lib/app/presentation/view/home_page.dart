@@ -3,6 +3,7 @@ import 'package:eport/app/presentation/partials/home/card_information.dart';
 import 'package:eport/app/presentation/partials/home/home_service.dart';
 import 'package:eport/app/presentation/widgets/app_background.dart';
 import 'package:eport/app/presentation/widgets/app_bottombar.dart';
+import 'package:eport/routes/app_route.dart';
 import 'package:eport/styles/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -114,7 +115,7 @@ class HomePage extends GetView<HomeController> {
           ),
         ),
       ),
-      bottomNavigationBar: AppBottombar(),
+      bottomNavigationBar: AppBottombar(path: AppRoute.home),
     );
   }
 }

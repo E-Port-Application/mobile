@@ -13,4 +13,5 @@ class AppRoute {
   static String registerSuccess = "/register/success";
 
   static String home = "/home";
+  static String notification = "/notification";
 }
