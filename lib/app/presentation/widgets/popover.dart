@@ -36,7 +36,6 @@ class _PopoverState extends State<Popover> {
     Future.delayed(Duration(milliseconds: 2000)).then((value) {
       setState(() {
         isMounted = true;
-        print('asasasd $isMounted');
       });
     });
     WidgetsBinding.instance.addPostFrameCallback((_) {});
@@ -44,7 +43,6 @@ class _PopoverState extends State<Popover> {
 
   @override
   Widget build(BuildContext context) {
-    print('jancok sk $isMounted');
     return PortalTarget(
       visible: widget.visible,
       portalFollower: Stack(

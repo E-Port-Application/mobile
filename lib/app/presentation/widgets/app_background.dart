@@ -45,10 +45,8 @@ class AppBackground extends StatelessWidget {
           ),
         ),
         SafeArea(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: child,
-          ),
+          bottom: false,
+          child: child,
         ),
       ],
     );

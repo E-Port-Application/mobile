@@ -39,9 +39,10 @@ flutter:
   assets:
     - assets/
     - assets/images/
+    - assets/data/
     - assets/images/onboard/
     - assets/icons/
-    
+
     # Fonts
     - assets/fonts/Poppins/
 

@@ -1,0 +1,26 @@
+[
+  {
+    "label": "Home",
+    "path": "/home",
+    "icon-inactive": "assets/icons/home-inactive.svg",
+    "icon-active": "assets/icons/home-active.svg"
+  },
+  {
+    "label": "Laporan",
+    "path": "/home",
+    "icon-inactive": "assets/icons/laporan-inactive.svg",
+    "icon-active": "assets/icons/laporan-active.svg"
+  },
+  {
+    "label": "Notifikasi",
+    "path": "/home",
+    "icon-inactive": "assets/icons/notification-inactive.svg",
+    "icon-active": "assets/icons/notification-active.svg"
+  },
+  {
+    "label": "Profil",
+    "path": "/home",
+    "icon-inactive": "assets/icons/profile-inactive.svg",
+    "icon-active": "assets/icons/profile-active.svg"
+  }
+]

@@ -86,7 +86,6 @@ class _AppInputState extends State<AppInput> {
         isFocused = _focus.hasFocus ? true : false;
       });
     });
-    // print("assd ${widget.obscureText}");
     setState(() {
       isVisible = widget.obscureText;
     });
