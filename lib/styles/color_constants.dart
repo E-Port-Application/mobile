@@ -29,11 +29,27 @@ class ColorConstants {
 
   static Map<int, Gradient> gradient = {
     1: LinearGradient(
-      begin: Alignment.topCenter, // Adjust for 180deg direction
+      begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
       colors: [
-        const Color(0xff446927).withOpacity(.4), // rgba(68, 105, 39, 0.41)
-        const Color(0xffFFFFFF).withOpacity(0), // rgba(255, 255, 255, 0.00)
+        const Color(0xff446927).withOpacity(.4),
+        const Color(0xffFFFFFF).withOpacity(0),
+      ],
+    ),
+    2: LinearGradient(
+      begin: Alignment.bottomCenter,
+      end: Alignment.topCenter,
+      colors: [
+        const Color(0xffFFFFFF).withOpacity(1),
+        const Color(0xff446927).withOpacity(.41),
+      ],
+    ),
+    3: LinearGradient(
+      begin: Alignment.centerLeft,
+      end: Alignment.centerRight,
+      colors: [
+        ColorConstants.primary[70]!,
+        ColorConstants.primary[60]!,
       ],
     ),
   };

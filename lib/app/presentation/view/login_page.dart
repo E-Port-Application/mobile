@@ -1,3 +1,4 @@
+import 'package:eport/app/controller/global_controller.dart';
 import 'package:eport/app/controller/login_controller.dart';
 import 'package:eport/app/presentation/widgets/app_button.dart';
 import 'package:eport/app/presentation/widgets/app_input.dart';
@@ -28,7 +29,7 @@ class LoginPage extends GetView<LoginController> {
                 children: [
                   SizedBox(
                     height: 48.h,
-                    width: 100.sw,
+                    width: 1.sw,
                   ),
                   Image.asset(
                     "assets/images/app-logo-no-text.png",
@@ -77,7 +78,7 @@ class LoginPage extends GetView<LoginController> {
                   AppButton(
                     onPressed: () {},
                     text: "Login",
-                    width: 100.sw,
+                    width: 1.sw,
                   ),
                   SizedBox(height: 32.h),
                   Padding(
@@ -113,7 +114,7 @@ class LoginPage extends GetView<LoginController> {
                   AppButton(
                     onPressed: controller.googleSignin,
                     text: "",
-                    width: 100.sw,
+                    width: 1.sw,
                     type: AppButtonType.outlined,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,

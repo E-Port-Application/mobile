@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:eport/app/bindings/global_bindings.dart';
@@ -34,27 +35,31 @@ class MainApp extends StatelessWidget {
           onTap: () {
             FocusManager.instance.primaryFocus?.unfocus();
           },
-          child: FutureBuilder(
-            future: UserToken.checkToken(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return GetMaterialApp(
-                  initialBinding: GlobalBinding(),
-                  title: dotenv.env['PROJECT_NAME']!,
-                  theme: globalTheme(),
-                  getPages: appPage(),
-                  initialRoute:
-                      snapshot.data ?? false ? AppRoute.home : AppRoute.splash,
-                  builder: (context, child) {
-                    return MediaQuery(
-                      data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
-                      child: child ?? Container(),
-                    );
-                  },
-                );
-              }
-              return Container();
-            },
+          child: Portal(
+            child: FutureBuilder(
+              future: UserToken.checkToken(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return GetMaterialApp(
+                    initialBinding: GlobalBinding(),
+                    title: dotenv.env['PROJECT_NAME']!,
+                    theme: globalTheme(),
+                    getPages: appPage(),
+                    initialRoute: AppRoute.home,
+                    // initialRoute:
+                    //     snapshot.data ?? false ? AppRoute.home : AppRoute.splash,
+                    builder: (context, child) {
+                      return MediaQuery(
+                        data:
+                            MediaQuery.of(context).copyWith(textScaleFactor: 1),
+                        child: child ?? Container(),
+                      );
+                    },
+                  );
+                }
+                return Container();
+              },
+            ),
           ),
         );
       }),

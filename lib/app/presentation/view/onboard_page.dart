@@ -43,11 +43,11 @@ class _OnboardPageState extends State<OnboardPage>
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(100.sw),
+                  borderRadius: BorderRadius.circular(1.sw),
                   boxShadow: [ColorConstants.shadow[3]!],
                 ),
                 foregroundDecoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100.sw),
+                  borderRadius: BorderRadius.circular(1.sw),
                   gradient: LinearGradient(
                     begin: Alignment.bottomCenter,
                     end: Alignment.topCenter,

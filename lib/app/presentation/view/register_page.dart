@@ -2,6 +2,7 @@ import 'package:eport/app/controller/register_controller.dart';
 import 'package:eport/app/presentation/widgets/app_button.dart';
 import 'package:eport/app/presentation/widgets/app_input.dart';
 import 'package:eport/app/presentation/widgets/scrollable_constraints.dart';
+import 'package:eport/firebase_options.dart';
 import 'package:eport/routes/app_route.dart';
 import 'package:eport/styles/color_constants.dart';
 import 'package:eport/styles/text_styles.dart';
@@ -28,7 +29,7 @@ class RegisterPage extends GetView<RegisterController> {
                 children: [
                   SizedBox(
                     height: 48.h,
-                    width: 100.sw,
+                    width: 1.sw,
                   ),
                   Image.asset(
                     "assets/images/app-logo-no-text.png",
@@ -97,9 +98,11 @@ class RegisterPage extends GetView<RegisterController> {
                   ),
                   SizedBox(height: 32.h),
                   AppButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      // const a = auth.
+                    },
                     text: "Daftar",
-                    width: 100.sw,
+                    width: 1.sw,
                   ),
                   SizedBox(height: 32.h),
                   Padding(
@@ -135,7 +138,7 @@ class RegisterPage extends GetView<RegisterController> {
                   AppButton(
                     onPressed: controller.googleSignin,
                     text: "",
-                    width: 100.sw,
+                    width: 1.sw,
                     type: AppButtonType.outlined,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
