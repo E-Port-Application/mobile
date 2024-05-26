@@ -42,7 +42,7 @@ class LoginPage extends GetView<LoginController> {
                       color: ColorConstants.slate[700],
                     ),
                   ),
-                  SizedBox(height: 12.h),
+                  SizedBox(height: 8.h),
                   Text(
                     "Kami senang bertemu Anda lagi!",
                     style: body2BTextStyle(
@@ -50,6 +50,7 @@ class LoginPage extends GetView<LoginController> {
                       color: ColorConstants.slate[700],
                     ),
                   ),
+                  SizedBox(height: 20.h),
                   AppInput(
                     label: "Email",
                     controller: controller.form['email']!,
@@ -153,7 +154,7 @@ class LoginPage extends GetView<LoginController> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 20.h),
+                  SizedBox(height: 48.h),
                   Expanded(child: Container()),
                 ],
               ),
