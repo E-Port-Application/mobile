@@ -19,7 +19,7 @@
   },
   {
     "label": "Profil",
-    "path": "/home",
+    "path": "/profile",
     "icon-inactive": "assets/icons/profile-inactive.svg",
     "icon-active": "assets/icons/profile-active.svg"
   }

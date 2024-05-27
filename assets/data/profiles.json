@@ -1,0 +1,23 @@
+[
+  {
+    "label": "Profile",
+    "icon": "assets/icons/profile.svg"
+  },
+  {
+    "label": "Account",
+    "icon": "assets/icons/account.svg"
+  },
+  {
+    "label": "Notifications",
+    "icon": "assets/icons/notification.svg",
+    "path": "/notification"
+  },
+  {
+    "label": "About",
+    "icon": "assets/icons/about.svg"
+  },
+  {
+    "label": "Logout",
+    "icon": "assets/icons/logout.svg"
+  }
+]
