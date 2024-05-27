@@ -67,7 +67,7 @@ class ProfilePage extends GetView<ProfileController> {
                             top: 0.h,
                             right: 0.w,
                             child: GestureDetector(
-                              onTap: () {},
+                              onTap: controller.updatePhoto,
                               child: Container(
                                 width: 32.w,
                                 height: 32.h,

@@ -20,6 +20,11 @@ class GlobalController extends GetxController {
   void onInit() {
     super.onInit();
     getMenu();
+    auth.userChanges().listen((event) {
+      if (event != null) {
+        user.value = event;
+      }
+    });
     auth.authStateChanges().listen(
       (User? user) async {
         if (user != null) {

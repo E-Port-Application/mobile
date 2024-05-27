@@ -2,6 +2,7 @@
 // ignore_for_file: type=lint
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/foundation.dart'
@@ -66,5 +67,8 @@ class DefaultFirebaseOptions {
 
 final auth = FirebaseAuth.instance;
 final FirebaseFirestore store = FirebaseFirestore.instance;
-
 final userRef = store.collection("users");
+
+// Storage
+final storage = FirebaseStorage.instance.ref();
+final ppStorage = storage.child('profile-photo');
