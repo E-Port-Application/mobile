@@ -1,4 +1,3 @@
-import 'package:eport/app/controller/global_controller.dart';
 import 'package:eport/app/controller/login_controller.dart';
 import 'package:eport/app/presentation/widgets/app_button.dart';
 import 'package:eport/app/presentation/widgets/app_input.dart';

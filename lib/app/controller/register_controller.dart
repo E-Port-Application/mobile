@@ -54,8 +54,6 @@ class RegisterController extends GetxController {
 
       final userCredential = await auth.signInWithCredential(credential);
       final user = userCredential.user;
-    } on Exception catch (err) {
-      print(err.toString());
-    }
+    } on Exception catch (_) {}
   }
 }

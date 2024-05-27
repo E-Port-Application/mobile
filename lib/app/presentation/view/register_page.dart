@@ -2,7 +2,6 @@ import 'package:eport/app/controller/register_controller.dart';
 import 'package:eport/app/presentation/widgets/app_button.dart';
 import 'package:eport/app/presentation/widgets/app_input.dart';
 import 'package:eport/app/presentation/widgets/scrollable_constraints.dart';
-import 'package:eport/firebase_options.dart';
 import 'package:eport/routes/app_route.dart';
 import 'package:eport/styles/color_constants.dart';
 import 'package:eport/styles/text_styles.dart';

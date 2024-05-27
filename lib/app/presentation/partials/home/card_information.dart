@@ -1,12 +1,9 @@
 import 'package:eport/app/controller/home_controller.dart';
-import 'package:eport/app/presentation/widgets/app_input.dart';
 import 'package:eport/app/presentation/widgets/popover.dart';
 import 'package:eport/styles/color_constants.dart';
 import 'package:eport/styles/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:indexed/indexed.dart';
-import 'package:flutter_portal/flutter_portal.dart';
 
 class CardInformation extends StatefulWidget {
   const CardInformation({super.key});
@@ -129,9 +126,7 @@ class _CardInformationState extends State<CardInformation> {
                           child: Column(
                             children: [
                               GestureDetector(
-                                onTap: () {
-                                  print('ea share');
-                                },
+                                onTap: () {},
                                 child: Container(
                                   padding: EdgeInsets.symmetric(
                                     horizontal: 10.w,
@@ -164,9 +159,7 @@ class _CardInformationState extends State<CardInformation> {
                                 color: ColorConstants.slate[200],
                               ),
                               GestureDetector(
-                                onTap: () {
-                                  print("tes bookmark");
-                                },
+                                onTap: () {},
                                 child: Container(
                                   padding: EdgeInsets.symmetric(
                                     horizontal: 10.w,
