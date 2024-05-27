@@ -25,8 +25,8 @@ class _SplashPageState extends State<SplashPage> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await Future.delayed(Duration(milliseconds: 2500));
+      Get.offAndToNamed(AppRoute.onboarding);
       if (GlobalController.i.user.value == null) {
-        Get.offAndToNamed(AppRoute.onboarding);
         return;
       }
       Get.offAndToNamed(AppRoute.home);

@@ -71,6 +71,11 @@ class ColorConstants {
       blurRadius: 12.sp,
       spreadRadius: 1.sp,
     ),
+    4: BoxShadow(
+      color: Color(0xff5A5A5A).withOpacity(.3),
+      offset: Offset(3, 5),
+      blurRadius: 15.w,
+    )
   };
   static Color error = Color(0xffFF405F);
 }

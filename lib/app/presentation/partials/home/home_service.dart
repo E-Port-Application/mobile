@@ -1,3 +1,4 @@
+import 'package:eport/firebase_options.dart';
 import 'package:eport/styles/color_constants.dart';
 import 'package:eport/styles/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class HomeService extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           GestureDetector(
+            onTap: () async {},
             child: Column(
               children: [
                 Container(

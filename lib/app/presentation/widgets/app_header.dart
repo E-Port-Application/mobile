@@ -39,7 +39,10 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
                       onPressed: () {
                         Get.back();
                       },
-                      icon: Icon(Icons.arrow_back),
+                      icon: Icon(
+                        Icons.chevron_left,
+                        size: 26.w,
+                      ),
                     ),
                   )
                 : Container(),
@@ -73,7 +76,7 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
                   SizedBox(width: 56.w),
                   Text(
                     title,
-                    style: body2BTextStyle(),
+                    style: body1BTextStyle(),
                   ),
                 ],
               ),
