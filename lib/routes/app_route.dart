@@ -1,6 +1,7 @@
 class AppRoute {
   static String splash = "/splash";
-  static String onboarding = "/onboarding";
+  static String onboardInternal = "/internal/onboard";
+  static String onboardExternal = "/external/onboard";
 
   // Auth
   static String login = "/login";
@@ -15,4 +16,6 @@ class AppRoute {
   static String home = "/home";
   static String notification = "/notification";
   static String profile = "/profile";
+
+  static String laporan = "/laporan";
 }

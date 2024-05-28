@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "internal",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_internal.dart",
+      "args": ["--flavor", "internal", "--target", "lib/main_int.dart"]
+    },
+    {
+      "name": "external",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_external.dart",
+      "args": ["--flavor", "external", "--target", "lib/main_ext.dart"]
+    }
+  ]
+}

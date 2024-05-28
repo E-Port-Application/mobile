@@ -1,4 +1,5 @@
 import 'package:eport/app/controller/global_controller.dart';
+import 'package:eport/app/presentation/view/variant.dart';
 import 'package:eport/routes/app_route.dart';
 import 'package:eport/styles/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -25,11 +26,11 @@ class _SplashPageState extends State<SplashPage> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await Future.delayed(Duration(milliseconds: 2500));
-      Get.offAndToNamed(AppRoute.onboarding);
-      if (GlobalController.i.user.value == null) {
-        return;
-      }
-      Get.offAndToNamed(AppRoute.home);
+      Get.offAndToNamed(Onboard.path());
+      // if (GlobalController.i.user.value == null) {
+      //   return;
+      // }
+      // Get.offAndToNamed(AppRoute.home);
     });
   }
 

@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "776112355962",
+    "project_id": "e-port-application",
+    "storage_bucket": "e-port-application.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:776112355962:android:6d6d012903baf92bf699c3",
+        "android_client_info": {
+          "package_name": "com.mfadlihs.eport"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "776112355962-71lsj9kdpm36fpu8kj1udijed8o6chup.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mfadlihs.eport",
+            "certificate_hash": "a462a919a9841d584a725d31cc944d4c3f3e3e01"
+          }
+        },
+        {
+          "client_id": "776112355962-f3c6ma0chk6ip21ihf8h2jl620jarie0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBr7ZXFzd1p6lAt6sZXi9D0ED9JpBh_m1M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "776112355962-f3c6ma0chk6ip21ihf8h2jl620jarie0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "776112355962-5t68jrc7hifik3pomkh7smkhr9njvf2b.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mobile"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:776112355962:android:b63d54466858b3d1f699c3",
+        "android_client_info": {
+          "package_name": "com.mfadlihs.eport.int"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "776112355962-lt2278r3p34k6pbimtom2k98h7b5ntj9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mfadlihs.eport.int",
+            "certificate_hash": "a462a919a9841d584a725d31cc944d4c3f3e3e01"
+          }
+        },
+        {
+          "client_id": "776112355962-f3c6ma0chk6ip21ihf8h2jl620jarie0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBr7ZXFzd1p6lAt6sZXi9D0ED9JpBh_m1M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "776112355962-f3c6ma0chk6ip21ihf8h2jl620jarie0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "776112355962-5t68jrc7hifik3pomkh7smkhr9njvf2b.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mobile"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

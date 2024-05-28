@@ -40,7 +40,7 @@ class HomeService extends StatelessWidget {
                 ),
                 SizedBox(height: 8.h),
                 Text(
-                  "Piket",
+                  "Pikeasast",
                   style: body4BTextStyle(color: Colors.white),
                 )
               ],

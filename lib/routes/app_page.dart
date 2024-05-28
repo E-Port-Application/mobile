@@ -4,10 +4,10 @@ import 'package:eport/app/presentation/view/login_page.dart';
 import 'package:eport/app/presentation/view/notification_page.dart';
 import 'package:eport/app/presentation/view/profile_page.dart';
 import 'package:eport/app/presentation/view/register_page.dart';
+import 'package:eport/app/presentation/view/variant.dart';
 import 'package:get/get.dart';
 import 'package:eport/app/bindings/home_bindings.dart';
 import 'package:eport/app/presentation/view/home_page.dart';
-import 'package:eport/app/presentation/view/onboard_page.dart';
 import 'package:eport/app/presentation/view/splash_page.dart';
 import 'package:eport/routes/app_route.dart';
 
@@ -18,8 +18,12 @@ List<GetPage<dynamic>> appPage() {
       page: () => SplashPage(),
     ),
     GetPage(
-      name: AppRoute.onboarding,
-      page: () => OnboardPage(),
+      name: AppRoute.onboardExternal,
+      page: () => Onboard.external(),
+    ),
+    GetPage(
+      name: AppRoute.onboardInternal,
+      page: () => Onboard.internal(),
     ),
     GetPage(
       name: AppRoute.home,
