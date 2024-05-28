@@ -1,6 +1,4 @@
-import 'package:eport/app/controller/global_controller.dart';
 import 'package:eport/app/presentation/view/variant.dart';
-import 'package:eport/routes/app_route.dart';
 import 'package:eport/styles/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

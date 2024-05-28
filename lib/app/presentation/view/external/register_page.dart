@@ -1,4 +1,4 @@
-import 'package:eport/app/controller/login_controller.dart';
+import 'package:eport/app/controller/register_controller.dart';
 import 'package:eport/app/presentation/view/variant.dart';
 import 'package:eport/app/presentation/widgets/app_button.dart';
 import 'package:eport/app/presentation/widgets/app_input.dart';
@@ -10,8 +10,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-class LoginPage extends GetView<LoginController> {
-  const LoginPage({super.key});
+class RegisterPage extends GetView<RegisterController> {
+  const RegisterPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,23 +20,45 @@ class LoginPage extends GetView<LoginController> {
         decoration: BoxDecoration(
           gradient: ColorConstants.gradient[4],
         ),
-        child: ScrollableConstraints(
-          child: SafeArea(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
+        child: Stack(
+          children: [
+            SafeArea(
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 20.h),
-                  Text(
-                    "Selamat Datang\nKembali!",
-                    style: h1BTextStyle(
-                      size: 28.sp,
-                      color: ColorConstants.primary[80],
-                      height: 1.5,
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Halo, apa kabar?",
+                          style: h1BTextStyle(
+                            size: 28.sp,
+                            color: ColorConstants.primary[80],
+                            height: 1.5,
+                          ),
+                        ),
+                        SizedBox(height: 6.h),
+                        Text(
+                          "Ayo isi data dirimu!",
+                          style: body2TextStyle(
+                            color: ColorConstants.primary[80],
+                            weight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  SizedBox(height: 20.h),
+                ],
+              ),
+            ),
+            ScrollableConstraints(
+              child: Column(
+                children: [
+                  SizedBox(height: 180.h),
                   Stack(
                     children: [
                       Container(
@@ -50,27 +72,52 @@ class LoginPage extends GetView<LoginController> {
                         ),
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.circular(20.w),
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(20.w),
+                          ),
                           boxShadow: [ColorConstants.shadow[5]!],
                         ),
                         child: Column(
+                          mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             Text(
-                              "Login",
+                              "Daftar",
                               style: h1BTextStyle(size: 40.sp),
                               textAlign: TextAlign.center,
                             ),
+                            AppInput(
+                              label: "NIK",
+                              controller: controller.form['nik']!,
+                              placeholder: "Masukkan NIK 16 digit",
+                              validator: controller.emailValidator,
+                            ),
+                            SizedBox(height: 10.h),
+                            AppInput(
+                              label: "Nama",
+                              controller: controller.form['name']!,
+                              placeholder: "Masukkan Nama Anda",
+                              validator: controller.emailValidator,
+                            ),
+                            SizedBox(height: 10.h),
                             AppInput(
                               label: "Email",
                               controller: controller.form['email']!,
                               placeholder: "Masukkan Email Anda",
                               validator: controller.emailValidator,
                             ),
-                            SizedBox(height: 12.h),
+                            SizedBox(height: 10.h),
                             AppInput(
                               label: "Password",
                               controller: controller.form['password']!,
+                              obscureText: true,
+                              placeholder: "Masukkan Passowrd Anda",
+                              validator: controller.passwordValidator,
+                            ),
+                            SizedBox(height: 10.h),
+                            AppInput(
+                              label: "Konfirmasi Password",
+                              controller: controller.form['confirmPassword']!,
                               obscureText: true,
                               placeholder: "Masukkan Passowrd Anda",
                               validator: controller.passwordValidator,
@@ -87,7 +134,7 @@ class LoginPage extends GetView<LoginController> {
                             SizedBox(height: 20.h),
                             AppButton(
                               onPressed: () {},
-                              text: "Login",
+                              text: "Daftar",
                             ),
                             SizedBox(height: 20.h),
                             Padding(
@@ -103,7 +150,7 @@ class LoginPage extends GetView<LoginController> {
                                   ),
                                   SizedBox(width: 16.w),
                                   Text(
-                                    "Masuk dengan",
+                                    "Daftar dengan",
                                     style: body4TextStyle(
                                       height: 1,
                                     ),
@@ -140,6 +187,30 @@ class LoginPage extends GetView<LoginController> {
                                 ],
                               ),
                             ),
+                            SizedBox(height: 40.h),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Sudah punya akun? ",
+                                  style: body3TextStyle(
+                                    weight: FontWeight.w500,
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.toNamed(Login.path());
+                                  },
+                                  child: Text(
+                                    "Login",
+                                    style: body3BTextStyle(
+                                      color: ColorConstants.primary[60],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 20.h),
                           ],
                         ),
                       ),
@@ -169,33 +240,10 @@ class LoginPage extends GetView<LoginController> {
                       )
                     ],
                   ),
-                  SizedBox(height: 32.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Belum punya akun? ",
-                        style: body3TextStyle(
-                          weight: FontWeight.w500,
-                          color: ColorConstants.primary[70],
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Get.toNamed(Register.path());
-                        },
-                        child: Text(
-                          "Daftar",
-                          style: body3BTextStyle(),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 32.h),
                 ],
               ),
             ),
-          ),
+          ],
         ),
       ),
     );

@@ -9,7 +9,8 @@ class AppRoute {
   static String forgetPassword = "/forget-password";
   static String forgetPasswordSuccess = "/forget-password/success";
 
-  static String register = "/register";
+  static String registerInternal = "/internal/register";
+  static String registerExternal = "/external/register";
   static String registerAddPhone = "/register/add-phone";
   static String registerVerifyEmail = "/register/verify-email";
   static String registerSuccess = "/register/success";

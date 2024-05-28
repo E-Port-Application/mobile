@@ -1,4 +1,4 @@
-import 'package:eport/app/controller/login_controller.dart';
+import 'package:eport/app/controller/register_controller.dart';
 import 'package:eport/app/presentation/view/variant.dart';
 import 'package:eport/app/presentation/widgets/app_button.dart';
 import 'package:eport/app/presentation/widgets/app_input.dart';
@@ -10,8 +10,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-class LoginPage extends GetView<LoginController> {
-  const LoginPage({super.key});
+class RegisterPage extends GetView<RegisterController> {
+  const RegisterPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class LoginPage extends GetView<LoginController> {
                   ),
                   SizedBox(height: 30.h),
                   Text(
-                    "Login",
+                    "Daftar",
                     style: h1BTextStyle(
                       size: 32.sp,
                       color: ColorConstants.slate[700],
@@ -44,7 +44,7 @@ class LoginPage extends GetView<LoginController> {
                   ),
                   SizedBox(height: 8.h),
                   Text(
-                    "Kami senang bertemu Anda lagi!",
+                    "Selamat datang! Ayo isi data dirimu",
                     style: body2BTextStyle(
                       weight: FontWeight.w500,
                       color: ColorConstants.slate[700],
@@ -59,8 +59,30 @@ class LoginPage extends GetView<LoginController> {
                   ),
                   SizedBox(height: 10.h),
                   AppInput(
+                    label: "NIK",
+                    controller: controller.form['nik']!,
+                    placeholder: "Masukkan NIK 16 digit",
+                    validator: controller.emailValidator,
+                  ),
+                  SizedBox(height: 10.h),
+                  AppInput(
+                    label: "Nama",
+                    controller: controller.form['name']!,
+                    placeholder: "Masukkan Nama Anda",
+                    validator: controller.emailValidator,
+                  ),
+                  SizedBox(height: 10.h),
+                  AppInput(
                     label: "Password",
                     controller: controller.form['password']!,
+                    obscureText: true,
+                    placeholder: "Masukkan Passowrd Anda",
+                    validator: controller.passwordValidator,
+                  ),
+                  SizedBox(height: 10.h),
+                  AppInput(
+                    label: "Password",
+                    controller: controller.form['confirmPassword']!,
                     obscureText: true,
                     placeholder: "Masukkan Passowrd Anda",
                     validator: controller.passwordValidator,
@@ -75,8 +97,10 @@ class LoginPage extends GetView<LoginController> {
                   ),
                   SizedBox(height: 32.h),
                   AppButton(
-                    onPressed: () {},
-                    text: "Login",
+                    onPressed: () {
+                      // const a = auth.
+                    },
+                    text: "Daftar",
                     width: 1.sw,
                   ),
                   SizedBox(height: 32.h),
@@ -136,17 +160,17 @@ class LoginPage extends GetView<LoginController> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Belum punya akun? ",
+                        "Sudah punya akun? ",
                         style: body3TextStyle(
                           weight: FontWeight.w500,
                         ),
                       ),
                       GestureDetector(
                         onTap: () {
-                          Get.toNamed(Register.path());
+                          Get.toNamed(Login.path());
                         },
                         child: Text(
-                          "Daftar",
+                          "Login",
                           style: body3BTextStyle(
                             color: ColorConstants.primary[60],
                           ),

@@ -1,9 +1,7 @@
 import 'package:eport/app/bindings/auth_bindings.dart';
 import 'package:eport/app/bindings/profile_bindings.dart';
-import 'package:eport/app/presentation/view/internal/login_page.dart';
 import 'package:eport/app/presentation/view/notification_page.dart';
 import 'package:eport/app/presentation/view/profile_page.dart';
-import 'package:eport/app/presentation/view/register_page.dart';
 import 'package:eport/app/presentation/view/variant.dart';
 import 'package:get/get.dart';
 import 'package:eport/app/bindings/home_bindings.dart';
@@ -43,8 +41,14 @@ List<GetPage<dynamic>> appPage() {
       transition: Transition.rightToLeft,
     ),
     GetPage(
-      name: AppRoute.register,
-      page: () => RegisterPage(),
+      name: AppRoute.registerInternal,
+      page: () => Register.internal(),
+      binding: AuthBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: AppRoute.registerExternal,
+      page: () => Register.external(),
       binding: AuthBinding(),
       transition: Transition.rightToLeft,
     ),
