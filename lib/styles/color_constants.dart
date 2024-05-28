@@ -52,6 +52,11 @@ class ColorConstants {
         ColorConstants.primary[60]!,
       ],
     ),
+    4: LinearGradient(
+      begin: Alignment.bottomLeft,
+      end: Alignment.topRight,
+      colors: [Color(0xffADBAA7), Color(0xff78946B)],
+    ),
   };
 
   static Map<int, BoxShadow> shadow = {
@@ -75,7 +80,13 @@ class ColorConstants {
       color: Color(0xff5A5A5A).withOpacity(.3),
       offset: Offset(3, 5),
       blurRadius: 15.w,
-    )
+    ),
+    5: BoxShadow(
+      color: Colors.black.withOpacity(.25),
+      offset: Offset(4, 4),
+      blurRadius: 12.sp,
+      spreadRadius: 4.sp,
+    ),
   };
   static Color error = Color(0xffFF405F);
 }

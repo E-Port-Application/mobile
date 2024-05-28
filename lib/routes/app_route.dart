@@ -4,7 +4,8 @@ class AppRoute {
   static String onboardExternal = "/external/onboard";
 
   // Auth
-  static String login = "/login";
+  static String loginInternal = "/internal/login";
+  static String loginExternal = "/external/login";
   static String forgetPassword = "/forget-password";
   static String forgetPasswordSuccess = "/forget-password/success";
 

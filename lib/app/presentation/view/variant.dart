@@ -1,5 +1,9 @@
 import 'package:eport/app/presentation/view/external/onboard_page.dart'
     as onboard_external;
+import 'package:eport/app/presentation/view/internal/login_page.dart'
+    as login_internal;
+import 'package:eport/app/presentation/view/external/login_page.dart'
+    as login_external;
 import 'package:eport/app/presentation/view/internal/onboard_page.dart'
     as onboard_internal;
 import 'package:eport/global_settings.dart';
@@ -13,5 +17,15 @@ class Onboard {
     return GlobalSetting.name == UserVariant.external
         ? AppRoute.onboardExternal
         : AppRoute.onboardInternal;
+  }
+}
+
+class Login {
+  static Widget internal() => login_internal.LoginPage();
+  static Widget external() => login_external.LoginPage();
+  static String path() {
+    return GlobalSetting.name == UserVariant.external
+        ? AppRoute.loginExternal
+        : AppRoute.loginInternal;
   }
 }

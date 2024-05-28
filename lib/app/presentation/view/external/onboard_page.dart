@@ -1,5 +1,5 @@
+import 'package:eport/app/presentation/view/variant.dart';
 import 'package:eport/app/presentation/widgets/app_button.dart';
-import 'package:eport/routes/app_route.dart';
 import 'package:eport/styles/color_constants.dart';
 import 'package:eport/styles/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -155,7 +155,7 @@ class _OnboardPageState extends State<OnboardPage>
             ),
             AppButton(
               onPressed: () {
-                Get.toNamed(AppRoute.login);
+                Get.toNamed(Login.path());
               },
               text: "Login",
             ),
