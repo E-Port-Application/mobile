@@ -1,5 +1,6 @@
 import 'package:eport/app/models/common/menu/menu_model.dart';
 import 'package:eport/firebase_options.dart';
+import 'package:eport/global_settings.dart';
 import 'package:eport/utils/convert_json.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
@@ -11,8 +12,10 @@ class GlobalController extends GetxController {
   static GlobalController get i => Get.find<GlobalController>();
 
   void getMenu() async {
-    List<MenuModel> res =
-        await convertJson<MenuModel>("assets/data/menus.json");
+    String path = GlobalSetting.name == UserVariant.internal
+        ? "assets/data/menus.json"
+        : "assets/data/menus_ext.json";
+    List<MenuModel> res = await convertJson<MenuModel>(path);
     menus.value = res;
   }
 

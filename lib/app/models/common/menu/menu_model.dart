@@ -13,12 +13,15 @@ class MenuModel implements ModelFactory {
 
   @JsonKey(name: "icon-active")
   final String iconActive;
+  bool? focus;
 
-  MenuModel(
-      {required this.iconActive,
-      required this.iconInactive,
-      required this.label,
-      required this.path});
+  MenuModel({
+    required this.iconActive,
+    required this.iconInactive,
+    required this.label,
+    required this.path,
+    this.focus,
+  });
 
   factory MenuModel.fromJson(Map<String, dynamic> json) =>
       _$MenuModelFromJson(json);

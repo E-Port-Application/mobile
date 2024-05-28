@@ -11,6 +11,7 @@ MenuModel _$MenuModelFromJson(Map<String, dynamic> json) => MenuModel(
       iconInactive: json['icon-inactive'] as String,
       label: json['label'] as String,
       path: json['path'] as String,
+      focus: json['focus'] as bool?,
     );
 
 Map<String, dynamic> _$MenuModelToJson(MenuModel instance) => <String, dynamic>{
@@ -18,4 +19,5 @@ Map<String, dynamic> _$MenuModelToJson(MenuModel instance) => <String, dynamic>{
       'path': instance.path,
       'icon-inactive': instance.iconInactive,
       'icon-active': instance.iconActive,
+      'focus': instance.focus,
     };
