@@ -22,7 +22,7 @@ class AppBottombar extends StatelessWidget {
       child: Obx(
         () => globalController.menus.isNotEmpty
             ? SizedBox(
-                height: 120.h,
+                height: 100.h,
                 child: Stack(
                   children: [
                     SizedBox(height: 100.h, width: 1.sw),
