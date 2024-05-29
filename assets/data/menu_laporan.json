@@ -1,0 +1,18 @@
+[
+  {
+    "label": "Pengajuan",
+    "path": "/laporan/pengajuan"
+  },
+  {
+    "label": "Proses",
+    "path": "/laporan/proses"
+  },
+  {
+    "label": "Penindakan",
+    "path": "/laporan/penindakan"
+  },
+  {
+    "label": "Selesai",
+    "path": "/laporan/selesai"
+  }
+]

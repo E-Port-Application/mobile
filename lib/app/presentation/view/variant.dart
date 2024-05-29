@@ -18,7 +18,7 @@ class Onboard {
   static Widget internal() => onboard_internal.OnboardPage();
   static Widget external() => onboard_external.OnboardPage();
   static String path() {
-    return GlobalSetting.name == UserVariant.external
+    return Global.name == UserVariant.external
         ? AppRoute.onboardExternal
         : AppRoute.onboardInternal;
   }
@@ -28,7 +28,7 @@ class Login {
   static Widget internal() => login_internal.LoginPage();
   static Widget external() => login_external.LoginPage();
   static String path() {
-    return GlobalSetting.name == UserVariant.external
+    return Global.name == UserVariant.external
         ? AppRoute.loginExternal
         : AppRoute.loginInternal;
   }
@@ -38,7 +38,7 @@ class Register {
   static Widget internal() => register_internal.RegisterPage();
   static Widget external() => register_external.RegisterPage();
   static String path() {
-    return GlobalSetting.name == UserVariant.external
+    return Global.name == UserVariant.external
         ? AppRoute.registerExternal
         : AppRoute.registerInternal;
   }

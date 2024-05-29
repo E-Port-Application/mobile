@@ -3,7 +3,10 @@ import 'package:eport/app/presentation/partials/home/card_information.dart';
 import 'package:eport/app/presentation/partials/home/home_service.dart';
 import 'package:eport/app/presentation/widgets/app_background.dart';
 import 'package:eport/app/presentation/widgets/app_bottombar.dart';
+import 'package:eport/app/presentation/widgets/app_input.dart';
+import 'package:eport/global_settings.dart';
 import 'package:eport/routes/app_route.dart';
+import 'package:eport/styles/color_constants.dart';
 import 'package:eport/styles/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -42,6 +45,18 @@ class HomePage extends GetView<HomeController> {
                     ),
                   ),
                   SizedBox(height: 28.h),
+                  Global.isExt()
+                      ? Column(
+                          children: [
+                            AppInput(
+                              controller: TextEditingController(),
+                              placeholder: "Cari disini...",
+                              suffixIcon: Icon(Icons.search),
+                            ),
+                            SizedBox(height: 16.h),
+                          ],
+                        )
+                      : Container(),
                   Container(
                     width: 100.sw,
                     padding:
@@ -49,6 +64,7 @@ class HomePage extends GetView<HomeController> {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(16.w),
+                      boxShadow: [ColorConstants.shadow[2]!],
                     ),
                     child: Row(
                       children: [
@@ -89,13 +105,20 @@ class HomePage extends GetView<HomeController> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 28.h),
-                  Text(
-                    "Layanan Kami",
-                    style: body2BTextStyle(),
-                  ),
-                  SizedBox(height: 12.h),
-                  HomeService(),
+                  SizedBox(height: Global.isExt() ? 12.h : 28.h),
+                  Global.isExt()
+                      ? Container()
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Layanan Kami",
+                              style: body2BTextStyle(),
+                            ),
+                            SizedBox(height: 12.h),
+                            HomeService(),
+                          ],
+                        ),
                   SizedBox(height: 12.h),
                   Text(
                     "Informasi Terbaru",

@@ -7,7 +7,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  GlobalSetting.name = UserVariant.internal;
+  Global.name = UserVariant.internal;
 
   await dotenv.load(fileName: ".env");
   await Firebase.initializeApp(

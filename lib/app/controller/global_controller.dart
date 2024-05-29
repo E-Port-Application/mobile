@@ -12,7 +12,7 @@ class GlobalController extends GetxController {
   static GlobalController get i => Get.find<GlobalController>();
 
   void getMenu() async {
-    String path = GlobalSetting.name == UserVariant.internal
+    String path = Global.name == UserVariant.internal
         ? "assets/data/menus.json"
         : "assets/data/menus_ext.json";
     List<MenuModel> res = await convertJson<MenuModel>(path);

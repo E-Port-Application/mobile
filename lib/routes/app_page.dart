@@ -1,6 +1,8 @@
 import 'package:eport/app/bindings/auth_bindings.dart';
+import 'package:eport/app/bindings/laporan_bindings.dart';
 import 'package:eport/app/bindings/profile_bindings.dart';
 import 'package:eport/app/presentation/view/notification_page.dart';
+import 'package:eport/app/presentation/view/pengajuan_page.dart';
 import 'package:eport/app/presentation/view/profile_page.dart';
 import 'package:eport/app/presentation/view/variant.dart';
 import 'package:get/get.dart';
@@ -61,6 +63,11 @@ List<GetPage<dynamic>> appPage() {
       page: () => ProfilePage(),
       binding: ProfileBinding(),
       transition: Transition.rightToLeftWithFade,
+    ),
+    GetPage(
+      name: AppRoute.reportPengajuan,
+      page: () => PengajuanPage(),
+      binding: LaporanBinding(),
     ),
   ];
 }
