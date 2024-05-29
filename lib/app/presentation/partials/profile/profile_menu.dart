@@ -1,3 +1,4 @@
+import 'package:eport/app/controller/profile_controller.dart';
 import 'package:eport/app/models/common/profile/profile_model.dart';
 import 'package:eport/styles/color_constants.dart';
 import 'package:flutter/material.dart';
@@ -7,20 +8,33 @@ import 'package:get/get.dart';
 
 class ProfileMenu extends StatelessWidget {
   final ProfileModel data;
-  const ProfileMenu({
+  final bool isLogout;
+  ProfileController controller = ProfileController.i;
+  ProfileMenu({
     super.key,
     required this.data,
+    this.isLogout = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(4.w),
-      onTap: data.path != null
-          ? () {
-              Get.toNamed(data.path!);
-            }
-          : null,
+      onTap: () {
+        if (isLogout) {
+          controller.logout();
+          return;
+        }
+        if (data.path == null) {
+          return;
+        }
+        Get.toNamed(data.path!);
+      },
+      // onTap: data.path != null
+      //     ? () {
+      //         Get.toNamed(data.path!);
+      //       }
+      //     : null,
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 8.w),
         decoration: BoxDecoration(

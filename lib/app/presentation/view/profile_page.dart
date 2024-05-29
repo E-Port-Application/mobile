@@ -4,6 +4,7 @@ import 'package:eport/app/presentation/widgets/app_background.dart';
 import 'package:eport/app/presentation/widgets/app_bottombar.dart';
 import 'package:eport/app/presentation/widgets/app_shimmer.dart';
 import 'package:eport/app/presentation/widgets/scrollable_constraints.dart';
+import 'package:eport/extensions/map_indexed.dart';
 import 'package:eport/routes/app_route.dart';
 import 'package:eport/styles/color_constants.dart';
 import 'package:eport/styles/text_styles.dart';
@@ -118,7 +119,12 @@ class ProfilePage extends GetView<ProfileController> {
                       ),
                     ),
                     SizedBox(height: 20.h),
-                    ...menu.map((e) => ProfileMenu(data: e)).toList(),
+                    ...menu
+                        .mapIndexed((i, e) => ProfileMenu(
+                              data: e,
+                              isLogout: i == menu.length - 1,
+                            ))
+                        .toList(),
                   ],
                 );
               },

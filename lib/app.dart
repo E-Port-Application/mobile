@@ -32,7 +32,7 @@ class App extends StatelessWidget {
                     title: dotenv.env['PROJECT_NAME']!,
                     theme: globalTheme(),
                     getPages: appPage(),
-                    initialRoute: AppRoute.home,
+                    initialRoute: AppRoute.splash,
                     builder: (context, child) {
                       return MediaQuery(
                         data:

@@ -1,4 +1,7 @@
+import 'package:eport/app/presentation/widgets/app_loading.dart';
 import 'package:eport/firebase_options.dart';
+import 'package:eport/routes/app_route.dart';
+import 'package:eport/utils/show_alert.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -36,10 +39,14 @@ class LoginController extends GetxController {
     }
   }
 
+  RxBool isLoading = true.obs;
   void googleSignin() async {
     try {
+      isLoading.value = true;
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      showLoadingDialog(Get.context!, isLoading);
       if (googleUser == null) {
+        isLoading.value = false;
         return;
       }
       final GoogleSignInAuthentication googleAuth =
@@ -49,8 +56,12 @@ class LoginController extends GetxController {
         idToken: googleAuth.idToken,
       );
 
-      final userCredential = await auth.signInWithCredential(credential);
-      final user = userCredential.user;
-    } on Exception catch (_) {}
+      await auth.signInWithCredential(credential);
+      isLoading.value = false;
+      Get.offAllNamed(AppRoute.home);
+    } on Exception catch (err) {
+      isLoading.value = false;
+      showAlert(err.toString());
+    }
   }
 }
