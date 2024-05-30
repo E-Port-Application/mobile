@@ -10,6 +10,7 @@ class PengajuanPage extends GetView<PengajuanController> {
   @override
   Widget build(BuildContext context) {
     return LaporanScaffold(
+      index: 0,
       child: Column(
           children: [
         "Penegakan Perda Perkada",

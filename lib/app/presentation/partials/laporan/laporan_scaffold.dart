@@ -9,85 +9,79 @@ import 'package:get/get.dart';
 
 class LaporanScaffold extends StatelessWidget {
   final Widget child;
+  final int index;
+  final String? title;
   const LaporanScaffold({
     super.key,
     required this.child,
+    required this.index,
+    this.title = "Laporan",
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: true,
       backgroundColor: ColorConstants.slate[100],
-      body: Stack(
-        children: [
-          ScrollableConstraints(
-            physics: BouncingScrollPhysics(),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(160.h),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20.w),
+            color: Colors.white,
+            boxShadow: [ColorConstants.shadow[2]!],
+          ),
+          padding: EdgeInsets.only(bottom: 20.h),
+          clipBehavior: Clip.hardEdge,
+          child: SafeArea(
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                SizedBox(height: 200.h),
+                SizedBox(
+                  height: 50.h,
+                  child: Stack(
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: IconButton(
+                          iconSize: 22.sp,
+                          onPressed: () {
+                            Get.back();
+                          },
+                          icon: Icon(
+                            Icons.chevron_left,
+                            size: 26.w,
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Row(
+                          children: [
+                            SizedBox(width: 56.w),
+                            Text(
+                              "Laporan",
+                              style: body1BTextStyle(),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 16.h),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.w),
-                  child: child,
-                ),
-              ],
-            ),
-          ),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20.w),
-              color: Colors.white,
-              boxShadow: [ColorConstants.shadow[2]!],
-            ),
-            padding: EdgeInsets.only(bottom: 20.h),
-            clipBehavior: Clip.hardEdge,
-            child: SafeArea(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(
-                    height: 50.h,
-                    child: Stack(
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: IconButton(
-                            iconSize: 22.sp,
-                            onPressed: () {
-                              Get.back();
-                            },
-                            icon: Icon(
-                              Icons.chevron_left,
-                              size: 26.w,
-                            ),
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: Row(
-                            children: [
-                              SizedBox(width: 56.w),
-                              Text(
-                                "Laporan",
-                                style: body1BTextStyle(),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 16.h),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    child: Obx(
-                      () => Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: LaporanController.i.menu.mapIndexed(
-                            (i, data) {
-                              bool active =
-                                  i == LaporanController.i.current.value;
-                              return Container(
+                  child: Obx(
+                    () => Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: LaporanController.i.menu.mapIndexed(
+                          (i, data) {
+                            bool active = i == index;
+                            return GestureDetector(
+                              onTap: () {
+                                Get.toNamed(data.path);
+                              },
+                              child: Container(
                                 width: 88.w,
                                 height: 36.h,
                                 decoration: BoxDecoration(
@@ -108,16 +102,22 @@ class LaporanScaffold extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                              );
-                            },
-                          ).toList()),
-                    ),
+                              ),
+                            );
+                          },
+                        ).toList()),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-        ],
+        ),
+      ),
+      body: ScrollableConstraints(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+          child: child,
+        ),
       ),
     );
   }
