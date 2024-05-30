@@ -17,7 +17,14 @@ class ProsesPage extends GetView<ProsesController> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        LaporanFilter(),
+        Obx(
+          () => LaporanFilter(
+            activities: controller.activities,
+            onReset: controller.onReset,
+            onActivity: controller.onActivity,
+            value: controller.selectedActivity.value,
+          ),
+        ),
         SizedBox(height: 20.h),
         FilteredCard(),
         FilteredCard(),

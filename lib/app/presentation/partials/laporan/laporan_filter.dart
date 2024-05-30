@@ -1,4 +1,4 @@
-import 'package:eport/app/controller/laporan_controller.dart';
+import 'package:eport/app/models/common/activity/activity_model.dart';
 import 'package:eport/app/presentation/widgets/app_input.dart';
 import 'package:eport/app/presentation/widgets/popover.dart';
 import 'package:eport/styles/color_constants.dart';
@@ -7,8 +7,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+typedef ActivityCallback = void Function(ActivityModel data);
+
 class LaporanFilter extends StatefulWidget {
-  const LaporanFilter({super.key});
+  final VoidCallback onReset;
+  final ActivityCallback onActivity;
+  final List<ActivityModel> activities;
+  final ActivityModel? value;
+
+  const LaporanFilter({
+    super.key,
+    required this.onReset,
+    required this.onActivity,
+    required this.activities,
+    this.value,
+  });
 
   @override
   State<LaporanFilter> createState() => _LaporanFilterState();
@@ -59,16 +72,37 @@ class _LaporanFilterState extends State<LaporanFilter> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text(
-                    "Jenis Kegiatan",
-                    style: body4BTextStyle(),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          "Jenis Kegiatan",
+                          style: body4BTextStyle(),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: widget.onReset,
+                        child: Text(
+                          'Reset',
+                          style: body4BTextStyle(
+                            color: ColorConstants.primary[70],
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   Obx(() => Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: LaporanController.i.activities
+                        children: widget.activities
                             .map(
                               (data) => GestureDetector(
-                                onTap: () {},
+                                onTap: () {
+                                  widget.onActivity(data);
+                                  setState(() {
+                                    visible = false;
+                                  });
+                                },
                                 child: Container(
                                   padding: EdgeInsets.symmetric(
                                     vertical: 10.h,
@@ -83,8 +117,12 @@ class _LaporanFilterState extends State<LaporanFilter> {
                                   child: Text(
                                     data.label,
                                     style: body4TextStyle(
-                                      color: ColorConstants.primary[70],
-                                      weight: FontWeight.w500,
+                                      color: data.id == widget.value?.id
+                                          ? ColorConstants.primary[70]
+                                          : ColorConstants.slate[900],
+                                      weight: data.id == widget.value?.id
+                                          ? FontWeight.w600
+                                          : FontWeight.normal,
                                     ),
                                   ),
                                 ),
