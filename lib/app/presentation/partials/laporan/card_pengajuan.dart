@@ -2,12 +2,23 @@ import 'package:eport/app/presentation/widgets/app_modal.dart';
 import 'package:eport/styles/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+
+class PengajuanData {
+  final String label;
+  final String path;
+
+  const PengajuanData({
+    required this.label,
+    required this.path,
+  });
+}
 
 class CardPengajuan extends StatelessWidget {
-  final String label;
+  final PengajuanData data;
   const CardPengajuan({
     super.key,
-    required this.label,
+    required this.data,
   });
 
   @override
@@ -20,7 +31,9 @@ class CardPengajuan extends StatelessWidget {
             return AppModal(
               primaryText: "Proses Laporan",
               secondaryText: "Buat Manual",
-              onPrimary: () {},
+              onPrimary: () {
+                Get.toNamed(data.path);
+              },
               onSecondary: () {},
               title: "Buat Laporan Penegakan Perda Perkada",
             );
@@ -47,7 +60,7 @@ class CardPengajuan extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                label,
+                data.label,
                 style: body3BTextStyle(),
               ),
               Icon(

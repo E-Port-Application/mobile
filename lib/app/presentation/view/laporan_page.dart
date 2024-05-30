@@ -19,6 +19,7 @@ class LaporanPage extends GetView<LaporanController> {
         ),
         child: PageView(
           controller: controller.pageController,
+          physics: BouncingScrollPhysics(),
           onPageChanged: (e) {
             controller.current.value = e;
           },

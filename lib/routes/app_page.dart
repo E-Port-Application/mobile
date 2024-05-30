@@ -4,6 +4,7 @@ import 'package:eport/app/bindings/profile_bindings.dart';
 import 'package:eport/app/presentation/view/laporan_page.dart';
 import 'package:eport/app/presentation/view/notification_page.dart';
 import 'package:eport/app/presentation/view/pengajuan_page.dart';
+import 'package:eport/app/presentation/view/perkada_page.dart';
 import 'package:eport/app/presentation/view/profile_page.dart';
 import 'package:eport/app/presentation/view/proses_page.dart';
 import 'package:eport/app/presentation/view/variant.dart';
@@ -79,6 +80,11 @@ List<GetPage<dynamic>> appPage() {
     GetPage(
       name: AppRoute.report,
       page: () => LaporanPage(),
+      binding: LaporanBinding(),
+    ),
+    GetPage(
+      name: AppRoute.perdaPerkada,
+      page: () => PerkadaPage(),
       binding: LaporanBinding(),
     ),
   ];

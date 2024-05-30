@@ -14,7 +14,7 @@ class AppInput extends StatefulWidget {
   final Widget? prefixIcon;
   final Widget? prefix;
   final bool obscureText;
-  final void Function()? ontap;
+  final VoidCallback? onTap;
   final bool readOnly;
   final String? title;
   final TextInputAction? textInputAction;
@@ -26,6 +26,7 @@ class AppInput extends StatefulWidget {
   final TextStyle? hintStyle;
   final TextStyle? textStyle;
   final double? gap;
+  final double? margin;
 
   const AppInput({
     super.key,
@@ -41,7 +42,7 @@ class AppInput extends StatefulWidget {
     this.prefixIcon,
     this.prefix,
     this.obscureText = false,
-    this.ontap,
+    this.onTap,
     this.textInputAction,
     this.readOnly = false,
     this.autovalidateMode,
@@ -51,6 +52,7 @@ class AppInput extends StatefulWidget {
     this.hintStyle,
     this.textStyle,
     this.gap,
+    this.margin,
   });
 
   @override
@@ -149,6 +151,7 @@ class _AppInputState extends State<AppInput> {
               child: Stack(
                 children: [
                   TextField(
+                    onTap: widget.onTap,
                     maxLines: widget.maxLines,
                     readOnly: widget.readOnly,
                     key: inputKey,
@@ -200,6 +203,7 @@ class _AppInputState extends State<AppInput> {
                         ),
                       )
                     : Container(),
+            SizedBox(height: widget.margin),
           ],
         );
       },
