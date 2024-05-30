@@ -19,7 +19,7 @@ class AppRoute {
   static String notification = "/notification";
   static String profile = "/profile";
 
-  // static String laporan = "/laporan";
+  static String report = "/laporan";
   static String reportPengajuan = "/laporan/pengajuan";
   static String reportProses = "/laporan/proses";
   static String reportPenindakan = "/laporan/penindakan";

@@ -7,7 +7,7 @@
   },
   {
     "label": "Laporan",
-    "path": "/laporan/pengajuan",
+    "path": "/laporan",
     "icon-inactive": "assets/icons/laporan-inactive.svg",
     "icon-active": "assets/icons/laporan-active.svg"
   },

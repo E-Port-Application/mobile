@@ -1,5 +1,4 @@
 import 'package:eport/app/controller/laporan_controller.dart';
-import 'package:eport/app/presentation/widgets/scrollable_constraints.dart';
 import 'package:eport/extensions/map_indexed.dart';
 import 'package:eport/styles/color_constants.dart';
 import 'package:eport/styles/text_styles.dart';
@@ -14,7 +13,7 @@ class LaporanScaffold extends StatelessWidget {
   const LaporanScaffold({
     super.key,
     required this.child,
-    required this.index,
+    this.index = 0,
     this.title = "Laporan",
   });
 
@@ -76,12 +75,19 @@ class LaporanScaffold extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: LaporanController.i.menu.mapIndexed(
                           (i, data) {
-                            bool active = i == index;
+                            bool active =
+                                i == LaporanController.i.current.value;
                             return GestureDetector(
                               onTap: () {
-                                Get.toNamed(data.path);
+                                LaporanController.i.pageController
+                                    .animateToPage(
+                                  i,
+                                  duration: Duration(milliseconds: 250),
+                                  curve: Curves.linear,
+                                );
                               },
-                              child: Container(
+                              child: AnimatedContainer(
+                                duration: Duration(milliseconds: 200),
                                 width: 88.w,
                                 height: 36.h,
                                 decoration: BoxDecoration(
@@ -113,12 +119,7 @@ class LaporanScaffold extends StatelessWidget {
           ),
         ),
       ),
-      body: ScrollableConstraints(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-          child: child,
-        ),
-      ),
+      body: child,
     );
   }
 }
