@@ -1,18 +1,10 @@
 [
   {
-    "label": "Pengajuan",
+    "label": "Buat Laporan",
     "path": "/laporan/pengajuan"
   },
   {
-    "label": "Proses",
+    "label": "Riwayat",
     "path": "/laporan/proses"
-  },
-  {
-    "label": "Penindakan",
-    "path": "/laporan/penindakan"
-  },
-  {
-    "label": "Selesai",
-    "path": "/laporan/selesai"
   }
 ]

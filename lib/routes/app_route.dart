@@ -24,6 +24,7 @@ class AppRoute {
   static String reportProses = "/laporan/proses";
   static String reportPenindakan = "/laporan/penindakan";
   static String reportSelesai = "/laporan/selesai";
+  static String reportRiwayat = "/laporan/riwayat";
 
   // Tibum
   static String perdaPerkada = "/laporan/perda-perkada";

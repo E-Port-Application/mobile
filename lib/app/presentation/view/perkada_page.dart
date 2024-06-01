@@ -64,8 +64,7 @@ class PerkadaPage extends GetView<PerkadaController> {
                   margin: 12.h,
                   hint: element.hint,
                 );
-              }
-              if (element.type == PType.dropdown) {
+              } else {
                 return AppDropdown<String>(
                   onChanged: (e) {
                     controller.form[element.id]!.value = e!;
@@ -89,7 +88,6 @@ class PerkadaPage extends GetView<PerkadaController> {
                   ],
                 );
               }
-              return Text("asd");
             }).toList(),
           ],
         ),

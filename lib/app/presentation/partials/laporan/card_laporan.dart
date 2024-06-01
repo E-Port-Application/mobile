@@ -23,8 +23,14 @@ class CardLaporan extends StatelessWidget {
       child: IntrinsicHeight(
         child: Row(
           children: [
-            SvgPicture.asset(
-              "assets/icons/laporan-icon.svg",
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8.w),
+              child: Image.asset(
+                "assets/images/card-thumbnail.png",
+                height: 80.h,
+                width: 85.w,
+                fit: BoxFit.cover,
+              ),
             ),
             SizedBox(width: 16.w),
             Expanded(
@@ -44,20 +50,26 @@ class CardLaporan extends StatelessWidget {
                       color: ColorConstants.primary[70],
                     ),
                   ),
-                  SizedBox(height: 16.h),
+                  SizedBox(height: 4.h),
                   Text(
                     "10th Jan 2024 | 10.00 WIB",
                     style: body4TextStyle(
                       color: ColorConstants.slate[500],
                     ),
                   ),
+                  Expanded(child: Container()),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Text(
+                      "Lihat Detail",
+                      style: body6BTextStyle(
+                        size: 9.sp,
+                        color: Color(0xff004FC6),
+                      ),
+                    ),
+                  ),
                 ],
               ),
-            ),
-            SizedBox(width: 16.w),
-            Icon(
-              Icons.chevron_right,
-              size: 30.w,
             ),
           ],
         ),

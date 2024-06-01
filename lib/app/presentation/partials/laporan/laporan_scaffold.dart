@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 class LaporanScaffold extends StatelessWidget {
   final Widget child;
   final int index;
-  final String? title;
+  final String title;
   const LaporanScaffold({
     super.key,
     required this.child,
@@ -22,7 +22,7 @@ class LaporanScaffold extends StatelessWidget {
     return Scaffold(
       backgroundColor: ColorConstants.slate[100],
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(160.h),
+        preferredSize: Size.fromHeight(200.h),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20.w),
@@ -36,7 +36,7 @@ class LaporanScaffold extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 SizedBox(
-                  height: 50.h,
+                  height: 56.h,
                   child: Stack(
                     children: [
                       Align(
@@ -53,13 +53,15 @@ class LaporanScaffold extends StatelessWidget {
                         ),
                       ),
                       Align(
-                        alignment: Alignment.centerRight,
+                        alignment: Alignment.center,
                         child: Row(
                           children: [
                             SizedBox(width: 56.w),
-                            Text(
-                              "Laporan",
-                              style: body1BTextStyle(),
+                            Flexible(
+                              child: Text(
+                                title,
+                                style: body1BTextStyle(),
+                              ),
                             ),
                           ],
                         ),
@@ -69,7 +71,7 @@ class LaporanScaffold extends StatelessWidget {
                 ),
                 SizedBox(height: 16.h),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  padding: EdgeInsets.symmetric(horizontal: 12.w),
                   child: Obx(
                     () => Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -77,34 +79,39 @@ class LaporanScaffold extends StatelessWidget {
                           (i, data) {
                             bool active =
                                 i == LaporanController.i.current.value;
-                            return GestureDetector(
-                              onTap: () {
-                                LaporanController.i.pageController
-                                    .animateToPage(
-                                  i,
-                                  duration: Duration(milliseconds: 250),
-                                  curve: Curves.linear,
-                                );
-                              },
-                              child: AnimatedContainer(
-                                duration: Duration(milliseconds: 200),
-                                width: 88.w,
-                                height: 36.h,
-                                decoration: BoxDecoration(
-                                  color: active
-                                      ? ColorConstants.primary[70]
-                                      : ColorConstants.slate[50],
-                                  borderRadius: BorderRadius.circular(8.w),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    data.label,
-                                    style: body3TextStyle(
+                            return Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 8.w),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    LaporanController.i.pageController
+                                        .animateToPage(
+                                      i,
+                                      duration: Duration(milliseconds: 250),
+                                      curve: Curves.linear,
+                                    );
+                                  },
+                                  child: AnimatedContainer(
+                                    duration: Duration(milliseconds: 200),
+                                    width: 88.w,
+                                    height: 36.h,
+                                    decoration: BoxDecoration(
                                       color: active
-                                          ? Colors.white
-                                          : ColorConstants.slate[600],
-                                      height: 1,
-                                      size: 13.sp,
+                                          ? ColorConstants.primary[70]
+                                          : ColorConstants.slate[50],
+                                      borderRadius: BorderRadius.circular(8.w),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        data.label,
+                                        style: body3TextStyle(
+                                          color: active
+                                              ? Colors.white
+                                              : ColorConstants.slate[600],
+                                          height: 1,
+                                          size: 13.sp,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
