@@ -25,20 +25,7 @@ class CardPengajuan extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return AppModal(
-              primaryText: "Proses Laporan",
-              secondaryText: "Buat Manual",
-              onPrimary: () {
-                Get.toNamed(data.path);
-              },
-              onSecondary: () {},
-              title: "Buat Laporan Penegakan Perda Perkada",
-            );
-          },
-        );
+        Get.toNamed(data.path);
       },
       child: Container(
         height: 52.h,

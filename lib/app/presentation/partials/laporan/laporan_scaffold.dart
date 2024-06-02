@@ -36,7 +36,7 @@ class LaporanScaffold extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 SizedBox(
-                  height: 56.h,
+                  height: title.length > 30 ? 64.h : 50.h,
                   child: Stack(
                     children: [
                       Align(

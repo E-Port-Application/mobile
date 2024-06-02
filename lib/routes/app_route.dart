@@ -29,6 +29,8 @@ class AppRoute {
   // Tibum
   static String perdaPerkada = "/laporan/perda-perkada";
   static String perdaPerkadaDetail(String id) => "/laporan/perda-perkada/$id";
+  static String pamwal = "/laporan/pamwal";
+  static String pamwalDetail(String id) => "/laporan/pamwal/$id";
   static String perdaPerwali = "/laporan/perda-perwali";
   static String perdaPerwaliDetail(String id) => "/laporan/perda-perwali/$id";
   static String laporanPti = "/laporan/pti";

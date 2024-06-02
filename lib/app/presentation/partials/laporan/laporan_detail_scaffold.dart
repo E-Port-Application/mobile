@@ -1,5 +1,4 @@
 import 'package:eport/app/controller/laporan_controller.dart';
-import 'package:eport/app/presentation/widgets/scrollable_constraints.dart';
 import 'package:eport/extensions/map_indexed.dart';
 import 'package:eport/styles/color_constants.dart';
 import 'package:eport/styles/text_styles.dart';
@@ -15,7 +14,7 @@ class LaporanDetailScaffold extends StatelessWidget {
     super.key,
     required this.child,
     required this.index,
-    required this.title,
+    this.title = "Laporan",
   });
 
   @override
@@ -23,7 +22,7 @@ class LaporanDetailScaffold extends StatelessWidget {
     return Scaffold(
       backgroundColor: ColorConstants.slate[100],
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(160.h),
+        preferredSize: Size.fromHeight(200.h),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20.w),
@@ -37,7 +36,7 @@ class LaporanDetailScaffold extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 SizedBox(
-                  height: 50.h,
+                  height: title.length > 30 ? 64.h : 50.h,
                   child: Stack(
                     children: [
                       Align(
@@ -54,13 +53,15 @@ class LaporanDetailScaffold extends StatelessWidget {
                         ),
                       ),
                       Align(
-                        alignment: Alignment.centerRight,
+                        alignment: Alignment.center,
                         child: Row(
                           children: [
                             SizedBox(width: 56.w),
-                            Text(
-                              title,
-                              style: body1BTextStyle(),
+                            Flexible(
+                              child: Text(
+                                title,
+                                style: body1BTextStyle(),
+                              ),
                             ),
                           ],
                         ),
@@ -70,33 +71,39 @@ class LaporanDetailScaffold extends StatelessWidget {
                 ),
                 SizedBox(height: 16.h),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  padding: EdgeInsets.symmetric(horizontal: 12.w),
                   child: Obx(
                     () => Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: LaporanController.i.menu.mapIndexed(
                           (i, data) {
-                            bool active = i == index;
-                            return GestureDetector(
-                              child: AnimatedContainer(
-                                duration: Duration(milliseconds: 200),
-                                width: 88.w,
-                                height: 36.h,
-                                decoration: BoxDecoration(
-                                  color: active
-                                      ? ColorConstants.primary[70]
-                                      : ColorConstants.slate[50],
-                                  borderRadius: BorderRadius.circular(8.w),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    data.label,
-                                    style: body3TextStyle(
+                            bool active =
+                                i == LaporanController.i.current.value;
+                            return Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 8.w),
+                                child: GestureDetector(
+                                  child: AnimatedContainer(
+                                    duration: Duration(milliseconds: 200),
+                                    width: 88.w,
+                                    height: 36.h,
+                                    decoration: BoxDecoration(
                                       color: active
-                                          ? Colors.white
-                                          : ColorConstants.slate[600],
-                                      height: 1,
-                                      size: 13.sp,
+                                          ? ColorConstants.primary[70]
+                                          : ColorConstants.slate[50],
+                                      borderRadius: BorderRadius.circular(8.w),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        data.label,
+                                        style: body3TextStyle(
+                                          color: active
+                                              ? Colors.white
+                                              : ColorConstants.slate[600],
+                                          height: 1,
+                                          size: 13.sp,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -111,12 +118,7 @@ class LaporanDetailScaffold extends StatelessWidget {
           ),
         ),
       ),
-      body: ScrollableConstraints(
-        child: Padding(
-          padding: EdgeInsets.all(20.w),
-          child: child,
-        ),
-      ),
+      body: child,
     );
   }
 }

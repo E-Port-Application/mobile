@@ -4,18 +4,20 @@ import 'package:get/get.dart';
 enum PType { input, textarea, date, dropdown }
 
 class P {
-  final String id;
-  final PType type;
-  final String label;
+  final String? id;
+  final PType? type;
+  final String? label;
   String? placeholder;
   String? hint;
+  List<P>? datas;
 
   P({
-    required this.type,
-    required this.label,
-    required this.id,
+    this.type,
+    this.label,
+    this.id,
     this.hint,
     this.placeholder,
+    this.datas,
   });
 }
 

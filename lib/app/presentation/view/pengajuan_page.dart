@@ -11,8 +11,7 @@ class PengajuanPage extends GetView<PengajuanController> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        PengajuanData(
-            label: "Penegakan Perda Perkada", path: AppRoute.perdaPerkada),
+        PengajuanData(label: "Laporan Pamwal", path: AppRoute.pamwal),
         PengajuanData(label: "Perda dan Perwali", path: AppRoute.perdaPerwali),
         PengajuanData(label: "Laporan PTI", path: AppRoute.laporanPti),
         PengajuanData(label: "Laporan Pam-In", path: AppRoute.laporanPamin),

@@ -11,7 +11,7 @@ class LaporanController extends GetxController {
   PageController pageController = PageController(initialPage: 0);
   RxList<ActivityModel> activities = RxList<ActivityModel>([
     ActivityModel(
-      label: "Kegiatan Penegakan Perda Perkada",
+      label: "Laporan Pamwal",
       id: "perda-perkada",
     ),
     ActivityModel(
