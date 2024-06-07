@@ -104,12 +104,12 @@ class LaporanScaffold extends StatelessWidget {
                                     child: Center(
                                       child: Text(
                                         data.label,
-                                        style: body3TextStyle(
+                                        style: body5BTextStyle(
                                           color: active
                                               ? Colors.white
                                               : ColorConstants.slate[600],
                                           height: 1,
-                                          size: 13.sp,
+                                          weight: FontWeight.w600,
                                         ),
                                       ),
                                     ),

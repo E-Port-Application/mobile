@@ -1,10 +1,14 @@
 [
   {
-    "label": "Buat Laporan",
+    "label": "Rencana Kegiatan",
     "path": "/laporan/pengajuan"
   },
   {
-    "label": "Riwayat",
+    "label": "Laporan Kegiatan",
+    "path": "/laporan/proses"
+  },
+  {
+    "label": "Riwayat Kegiatan",
     "path": "/laporan/proses"
   }
 ]

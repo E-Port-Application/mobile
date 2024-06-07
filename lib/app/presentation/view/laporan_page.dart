@@ -1,6 +1,6 @@
 import 'package:eport/app/controller/laporan_controller.dart';
 import 'package:eport/app/presentation/partials/laporan/laporan_scaffold.dart';
-import 'package:eport/app/presentation/view/pengajuan_page.dart';
+import 'package:eport/app/presentation/view/rencana_page.dart';
 import 'package:eport/app/presentation/view/riwayat_page.dart';
 import 'package:eport/app/presentation/widgets/scrollable_constraints.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +13,7 @@ class LaporanPage extends GetView<LaporanController> {
   @override
   Widget build(BuildContext context) {
     return LaporanScaffold(
-      title: "Ketertibanm Umum & Ketentraman Masyarakat",
+      title: "Laporan Kegiatan",
       child: ConstrainedBox(
         constraints: BoxConstraints(
           minHeight: 1.sh,
@@ -29,7 +29,7 @@ class LaporanPage extends GetView<LaporanController> {
               physics: BouncingScrollPhysics(),
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-                child: PengajuanPage(),
+                child: RencanaPage(),
               ),
             ),
             ScrollableConstraints(

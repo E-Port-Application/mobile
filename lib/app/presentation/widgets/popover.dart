@@ -28,16 +28,10 @@ class Popover extends StatefulWidget {
 }
 
 class _PopoverState extends State<Popover> {
-  bool isMounted = false;
-
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(milliseconds: 2000)).then((value) {
-      setState(() {
-        isMounted = true;
-      });
-    });
+    Future.delayed(Duration(milliseconds: 2000)).then((value) {});
     WidgetsBinding.instance.addPostFrameCallback((_) {});
   }
 
@@ -51,9 +45,6 @@ class _PopoverState extends State<Popover> {
             child: GestureDetector(
               onTap: () {
                 widget.onClose();
-                setState(() {
-                  isMounted = false;
-                });
               },
               behavior: HitTestBehavior.opaque,
               child: Container(

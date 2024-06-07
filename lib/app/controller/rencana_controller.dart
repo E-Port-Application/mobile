@@ -1,8 +1,8 @@
 import 'package:eport/app/controller/laporan_controller.dart';
 import 'package:get/get.dart';
 
-class PengajuanController extends GetxController {
-  static PengajuanController get i => Get.find<PengajuanController>();
+class RencanaController extends GetxController {
+  static RencanaController get i => Get.find<RencanaController>();
 
   @override
   void onReady() {
