@@ -6,6 +6,7 @@ import 'package:eport/styles/color_constants.dart';
 import 'package:eport/styles/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class PersonilPage extends GetView<PersonilController> {
@@ -41,11 +42,18 @@ class PersonilPage extends GetView<PersonilController> {
               children: [
                 Text(
                   "Personil / Anggota yang bertugas",
-                  style: body3TextStyle(),
+                  style: body3TextStyle(
+                    weight: FontWeight.w500,
+                  ),
                 ),
                 GestureDetector(
+                  onTap: () {
+                    controller.show.value = !controller.show.value;
+                  },
                   child: Text(
-                    "Lihat Semua Personil",
+                    controller.show.value
+                        ? "Sembunyikan"
+                        : "Lihat Semua Personil",
                     style: body6BTextStyle(
                       color: ColorConstants.info[60],
                       weight: FontWeight.w600,
@@ -54,13 +62,45 @@ class PersonilPage extends GetView<PersonilController> {
                 ),
               ],
             ),
+            controller.selectedPersonil.isEmpty && controller.show.value
+                ? Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(height: 20.h),
+                      SvgPicture.asset(
+                        "assets/icons/search-not-found.svg",
+                        width: 220.w,
+                      ),
+                      Text(
+                        "Tidak ada personil yang ditambahkan",
+                        style: body3BTextStyle(),
+                      ),
+                      SizedBox(height: 4.h),
+                      Text(
+                        "Silakan tambah personil dengan memilih opsi dibawah atau menggunakan pencarian.",
+                        style: body4TextStyle(),
+                        textAlign: TextAlign.center,
+                      )
+                    ],
+                  )
+                : Container(),
             SizedBox(height: 12.h),
-            ...controller.selectedPersonil
-                .map(
-                  (data) => CardPersonil(
-                      data: data, onRemove: controller.handleRemovePersonil),
-                )
-                .toList(),
+            controller.show.value
+                ? Column(
+                    children: controller.selectedPersonil
+                        .map(
+                          (data) => CardPersonil(
+                            data: data,
+                            onRemove: (e) {
+                              controller.handleRemovePersonil(e,
+                                  isAnggota: true);
+                            },
+                          ),
+                        )
+                        .toList(),
+                  )
+                : Container(),
             SizedBox(height: 20.h),
             Text(
               "Jajaran Komando",

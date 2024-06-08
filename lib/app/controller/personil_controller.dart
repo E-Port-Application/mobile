@@ -65,11 +65,22 @@ class PersonilController extends GetxController {
     selectedPersonil.refresh();
   }
 
-  void handleRemovePersonil(Personil data, {Rx<Personil>? ref}) {
+  void handleRemovePersonil(
+    Personil data, {
+    Rx<Personil>? ref,
+    bool isAnggota = false,
+  }) {
     if (ref != null) {
       ref.value.selected = false;
+    }
+    if (isAnggota) {
+      Rx<Personil> p0 =
+          personils.firstWhere((element) => element.value.id == data.id);
+      p0.value.selected = false;
     }
     selectedPersonil.remove(data);
     selectedPersonil.refresh();
   }
+
+  void handleSave() {}
 }
