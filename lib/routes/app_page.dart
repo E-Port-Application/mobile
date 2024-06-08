@@ -3,6 +3,7 @@ import 'package:eport/app/bindings/laporan_bindings.dart';
 import 'package:eport/app/bindings/profile_bindings.dart';
 import 'package:eport/app/presentation/view/laporan_page.dart';
 import 'package:eport/app/presentation/view/notification_page.dart';
+import 'package:eport/app/presentation/view/personil_page.dart';
 import 'package:eport/app/presentation/view/pkl_page.dart';
 import 'package:eport/app/presentation/view/rencana_page.dart';
 import 'package:eport/app/presentation/view/profile_page.dart';
@@ -93,6 +94,12 @@ List<GetPage<dynamic>> appPage() {
       name: AppRoute.rencanaPatroliPkl,
       page: () => Portal(child: PklPage()),
       binding: LaporanBinding(),
+    ),
+    GetPage(
+      name: AppRoute.personil,
+      page: () => Portal(child: PersonilPage()),
+      binding: LaporanBinding(),
+      transition: Transition.rightToLeftWithFade,
     ),
   ];
 }

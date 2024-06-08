@@ -27,6 +27,17 @@ class ColorConstants {
     90: Color(0xff000B14),
   };
 
+  static Map<int, Color> info = {
+    10: Color(0xffCCE0FD),
+    20: Color(0xff99C1FC),
+    30: Color(0xff66A1FA),
+    40: Color(0xff3382F9),
+    50: Color(0xff0063F7),
+    60: Color(0xff004FC6),
+    70: Color(0xff003B94),
+    80: Color(0xff002863),
+  };
+
   static Map<int, Gradient> gradient = {
     1: LinearGradient(
       begin: Alignment.topCenter,

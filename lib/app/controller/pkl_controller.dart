@@ -6,7 +6,7 @@ class PklController extends GetxController {
   static PklController get i => Get.find<PklController>();
   Rx<Offset> pklOffset = Rx<Offset>(Offset.zero);
   RxBool showPkl = false.obs;
-  RxnInt radio = RxnInt();
+  RxnInt selectedPkl = RxnInt();
   List<RadioProps<int>> jenisPkl = [
     RadioProps(label: "Lapak", value: 0),
     RadioProps(label: "Penjual Bermobil", value: 1),
@@ -35,6 +35,18 @@ class PklController extends GetxController {
     RadioProps(label: "Pembongkaran", value: "pembongkaran"),
     RadioProps(label: "Tipiring", value: "tipiring"),
   ].obs;
+  RxString selectedTindakan = "".obs;
+
+  RxBool showPelanggaran = false.obs;
+  List<RadioProps<String>> jenisPelanggaran = [
+    RadioProps(label: "Menggunakan Trotoar", value: "trotoal"),
+    RadioProps(label: "Jalan Raya", value: "jalan-raya"),
+    RadioProps(label: "Bahu Jalan", value: "bahu-jalan"),
+    RadioProps(label: "Diatas Gorong-Gorong", value: "gorong-gorong"),
+    RadioProps(label: "Diatas Irigasi", value: "irigasi"),
+    RadioProps(label: "Fasilitas Umum", value: "fasilitas-umum"),
+  ].obs;
+  RxString selectedPelanggaran = "".obs;
 
   RxMap<String, TextEditingController> form = {
     "tanggal": TextEditingController(),
@@ -52,21 +64,13 @@ class PklController extends GetxController {
     pklOffset.value = box.localToGlobal(Offset.zero);
   }
 
-  TextEditingController pklT = TextEditingController();
-
-  void savePkl(int val) {
-    radio.value = val;
-    showPkl.value = false;
-    var selected = jenisPkl.firstWhere((e) => e.value == val);
-    form['jenisPkl']!.text = selected.label;
-  }
-
-  RxString selectedTindakan = "".obs;
-
-  void saveTindakan(String val) {
-    selectedTindakan.value = val;
-    showTindakan.value = false;
-    var selected = jenisTindakan.firstWhere((e) => e.value == val);
-    form['jenisTindakan']!.text = selected.label;
+  void handleSaveMenu<T>(T val, Rx<T> selected, RxBool show,
+      List<RadioProps<T>> options, String formKey) {
+    selected.value = val;
+    show.value = false;
+    var selectedValue = options.firstWhereOrNull((e) => e.value == val);
+    if (selectedValue != null) {
+      form[formKey]!.text = selectedValue.label;
+    }
   }
 }

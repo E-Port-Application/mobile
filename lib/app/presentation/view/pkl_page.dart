@@ -3,6 +3,7 @@ import 'package:eport/app/presentation/partials/laporan/laporan_scaffold.dart';
 import 'package:eport/app/presentation/widgets/app_input.dart';
 import 'package:eport/app/presentation/widgets/app_location.dart';
 import 'package:eport/app/presentation/widgets/app_search_select.dart';
+import 'package:eport/routes/app_route.dart';
 import 'package:eport/styles/color_constants.dart';
 import 'package:eport/utils/show_alert.dart';
 import 'package:flutter/material.dart';
@@ -82,8 +83,39 @@ class PklPage extends GetView<PklController> {
               label: "Jenis PKL",
               placeholder: "Jenis PKL",
               controller: controller.form['jenisPkl']!,
-              value: controller.radio.value,
-              onSave: controller.savePkl,
+              value: controller.selectedPkl.value,
+              onSave: (data) {
+                controller.handleSaveMenu(
+                  data,
+                  controller.selectedPkl,
+                  controller.showPkl,
+                  controller.jenisPkl,
+                  "jenisPkl",
+                );
+              },
+            ),
+          ),
+          SizedBox(height: 12.h),
+          Obx(
+            () => AppSearchSelect<String>(
+              options: controller.jenisPelanggaran,
+              show: controller.showPelanggaran.value,
+              onTogle: (e) {
+                controller.showPelanggaran.value = e;
+              },
+              label: "Jenis Pelanggaran",
+              placeholder: "Jenis Pelanggaran",
+              controller: controller.form['jenisPelanggaran']!,
+              value: controller.selectedPelanggaran.value,
+              onSave: (data) {
+                controller.handleSaveMenu(
+                  data,
+                  controller.selectedPelanggaran,
+                  controller.showPelanggaran,
+                  controller.jenisPelanggaran,
+                  "jenisPelanggaran",
+                );
+              },
             ),
           ),
           SizedBox(height: 12.h),
@@ -98,12 +130,45 @@ class PklPage extends GetView<PklController> {
               placeholder: "Jenis Tindakan",
               controller: controller.form['jenisTindakan']!,
               value: controller.selectedTindakan.value,
-              onSave: controller.saveTindakan,
+              onSave: (data) {
+                controller.handleSaveMenu(
+                  data,
+                  controller.selectedTindakan,
+                  controller.showTindakan,
+                  controller.jenisTindakan,
+                  "jenisTindakan",
+                );
+              },
             ),
           ),
           SizedBox(height: 12.h),
-          AppInput(controller: TextEditingController()),
-          Container(height: 2.sh),
+          AppInput(
+            controller: controller.form['jumlahPelanggar']!,
+            keyboardType: TextInputType.number,
+            label: "Jumlah Pelanggar",
+            gap: 8.h,
+            placeholder: "Masukkan Jumlah Pelanggar",
+          ),
+          SizedBox(height: 12.h),
+          AppInput(
+            controller: TextEditingController(),
+            label: "Personil/Anggota Yang Berugas",
+            gap: 8.h,
+            placeholder: "Personil Yang Bertugas",
+            readOnly: true,
+            onTap: () {
+              Get.toNamed(AppRoute.personil);
+            },
+          ),
+          SizedBox(height: 12.h),
+          AppInput(
+            controller: controller.form['keterangan']!,
+            maxLines: 8,
+            label: "Keterangan",
+            gap: 8.h,
+            placeholder: "Masukkan Keterangan",
+            hint: "Tulis Keterangan dengan baik dan benar!",
+          ),
         ],
       ),
     );

@@ -80,7 +80,6 @@ class _AppSearchSelectState<T> extends State<AppSearchSelect<T>> {
   }
 
   void onFilter(String val) {
-    print('asasdasd');
     String truncedVal = val.toLowerCase().removeAllWhitespace;
     List<RadioProps<T>> tempData = options.where((data) {
       String truncedStr = data.label.toLowerCase().removeAllWhitespace;

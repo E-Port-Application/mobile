@@ -149,69 +149,71 @@ class LaporanScaffold extends StatelessWidget {
 
   Widget laporanDetail() {
     return Scaffold(
+      backgroundColor: ColorConstants.slate[50],
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(60.h),
-          child: SafeArea(
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(.05),
-                    offset: Offset(0, 2),
-                    blurRadius: 8.w,
-                  ),
-                ],
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(
-                    10.w,
-                  ),
-                  bottomRight: Radius.circular(
-                    10.w,
-                  ),
+        preferredSize: Size.fromHeight(60.h),
+        child: SafeArea(
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(.05),
+                  offset: Offset(0, 2),
+                  blurRadius: 8.w,
                 ),
-              ),
-              clipBehavior: Clip.antiAlias,
-              child: AppBar(
-                backgroundColor: Colors.transparent,
-                foregroundColor: Colors.transparent,
-                shadowColor: Colors.transparent,
-                automaticallyImplyLeading: false,
-                elevation: 1,
-                flexibleSpace: Stack(
-                  children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: IconButton(
-                        iconSize: 22.sp,
-                        onPressed: () {
-                          Get.back();
-                        },
-                        icon: Icon(
-                          Icons.chevron_left,
-                          size: 26.w,
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Row(
-                        children: [
-                          SizedBox(width: 56.w),
-                          Text(
-                            title,
-                            style: body1BTextStyle(
-                              size: 16.sp,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+              ],
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(
+                  10.w,
+                ),
+                bottomRight: Radius.circular(
+                  10.w,
                 ),
               ),
             ),
-          )),
+            clipBehavior: Clip.antiAlias,
+            child: AppBar(
+              backgroundColor: Colors.transparent,
+              foregroundColor: Colors.transparent,
+              shadowColor: Colors.transparent,
+              automaticallyImplyLeading: false,
+              elevation: 1,
+              flexibleSpace: Stack(
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: IconButton(
+                      iconSize: 22.sp,
+                      onPressed: () {
+                        Get.back();
+                      },
+                      icon: Icon(
+                        Icons.chevron_left,
+                        size: 26.w,
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Row(
+                      children: [
+                        SizedBox(width: 56.w),
+                        Text(
+                          title,
+                          style: body1BTextStyle(
+                            size: 16.sp,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
       body: ScrollableConstraints(
         child: Padding(
           padding: EdgeInsets.symmetric(
