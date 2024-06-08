@@ -20,21 +20,11 @@ class AppRoute {
   static String profile = "/profile";
 
   static String report = "/laporan";
-  static String reportPengajuan = "/laporan/pengajuan";
+  static String reportRencana = "/laporan/rencana";
   static String reportProses = "/laporan/proses";
   static String reportPenindakan = "/laporan/penindakan";
   static String reportSelesai = "/laporan/selesai";
   static String reportRiwayat = "/laporan/riwayat";
 
-  // Tibum
-  static String perdaPerkada = "/laporan/perda-perkada";
-  static String perdaPerkadaDetail(String id) => "/laporan/perda-perkada/$id";
-  static String pamwal = "/laporan/pamwal";
-  static String pamwalDetail(String id) => "/laporan/pamwal/$id";
-  static String perdaPerwali = "/laporan/perda-perwali";
-  static String perdaPerwaliDetail(String id) => "/laporan/perda-perwali/$id";
-  static String laporanPti = "/laporan/pti";
-  static String laporanPtiDetail(String id) => "/laporan/pti/$id";
-  static String laporanPamin = "/laporan/pam-in";
-  static String laporanPaminDetail(String id) => "/laporan/pam-in/$id";
+  static String rencanaPatroliPkl = "/laporan/rencana/patroli/pkl";
 }

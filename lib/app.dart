@@ -22,29 +22,29 @@ class App extends StatelessWidget {
           onTap: () {
             FocusManager.instance.primaryFocus?.unfocus();
           },
-          child: Portal(
-            child: FutureBuilder(
-              future: UserToken.checkToken(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return GetMaterialApp(
-                    initialBinding: GlobalBinding(),
-                    title: dotenv.env['PROJECT_NAME']!,
-                    theme: globalTheme(),
-                    getPages: appPage(),
-                    initialRoute: AppRoute.splash,
-                    builder: (context, child) {
-                      return MediaQuery(
+          child: FutureBuilder(
+            future: UserToken.checkToken(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return GetMaterialApp(
+                  initialBinding: GlobalBinding(),
+                  title: dotenv.env['PROJECT_NAME']!,
+                  theme: globalTheme(),
+                  getPages: appPage(),
+                  initialRoute: AppRoute.splash,
+                  builder: (context, child) {
+                    return Portal(
+                      child: MediaQuery(
                         data:
                             MediaQuery.of(context).copyWith(textScaleFactor: 1),
                         child: child ?? Container(),
-                      );
-                    },
-                  );
-                }
-                return Container();
-              },
-            ),
+                      ),
+                    );
+                  },
+                );
+              }
+              return Container();
+            },
           ),
         );
       }),

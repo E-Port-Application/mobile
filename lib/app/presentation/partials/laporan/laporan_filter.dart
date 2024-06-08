@@ -46,6 +46,7 @@ class _LaporanFilterState extends State<LaporanFilter> {
     setState(() {
       Offset offsetTemp = box.localToGlobal(Offset.zero);
       offsetButton = offsetTemp;
+      print("offsetTemp $offsetTemp");
     });
   }
 
@@ -184,6 +185,7 @@ class _LaporanFilterState extends State<LaporanFilter> {
                 child: ElevatedButton(
                   key: buttonRef,
                   onPressed: () {
+                    getOffset();
                     setState(() {
                       visible = true;
                     });

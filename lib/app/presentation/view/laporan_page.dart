@@ -4,6 +4,7 @@ import 'package:eport/app/presentation/view/rencana_page.dart';
 import 'package:eport/app/presentation/view/riwayat_page.dart';
 import 'package:eport/app/presentation/widgets/scrollable_constraints.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 

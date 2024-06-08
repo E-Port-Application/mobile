@@ -166,28 +166,33 @@ class _RencanaChildState extends State<RencanaChild> {
     return AnimatedOpacity(
       opacity: isInit ? 1 : 0,
       duration: Duration(milliseconds: 400),
-      child: Container(
-        margin: EdgeInsets.only(bottom: 10.h),
-        padding: EdgeInsets.symmetric(
-          horizontal: 24.w,
-          vertical: 12.h,
-        ),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10.w),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(.02),
-              offset: Offset(0, 2),
-              blurRadius: 4.w,
+      child: GestureDetector(
+        onTap: () {
+          Get.toNamed(widget.data.path);
+        },
+        child: Container(
+          margin: EdgeInsets.only(bottom: 10.h),
+          padding: EdgeInsets.symmetric(
+            horizontal: 24.w,
+            vertical: 12.h,
+          ),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10.w),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(.02),
+                offset: Offset(0, 2),
+                blurRadius: 4.w,
+              ),
+            ],
+          ),
+          child: Text(
+            widget.data.label,
+            style: body3BTextStyle(
+              weight: FontWeight.w500,
+              size: 13.sp,
             ),
-          ],
-        ),
-        child: Text(
-          widget.data.label,
-          style: body3BTextStyle(
-            weight: FontWeight.w500,
-            size: 13.sp,
           ),
         ),
       ),
