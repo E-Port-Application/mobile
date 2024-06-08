@@ -10,15 +10,22 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class Personil {
-  final String id;
-  final String name;
-  const Personil({required this.id, required this.name});
+  String id;
+  String name;
+  bool isKomando;
+  bool selected;
+  Personil({
+    required this.id,
+    required this.name,
+    this.isKomando = false,
+    this.selected = false,
+  });
 }
 
 typedef OnClick = void Function(Personil data);
 
 class SearchDropdown extends StatefulWidget {
-  final List<Personil> options;
+  final List<Rx<Personil>> options;
   final OnClick onClick;
   const SearchDropdown({
     super.key,
@@ -44,9 +51,10 @@ class _SearchDropdownState extends State<SearchDropdown> {
   void initState() {
     super.initState();
     setState(() {
-      options = widget.options;
+      options = widget.options.map((e) => e.value).toList();
       filteredOptions = options;
     });
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       getOffset(ref);
     });

@@ -17,17 +17,10 @@ class PersonilFilter extends StatelessWidget {
           children: [
             Expanded(
               child: SearchDropdown(
-                onClick: controller.handleAddPersonil,
-                options: [
-                  Personil(id: "1", name: "Fadli Hasan"),
-                  Personil(id: "2", name: "Bintang Lazuardi"),
-                  Personil(id: "3", name: "Pak Handoyo"),
-                  Personil(id: "4", name: "Pak Budi"),
-                  Personil(id: "5", name: "Setjen Angkasa 2"),
-                  Personil(id: "6", name: "Roiyan Zain"),
-                  Personil(id: "7", name: "Tukang Bakso 5"),
-                  Personil(id: "8", name: "Pak Cak Man"),
-                ],
+                onClick: (e) {
+                  controller.handleAddPersonil(e, isSearch: true);
+                },
+                options: controller.personils,
               ),
             ),
             SizedBox(width: 8.w),

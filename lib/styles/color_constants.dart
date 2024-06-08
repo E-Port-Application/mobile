@@ -37,6 +37,16 @@ class ColorConstants {
     70: Color(0xff003B94),
     80: Color(0xff002863),
   };
+  static Map<int, Color> success = {
+    10: Color(0xffCDF3E2),
+    20: Color(0xff9BE7C6),
+    30: Color(0xff6ADAA9),
+    40: Color(0xff38CE8D),
+    50: Color(0xff06C270),
+    60: Color(0xff059B5A),
+    70: Color(0xff047443),
+    80: Color(0xff024E2D),
+  };
 
   static Map<int, Gradient> gradient = {
     1: LinearGradient(

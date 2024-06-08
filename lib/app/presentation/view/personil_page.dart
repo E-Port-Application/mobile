@@ -2,7 +2,6 @@ import 'package:eport/app/controller/personil_controller.dart';
 import 'package:eport/app/presentation/partials/laporan/laporan_scaffold.dart';
 import 'package:eport/app/presentation/partials/personil/card_personil.dart';
 import 'package:eport/app/presentation/partials/personil/personil_filter.dart';
-import 'package:eport/app/presentation/widgets/app_search_dropdown.dart';
 import 'package:eport/styles/color_constants.dart';
 import 'package:eport/styles/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -57,8 +56,57 @@ class PersonilPage extends GetView<PersonilController> {
             ),
             SizedBox(height: 12.h),
             ...controller.selectedPersonil
-                .map((data) => CardPersonil(data: data))
-                .toList()
+                .map(
+                  (data) => CardPersonil(
+                      data: data, onRemove: controller.handleRemovePersonil),
+                )
+                .toList(),
+            SizedBox(height: 20.h),
+            Text(
+              "Jajaran Komando",
+              style: body3TextStyle(
+                weight: FontWeight.w500,
+                color: ColorConstants.slate[600],
+              ),
+            ),
+            SizedBox(height: 12.h),
+            ...controller.komandos
+                .map(
+                  (element) => CardPersonil(
+                    data: element.value,
+                    onRemove: (e) {
+                      controller.handleRemovePersonil(e, ref: element);
+                    },
+                    onAdd: (e) {
+                      controller.handleAddPersonil(e, ref: element);
+                    },
+                    state: element.value.selected,
+                  ),
+                )
+                .toList(),
+            SizedBox(height: 32.h),
+            Text(
+              "Anggota",
+              style: body3TextStyle(
+                weight: FontWeight.w500,
+                color: ColorConstants.slate[600],
+              ),
+            ),
+            SizedBox(height: 12.h),
+            ...controller.anggotas
+                .map(
+                  (element) => CardPersonil(
+                    data: element.value,
+                    onRemove: (e) {
+                      controller.handleRemovePersonil(e, ref: element);
+                    },
+                    onAdd: (e) {
+                      controller.handleAddPersonil(e, ref: element);
+                    },
+                    state: element.value.selected,
+                  ),
+                )
+                .toList(),
           ],
         ),
       ),
