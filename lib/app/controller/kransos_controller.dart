@@ -5,28 +5,24 @@ import 'package:eport/app/repository/laporan_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ReklameController extends GetxController {
-  static ReklameController get i => Get.find();
+class KransosController extends GetxController {
+  static KransosController get i => Get.find();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   RxMap<String, TextEditingController> form = {
     "tanggal": TextEditingController(),
     "waktu-mulai": TextEditingController(),
     "waktu-selesai": TextEditingController(),
-    "nama": TextEditingController(),
     "jenis": TextEditingController(),
-    "pelanggaran": TextEditingController(),
-    "jumlah": TextEditingController(),
+    "deskripsi": TextEditingController(),
     "tindakan": TextEditingController(),
+    "jumlah": TextEditingController(),
+    "keterangan": TextEditingController(),
   }.obs;
 
   RxBool showJenis = false.obs;
   RxList<LaporanTypeModel> jenis = <LaporanTypeModel>[].obs;
   RxnString selectedJenis = RxnString();
-
-  RxBool showPelanggaran = false.obs;
-  RxList<LaporanTypeModel> pelanggaran = <LaporanTypeModel>[].obs;
-  RxnString selectedPelanggaran = RxnString();
 
   RxList<Personil> personils = RxList<Personil>();
   RxList<Rx<Personil>> currentPersonil = RxList<Rx<Personil>>();
@@ -41,28 +37,18 @@ class ReklameController extends GetxController {
     }
   }
 
-  void getJenisReklame() async {
+  void getJenisKeransos() async {
     try {
       var data = await LaporanRepository.getSearchData(
-          "rencana-laporan/reklame/jenis");
+          "rencana-laporan/keransos/jenis");
       jenis.value = data;
       jenis.refresh();
-    } catch (_) {}
-  }
-
-  void getPelanggaranReklame() async {
-    try {
-      var data = await LaporanRepository.getSearchData(
-          "rencana-laporan/reklame/pelanggaran");
-      pelanggaran.value = data;
-      pelanggaran.refresh();
     } catch (_) {}
   }
 
   @override
   void onInit() {
     super.onInit();
-    getJenisReklame();
-    getPelanggaranReklame();
+    getJenisKeransos();
   }
 }

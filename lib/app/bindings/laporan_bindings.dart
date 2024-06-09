@@ -1,3 +1,4 @@
+import 'package:eport/app/controller/kransos_controller.dart';
 import 'package:eport/app/controller/laporan_controller.dart';
 import 'package:eport/app/controller/pamwal_controller.dart';
 import 'package:eport/app/controller/personil_controller.dart';
@@ -24,6 +25,8 @@ class LaporanBinding implements Bindings {
     // Patroli
     Get.lazyPut<PklController>(() => PklController());
     Get.lazyPut<ReklameController>(() => ReklameController());
+    Get.lazyPut<KransosController>(() => KransosController());
+
     Get.lazyPut<PersonilController>(() => PersonilController());
   }
 }

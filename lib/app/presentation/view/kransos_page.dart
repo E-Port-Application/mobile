@@ -1,3 +1,4 @@
+import 'package:eport/app/controller/kransos_controller.dart';
 import 'package:eport/app/presentation/partials/laporan/laporan_scaffold.dart';
 import 'package:eport/app/presentation/widgets/app_button.dart';
 import 'package:eport/app/presentation/widgets/app_input.dart';
@@ -10,22 +11,20 @@ import 'package:eport/utils/datepicker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:eport/app/controller/reklame_controller.dart';
 
-class ReklamePage extends GetView<ReklameController> {
-  const ReklamePage({super.key});
+class KransosPage extends GetView<KransosController> {
+  const KransosPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return LaporanScaffold.detail(
-      title: "Reklame / Rencana Kegiatan",
+      title: "Keransos / Rencana Kegiatan",
       child: Form(
-        key: controller.formKey,
         child: Obx(
           () => Column(
             children: [
               AppLocation(),
-              SizedBox(height: 12.h),
+              SizedBox(height: 8.h),
               AppInput(
                 controller: controller.form['tanggal']!,
                 label: "Tanggal",
@@ -61,20 +60,14 @@ class ReklamePage extends GetView<ReklameController> {
                 ],
               ),
               SizedBox(height: 12.h),
-              AppInput(
-                controller: controller.form['nama']!,
-                label: "Nama Reklame",
-                placeholder: "contoh: nama toko/yang diiklankan",
-              ),
-              SizedBox(height: 12.h),
               AppSearchSelect(
                 options: controller.jenis,
                 show: controller.showJenis.value,
                 onTogle: (e) {
                   controller.showJenis.value = e;
                 },
-                label: "Jenis Reklame",
-                placeholder: "Jenis Reklame",
+                label: "Jenis Keransos",
+                placeholder: "Jenis Keransos",
                 controller: controller.form['jenis']!,
                 value: controller.selectedJenis.value,
                 onSave: (data) {
@@ -88,33 +81,25 @@ class ReklamePage extends GetView<ReklameController> {
                 },
               ),
               SizedBox(height: 12.h),
-              AppSearchSelect(
-                options: controller.pelanggaran,
-                show: controller.showPelanggaran.value,
-                onTogle: (e) {
-                  controller.showPelanggaran.value = e;
-                },
-                label: "Pelanggaran Reklame",
-                placeholder: "Pelanggaran Reklame",
-                controller: controller.form['pelanggaran']!,
-                value: controller.selectedPelanggaran.value,
-                onSave: (data) {
-                  controller.handleSaveMenu(
-                    data,
-                    controller.selectedPelanggaran,
-                    controller.showPelanggaran,
-                    controller.pelanggaran,
-                    "pelanggaran",
-                  );
-                },
+              AppInput(
+                controller: controller.form['deskripsi']!,
+                maxLines: 8,
+                label: "Deskripsi Pelanggaran",
+                placeholder: "Masukkan deskripsi pelanggaran",
+                hint: "Tulis deskripsi dengan baik dan benar!",
+              ),
+              SizedBox(height: 12.h),
+              AppInput(
+                controller: controller.form['tindakan']!,
+                placeholder: "Masukkan Tindakan",
+                label: "Tindakan",
               ),
               SizedBox(height: 12.h),
               AppInput(
                 controller: controller.form['jumlah']!,
-                label: "Jumlah",
-                placeholder: "Masukkan Jumlah",
+                label: "Jumlah Pelanggar",
+                placeholder: "Masukkan Jumlah Pelanggar",
               ),
-              SizedBox(height: 12.h),
               controller.personils.isEmpty
                   ? AppInput(
                       controller: TextEditingController(),
@@ -124,7 +109,7 @@ class ReklamePage extends GetView<ReklameController> {
                       onTap: () {
                         Get.toNamed(
                           AppRoute.personil,
-                          parameters: {'id': 'reklame'},
+                          parameters: {'id': 'keransos'},
                         );
                       },
                     )
@@ -167,7 +152,7 @@ class ReklamePage extends GetView<ReklameController> {
                           onTap: () {
                             Get.toNamed(
                               AppRoute.personil,
-                              parameters: {'id': 'reklame'},
+                              parameters: {'id': 'keransos'},
                             );
                           },
                           child: Text(
@@ -182,11 +167,11 @@ class ReklamePage extends GetView<ReklameController> {
                     ),
               SizedBox(height: 12.h),
               AppInput(
-                controller: controller.form['tindakan']!,
-                label: "Tindakan",
+                controller: controller.form['keterangan']!,
                 maxLines: 8,
-                placeholder: "Masukkan Tindakan",
-                hint: "Tulis tindakan dengan baik dan benar!",
+                label: "Keterangan",
+                placeholder: "Masukkan Keterangan",
+                hint: "Tulis Keterangan dengan baik dan benar!",
               ),
               SizedBox(height: 40.h),
               Text(

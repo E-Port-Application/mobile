@@ -9,33 +9,10 @@ class LaporanRepository {
   static final tindakanPklRef =
       store.collection("rencana-laporan/pkl/tindakan");
 
-  static Future<List<LaporanTypeModel>> getJenisPkl() async {
+  static Future<List<LaporanTypeModel>> getSearchData(String ref) async {
     try {
-      var data = await jenisPklRef.get();
-      return data.docs.map((e) {
-        return LaporanTypeModel.fromJson(e.data());
-      }).toList();
-    } catch (err) {
-      showAlert(err.toString());
-      rethrow;
-    }
-  }
-
-  static Future<List<LaporanTypeModel>> getPelanggaranPkl() async {
-    try {
-      var data = await pelanggaranPklRef.get();
-      return data.docs.map((e) {
-        return LaporanTypeModel.fromJson(e.data());
-      }).toList();
-    } catch (err) {
-      showAlert(err.toString());
-      rethrow;
-    }
-  }
-
-  static Future<List<LaporanTypeModel>> getTindakanPkl() async {
-    try {
-      var data = await tindakanPklRef.get();
+      final storeRef = store.collection(ref);
+      var data = await storeRef.get();
       return data.docs.map((e) {
         return LaporanTypeModel.fromJson(e.data());
       }).toList();

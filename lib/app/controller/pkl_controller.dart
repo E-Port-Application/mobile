@@ -42,7 +42,8 @@ class PklController extends GetxController {
 
   void getJenisPkl() async {
     try {
-      var data = await LaporanRepository.getJenisPkl();
+      var data =
+          await LaporanRepository.getSearchData("rencana-laporan/pkl/jenis");
       jenisPkl.value = data;
       jenisPkl.refresh();
     } catch (_) {}
@@ -50,7 +51,8 @@ class PklController extends GetxController {
 
   void getPelanggaranPkl() async {
     try {
-      var data = await LaporanRepository.getPelanggaranPkl();
+      var data = await LaporanRepository.getSearchData(
+          "rencana-laporan/pkl/pelanggaran");
       jenisPelanggaran.value = data;
       jenisPelanggaran.refresh();
     } catch (_) {}
@@ -58,7 +60,8 @@ class PklController extends GetxController {
 
   void getTindakanPkl() async {
     try {
-      var data = await LaporanRepository.getTindakanPkl();
+      var data =
+          await LaporanRepository.getSearchData("rencana-laporan/pkl/tindakan");
       jenisTindakan.value = data;
       jenisTindakan.refresh();
     } catch (_) {}

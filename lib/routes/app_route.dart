@@ -28,6 +28,12 @@ class AppRoute {
 
   static String rencanaPatroliPkl = "/laporan/rencana/patroli/pkl";
   static String rencanaPatroliReklame = "/laporan/rencana/patroli/reklame";
+  static String rencanaPatroliKransos = "/laporan/rencana/patroli/kransos";
+  static String rencanaPatroliPengamanan =
+      "/laporan/rencana/patroli/pengamanan";
+  static String rencanaPatroliPamwal = "/laporan/rencana/patroli/pamwal";
+  static String rencanaPatroliPerizinan = "/laporan/rencana/patroli/perizinan";
+  static String rencanaPatroliPiket = "/laporan/rencana/patroli/piket";
 
   static String personil = "/laporan/rencana/patroli/pkl/personil";
 }

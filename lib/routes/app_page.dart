@@ -1,7 +1,7 @@
 import 'package:eport/app/bindings/auth_bindings.dart';
 import 'package:eport/app/bindings/laporan_bindings.dart';
-import 'package:eport/app/bindings/pkl_bindings.dart';
 import 'package:eport/app/bindings/profile_bindings.dart';
+import 'package:eport/app/presentation/view/kransos_page.dart';
 import 'package:eport/app/presentation/view/laporan_page.dart';
 import 'package:eport/app/presentation/view/notification_page.dart';
 import 'package:eport/app/presentation/view/personil_page.dart';
@@ -100,6 +100,11 @@ List<GetPage<dynamic>> appPage() {
     GetPage(
       name: AppRoute.rencanaPatroliReklame,
       page: () => Portal(child: ReklamePage()),
+      binding: LaporanBinding(),
+    ),
+    GetPage(
+      name: AppRoute.rencanaPatroliKransos,
+      page: () => Portal(child: KransosPage()),
       binding: LaporanBinding(),
     ),
     GetPage(
