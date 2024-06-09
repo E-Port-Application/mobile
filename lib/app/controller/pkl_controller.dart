@@ -28,14 +28,15 @@ class PklController extends GetxController {
 
   RxMap<String, TextEditingController> form = {
     "tanggal": TextEditingController(),
-    "waktuMulai": TextEditingController(),
-    "waktuSelesai": TextEditingController(),
-    "jenisPkl": TextEditingController(),
-    "jenisPelanggaran": TextEditingController(),
-    "jenisTindakan": TextEditingController(),
-    "jumlahPelanggar": TextEditingController(),
+    "waktu-mulai": TextEditingController(),
+    "waktu-selesai": TextEditingController(),
+    "jenis": TextEditingController(),
+    "pelanggaran": TextEditingController(),
+    "tindakan": TextEditingController(),
+    "jumlah": TextEditingController(),
     "keterangan": TextEditingController(),
   }.obs;
+
   RxList<Personil> personils = RxList<Personil>();
   RxList<Rx<Personil>> currentPersonil = RxList<Rx<Personil>>();
 

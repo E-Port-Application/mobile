@@ -7,11 +7,10 @@ import 'package:eport/app/presentation/widgets/app_search_select.dart';
 import 'package:eport/routes/app_route.dart';
 import 'package:eport/styles/color_constants.dart';
 import 'package:eport/styles/text_styles.dart';
-import 'package:eport/utils/show_alert.dart';
+import 'package:eport/utils/datepicker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 class PklPage extends GetView<PklController> {
   GlobalKey pklRef = GlobalKey();
@@ -20,7 +19,7 @@ class PklPage extends GetView<PklController> {
   @override
   Widget build(BuildContext context) {
     return LaporanScaffold.detail(
-      title: "Patroli / Rencana Kegiatan/ PKL",
+      title: "PKL / Rencana Kegiatan",
       child: Column(
         children: [
           AppLocation(),
@@ -28,28 +27,12 @@ class PklPage extends GetView<PklController> {
           AppInput(
             controller: controller.form['tanggal']!,
             label: "Tanggal",
-            gap: 8.h,
             prefixIcon: Icon(
               Icons.calendar_month_outlined,
-              color: ColorConstants.slate[400],
             ),
             readOnly: true,
-            onTap: () async {
-              try {
-                var date = await showDatePicker(
-                  context: context,
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime(1000),
-                  lastDate: DateTime(2999),
-                );
-
-                if (date != null) {
-                  controller.form["tanggal"]!.text =
-                      DateFormat('dd MMMM yyyy').format(date);
-                }
-              } catch (err) {
-                showAlert(err.toString());
-              }
+            onTap: () {
+              datePicker(controller.form['tanggal']!);
             },
             placeholder: "DD/MM/YYYY",
           ),
@@ -58,7 +41,7 @@ class PklPage extends GetView<PklController> {
             children: [
               Expanded(
                 child: AppInput(
-                  controller: controller.form['waktuMulai']!,
+                  controller: controller.form['waktu-mulai']!,
                   label: "Waktu Mulai",
                   placeholder: "Waktu ",
                   prefixIcon: Icon(Icons.access_time_outlined),
@@ -67,7 +50,7 @@ class PklPage extends GetView<PklController> {
               SizedBox(width: 8.w),
               Expanded(
                 child: AppInput(
-                  controller: controller.form['waktuSelesai']!,
+                  controller: controller.form['waktu-selesai']!,
                   label: "Waktu Selesai",
                   placeholder: "Waktu ",
                   prefixIcon: Icon(Icons.access_time_outlined),
@@ -85,7 +68,7 @@ class PklPage extends GetView<PklController> {
               },
               label: "Jenis PKL",
               placeholder: "Jenis PKL",
-              controller: controller.form['jenisPkl']!,
+              controller: controller.form['jenis']!,
               value: controller.selectedPkl.value,
               onSave: (data) {
                 controller.handleSaveMenu(
@@ -108,7 +91,7 @@ class PklPage extends GetView<PklController> {
               },
               label: "Jenis Pelanggaran",
               placeholder: "Jenis Pelanggaran",
-              controller: controller.form['jenisPelanggaran']!,
+              controller: controller.form['pelanggaran']!,
               value: controller.selectedPelanggaran.value,
               onSave: (data) {
                 controller.handleSaveMenu(
@@ -131,7 +114,7 @@ class PklPage extends GetView<PklController> {
               },
               label: "Jenis Tindakan",
               placeholder: "Jenis Tindakan",
-              controller: controller.form['jenisTindakan']!,
+              controller: controller.form['tindakan']!,
               value: controller.selectedTindakan.value,
               onSave: (data) {
                 controller.handleSaveMenu(
@@ -146,10 +129,9 @@ class PklPage extends GetView<PklController> {
           ),
           SizedBox(height: 12.h),
           AppInput(
-            controller: controller.form['jumlahPelanggar']!,
+            controller: controller.form['jumlah']!,
             keyboardType: TextInputType.number,
             label: "Jumlah Pelanggar",
-            gap: 8.h,
             placeholder: "Masukkan Jumlah Pelanggar",
           ),
           SizedBox(height: 12.h),
@@ -158,7 +140,6 @@ class PklPage extends GetView<PklController> {
                 ? AppInput(
                     controller: TextEditingController(),
                     label: "Personil/Anggota Yang Berugas",
-                    gap: 8.h,
                     placeholder: "Personil Yang Bertugas",
                     readOnly: true,
                     onTap: () {
@@ -226,7 +207,6 @@ class PklPage extends GetView<PklController> {
             controller: controller.form['keterangan']!,
             maxLines: 8,
             label: "Keterangan",
-            gap: 8.h,
             placeholder: "Masukkan Keterangan",
             hint: "Tulis Keterangan dengan baik dan benar!",
           ),
@@ -311,7 +291,7 @@ class PklPage extends GetView<PklController> {
             width: 1.sw,
             onPressed: () {},
             text: "Batal",
-            color: ColorConstants.slate[300],
+            type: AppButtonType.outlined,
           ),
         ],
       ),

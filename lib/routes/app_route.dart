@@ -27,6 +27,7 @@ class AppRoute {
   static String reportRiwayat = "/laporan/riwayat";
 
   static String rencanaPatroliPkl = "/laporan/rencana/patroli/pkl";
+  static String rencanaPatroliReklame = "/laporan/rencana/patroli/reklame";
 
   static String personil = "/laporan/rencana/patroli/pkl/personil";
 }

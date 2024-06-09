@@ -1,4 +1,5 @@
 import 'package:eport/app/controller/pkl_controller.dart';
+import 'package:eport/app/controller/reklame_controller.dart';
 import 'package:eport/app/presentation/widgets/app_search_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,6 +11,10 @@ class PersonilController extends GetxController {
 
   Map<String, List> controllers = {
     "pkl": [PklController.i.personils, PklController.i.currentPersonil],
+    "reklame": [
+      ReklameController.i.personils,
+      ReklameController.i.currentPersonil
+    ],
   };
 
   RxBool show = true.obs;

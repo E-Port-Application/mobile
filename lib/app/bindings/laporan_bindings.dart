@@ -2,6 +2,7 @@ import 'package:eport/app/controller/laporan_controller.dart';
 import 'package:eport/app/controller/pamwal_controller.dart';
 import 'package:eport/app/controller/personil_controller.dart';
 import 'package:eport/app/controller/pkl_controller.dart';
+import 'package:eport/app/controller/reklame_controller.dart';
 import 'package:eport/app/controller/rencana_controller.dart';
 import 'package:eport/app/controller/perkada_page_controller.dart';
 import 'package:eport/app/controller/proses_controller.dart';
@@ -22,6 +23,7 @@ class LaporanBinding implements Bindings {
 
     // Patroli
     Get.lazyPut<PklController>(() => PklController());
+    Get.lazyPut<ReklameController>(() => ReklameController());
     Get.lazyPut<PersonilController>(() => PersonilController());
   }
 }

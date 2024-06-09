@@ -15,7 +15,7 @@ class RencanaPage extends GetView<RencanaController> {
           "label": "Patroli",
           "children": [
             RencanaData(label: "PKL", path: AppRoute.rencanaPatroliPkl),
-            RencanaData(label: "Reklame", path: ""),
+            RencanaData(label: "Reklame", path: AppRoute.rencanaPatroliReklame),
             RencanaData(label: "Kransos", path: ""),
             RencanaData(label: "Pengamanan", path: ""),
             RencanaData(label: "Pamwal", path: ""),

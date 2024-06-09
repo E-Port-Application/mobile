@@ -6,6 +6,7 @@ import 'package:eport/app/presentation/view/laporan_page.dart';
 import 'package:eport/app/presentation/view/notification_page.dart';
 import 'package:eport/app/presentation/view/personil_page.dart';
 import 'package:eport/app/presentation/view/pkl_page.dart';
+import 'package:eport/app/presentation/view/reklame_page.dart';
 import 'package:eport/app/presentation/view/rencana_page.dart';
 import 'package:eport/app/presentation/view/profile_page.dart';
 import 'package:eport/app/presentation/view/proses_page.dart';
@@ -94,6 +95,11 @@ List<GetPage<dynamic>> appPage() {
     GetPage(
       name: AppRoute.rencanaPatroliPkl,
       page: () => Portal(child: PklPage()),
+      binding: LaporanBinding(),
+    ),
+    GetPage(
+      name: AppRoute.rencanaPatroliReklame,
+      page: () => Portal(child: ReklamePage()),
       binding: LaporanBinding(),
     ),
     GetPage(
