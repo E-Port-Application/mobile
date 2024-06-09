@@ -1,7 +1,10 @@
 import 'package:eport/app/controller/kransos_controller.dart';
 import 'package:eport/app/controller/laporan_controller.dart';
 import 'package:eport/app/controller/pamwal_controller.dart';
+import 'package:eport/app/controller/pengamanan_controller.dart';
+import 'package:eport/app/controller/perizinan_controller.dart';
 import 'package:eport/app/controller/personil_controller.dart';
+import 'package:eport/app/controller/piket_controller.dart';
 import 'package:eport/app/controller/pkl_controller.dart';
 import 'package:eport/app/controller/reklame_controller.dart';
 import 'package:eport/app/controller/rencana_controller.dart';
@@ -26,6 +29,9 @@ class LaporanBinding implements Bindings {
     Get.lazyPut<PklController>(() => PklController());
     Get.lazyPut<ReklameController>(() => ReklameController());
     Get.lazyPut<KransosController>(() => KransosController());
+    Get.lazyPut<PengamananController>(() => PengamananController());
+    Get.lazyPut<PiketController>(() => PiketController());
+    Get.lazyPut<PerizinanController>(() => PerizinanController());
 
     Get.lazyPut<PersonilController>(() => PersonilController());
   }

@@ -1,10 +1,10 @@
 import 'package:eport/app/controller/kransos_controller.dart';
 import 'package:eport/app/presentation/partials/laporan/laporan_scaffold.dart';
+import 'package:eport/app/presentation/partials/personil/input_personil.dart';
 import 'package:eport/app/presentation/widgets/app_button.dart';
 import 'package:eport/app/presentation/widgets/app_input.dart';
 import 'package:eport/app/presentation/widgets/app_location.dart';
 import 'package:eport/app/presentation/widgets/app_search_select.dart';
-import 'package:eport/routes/app_route.dart';
 import 'package:eport/styles/color_constants.dart';
 import 'package:eport/styles/text_styles.dart';
 import 'package:eport/utils/datepicker.dart';
@@ -100,71 +100,8 @@ class KransosPage extends GetView<KransosController> {
                 label: "Jumlah Pelanggar",
                 placeholder: "Masukkan Jumlah Pelanggar",
               ),
-              controller.personils.isEmpty
-                  ? AppInput(
-                      controller: TextEditingController(),
-                      label: "Personil/Anggota Yang Berugas",
-                      placeholder: "Personil Yang Bertugas",
-                      readOnly: true,
-                      onTap: () {
-                        Get.toNamed(
-                          AppRoute.personil,
-                          parameters: {'id': 'keransos'},
-                        );
-                      },
-                    )
-                  : Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Text(
-                          "Personil/Anggota Yang Berugas",
-                          style:
-                              body3BTextStyle(color: ColorConstants.slate[700]),
-                        ),
-                        SizedBox(height: 12.h),
-                        ...(controller.personils.length > 3
-                                ? controller.personils.sublist(0, 3)
-                                : controller.personils)
-                            .map(
-                              (data) => Container(
-                                margin: EdgeInsets.only(bottom: 6.h),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(8.w),
-                                  border: Border.all(
-                                    color: ColorConstants.slate[300]!,
-                                  ),
-                                ),
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 14.w, vertical: 13.h),
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    data.name,
-                                    style: body3TextStyle(),
-                                  ),
-                                ),
-                              ),
-                            )
-                            .toList(),
-                        SizedBox(height: 4.h),
-                        GestureDetector(
-                          onTap: () {
-                            Get.toNamed(
-                              AppRoute.personil,
-                              parameters: {'id': 'keransos'},
-                            );
-                          },
-                          child: Text(
-                            "Lihat ${controller.personils.length} personil lainnya",
-                            style: body3TextStyle(
-                              color: ColorConstants.info[50],
-                            ),
-                            textAlign: TextAlign.end,
-                          ),
-                        ),
-                      ],
-                    ),
+              SizedBox(height: 12.h),
+              InputPersonil(personils: controller.personils, id: "keransos"),
               SizedBox(height: 12.h),
               AppInput(
                 controller: controller.form['keterangan']!,

@@ -1,3 +1,7 @@
+import 'package:eport/app/controller/kransos_controller.dart';
+import 'package:eport/app/controller/pengamanan_controller.dart';
+import 'package:eport/app/controller/perizinan_controller.dart';
+import 'package:eport/app/controller/piket_controller.dart';
 import 'package:eport/app/controller/pkl_controller.dart';
 import 'package:eport/app/controller/reklame_controller.dart';
 import 'package:eport/app/presentation/widgets/app_search_dropdown.dart';
@@ -14,6 +18,19 @@ class PersonilController extends GetxController {
     "reklame": [
       ReklameController.i.personils,
       ReklameController.i.currentPersonil
+    ],
+    "keransos": [
+      KransosController.i.personils,
+      KransosController.i.currentPersonil
+    ],
+    "pengamanan": [
+      PengamananController.i.personils,
+      PengamananController.i.currentPersonil
+    ],
+    "piket": [PiketController.i.personils, PiketController.i.currentPersonil],
+    "perizinan": [
+      PerizinanController.i.personils,
+      PerizinanController.i.currentPersonil
     ],
   };
 
@@ -52,13 +69,15 @@ class PersonilController extends GetxController {
   }
 
   void copyData() {
-    if (PklController.i.personils.isEmpty) {
+    final controller = controllers[Get.parameters["id"]]!;
+    final ctr1 = controller[0] as RxList<Personil>;
+    final ctr2 = controller[1] as RxList<Rx<Personil>>;
+    if (ctr1.isEmpty) {
       return;
     }
-    // selectedPersonil.value = PklController.i.personils;
-    selectedPersonil.value = PklController.i.personils.map((e) => e).toList();
-    // personils.value = PklController.i.currentPersonil;
-    personils.value = PklController.i.currentPersonil
+
+    selectedPersonil.value = ctr1.map((e) => e).toList();
+    personils.value = ctr2
         .map((e) => Rx<Personil>(Personil(
               id: e.value.id,
               name: e.value.name,
@@ -113,15 +132,13 @@ class PersonilController extends GetxController {
   }
 
   void handleSave() {
-    final init = Get.parameters['init'];
-
     final controller = controllers[Get.parameters["id"]]!;
-
     final ctr1 = controller[0] as RxList<Personil>;
     final ctr2 = controller[1] as RxList<Rx<Personil>>;
     ctr1.value = selectedPersonil;
     ctr2.value = personils;
-    if (init != null) {}
+
+    print('cokk ${Get.parameters["id"]}');
     Get.back();
   }
 }

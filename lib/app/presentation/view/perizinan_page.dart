@@ -1,27 +1,24 @@
+import 'package:eport/app/controller/perizinan_controller.dart';
 import 'package:eport/app/presentation/partials/laporan/laporan_scaffold.dart';
 import 'package:eport/app/presentation/partials/personil/input_personil.dart';
 import 'package:eport/app/presentation/widgets/app_button.dart';
 import 'package:eport/app/presentation/widgets/app_input.dart';
 import 'package:eport/app/presentation/widgets/app_location.dart';
-import 'package:eport/app/presentation/widgets/app_search_select.dart';
-import 'package:eport/routes/app_route.dart';
 import 'package:eport/styles/color_constants.dart';
 import 'package:eport/styles/text_styles.dart';
 import 'package:eport/utils/datepicker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:eport/app/controller/reklame_controller.dart';
 
-class ReklamePage extends GetView<ReklameController> {
-  const ReklamePage({super.key});
+class PerizinanPage extends GetView<PerizinanController> {
+  const PerizinanPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return LaporanScaffold.detail(
-      title: "Reklame / Rencana Kegiatan",
+      title: "Perizinan / Rencana Kegiatan",
       child: Form(
-        key: controller.formKey,
         child: Obx(
           () => Column(
             children: [
@@ -64,66 +61,36 @@ class ReklamePage extends GetView<ReklameController> {
               SizedBox(height: 12.h),
               AppInput(
                 controller: controller.form['nama']!,
-                label: "Nama Reklame",
-                placeholder: "contoh: nama toko/yang diiklankan",
-              ),
-              SizedBox(height: 12.h),
-              AppSearchSelect(
-                options: controller.jenis,
-                show: controller.showJenis.value,
-                onTogle: (e) {
-                  controller.showJenis.value = e;
-                },
-                label: "Jenis Reklame",
-                placeholder: "Jenis Reklame",
-                controller: controller.form['jenis']!,
-                value: controller.selectedJenis.value,
-                onSave: (data) {
-                  controller.handleSaveMenu(
-                    data,
-                    controller.selectedJenis,
-                    controller.showJenis,
-                    controller.jenis,
-                    "jenis",
-                  );
-                },
-              ),
-              SizedBox(height: 12.h),
-              AppSearchSelect(
-                options: controller.pelanggaran,
-                show: controller.showPelanggaran.value,
-                onTogle: (e) {
-                  controller.showPelanggaran.value = e;
-                },
-                label: "Pelanggaran Reklame",
-                placeholder: "Pelanggaran Reklame",
-                controller: controller.form['pelanggaran']!,
-                value: controller.selectedPelanggaran.value,
-                onSave: (data) {
-                  controller.handleSaveMenu(
-                    data,
-                    controller.selectedPelanggaran,
-                    controller.showPelanggaran,
-                    controller.pelanggaran,
-                    "pelanggaran",
-                  );
-                },
+                label: "Nama Orang/Usaha",
+                placeholder: "Masukkan Nama",
               ),
               SizedBox(height: 12.h),
               AppInput(
-                controller: controller.form['jumlah']!,
-                label: "Jumlah",
-                placeholder: "Masukkan Jumlah",
+                controller: controller.form['jenis']!,
+                label: "Jenis Perizinan",
+                placeholder: "Masukkan Jenis Perizinan",
               ),
               SizedBox(height: 12.h),
-              InputPersonil(personils: controller.personils, id: "reklame"),
+              AppInput(
+                controller: controller.form['pelanggaran']!,
+                label: "Jenis Pelanggaran",
+                placeholder: "Masukkan Jenis Pelanggaran",
+              ),
               SizedBox(height: 12.h),
               AppInput(
                 controller: controller.form['tindakan']!,
                 label: "Tindakan",
-                maxLines: 8,
                 placeholder: "Masukkan Tindakan",
-                hint: "Tulis tindakan dengan baik dan benar!",
+              ),
+              SizedBox(height: 12.h),
+              InputPersonil(personils: controller.personils, id: "perizinan"),
+              SizedBox(height: 12.h),
+              AppInput(
+                controller: controller.form['keterangan']!,
+                maxLines: 8,
+                label: "Keterangan",
+                placeholder: "Masukkan Keterangan",
+                hint: "Tulis Keterangan dengan baik dan benar!",
               ),
               SizedBox(height: 40.h),
               Text(

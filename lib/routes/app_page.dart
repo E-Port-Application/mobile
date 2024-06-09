@@ -1,9 +1,12 @@
 import 'package:eport/app/bindings/auth_bindings.dart';
 import 'package:eport/app/bindings/laporan_bindings.dart';
 import 'package:eport/app/bindings/profile_bindings.dart';
+import 'package:eport/app/controller/piket_page.dart';
 import 'package:eport/app/presentation/view/kransos_page.dart';
 import 'package:eport/app/presentation/view/laporan_page.dart';
 import 'package:eport/app/presentation/view/notification_page.dart';
+import 'package:eport/app/presentation/view/pengamanan_page.dart';
+import 'package:eport/app/presentation/view/perizinan_page.dart';
 import 'package:eport/app/presentation/view/personil_page.dart';
 import 'package:eport/app/presentation/view/pkl_page.dart';
 import 'package:eport/app/presentation/view/reklame_page.dart';
@@ -105,6 +108,26 @@ List<GetPage<dynamic>> appPage() {
     GetPage(
       name: AppRoute.rencanaPatroliKransos,
       page: () => Portal(child: KransosPage()),
+      binding: LaporanBinding(),
+    ),
+    GetPage(
+      name: AppRoute.rencanaPatroliPengamanan,
+      page: () => Portal(child: PengamananPage()),
+      binding: LaporanBinding(),
+    ),
+    GetPage(
+      name: AppRoute.rencanaPatroliPamwal,
+      page: () => Portal(child: PengamananPage(isPamwal: true)),
+      binding: LaporanBinding(),
+    ),
+    GetPage(
+      name: AppRoute.rencanaPatroliPiket,
+      page: () => Portal(child: PiketPage()),
+      binding: LaporanBinding(),
+    ),
+    GetPage(
+      name: AppRoute.rencanaPatroliPerizinan,
+      page: () => Portal(child: PerizinanPage()),
       binding: LaporanBinding(),
     ),
     GetPage(

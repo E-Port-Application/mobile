@@ -17,10 +17,19 @@ class RencanaPage extends GetView<RencanaController> {
             RencanaData(label: "PKL", path: AppRoute.rencanaPatroliPkl),
             RencanaData(label: "Reklame", path: AppRoute.rencanaPatroliReklame),
             RencanaData(label: "Kransos", path: AppRoute.rencanaPatroliKransos),
-            RencanaData(label: "Pengamanan", path: ""),
-            RencanaData(label: "Pamwal", path: ""),
-            RencanaData(label: "Perizinan", path: ""),
-            RencanaData(label: "Piket", path: ""),
+            RencanaData(
+              label: "Pengamanan",
+              path: AppRoute.rencanaPatroliPengamanan,
+            ),
+            RencanaData(
+              label: "Pamwal",
+              path: AppRoute.rencanaPatroliPamwal,
+            ),
+            RencanaData(
+              label: "Perizinan",
+              path: AppRoute.rencanaPatroliPerizinan,
+            ),
+            RencanaData(label: "Piket", path: AppRoute.rencanaPatroliPiket),
           ]
         },
         {
