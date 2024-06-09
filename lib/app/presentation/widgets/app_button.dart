@@ -79,7 +79,7 @@ class AppButton extends StatelessWidget {
               Text(
                 text,
                 style: textStyle ??
-                    h4BTextStyle(
+                    body2BTextStyle(
                       color: ColorConstants.primary[70],
                     ),
               ),
@@ -126,10 +126,11 @@ class AppButton extends StatelessWidget {
             Text(
               text,
               style: textStyle ??
-                  h4BTextStyle(
+                  body2BTextStyle(
                     color: variant == AppButtonVariant.primary
                         ? Colors.white
                         : ColorConstants.slate[600],
+                    weight: FontWeight.w600,
                   ),
             ),
       ),

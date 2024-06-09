@@ -3,8 +3,14 @@ import 'package:eport/app/presentation/widgets/app_search_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+class Bjir extends GetxController {}
+
 class PersonilController extends GetxController {
   static PersonilController get i => Get.find<PersonilController>();
+
+  Map<String, List> controllers = {
+    "pkl": [PklController.i.personils, PklController.i.currentPersonil],
+  };
 
   RxBool show = true.obs;
   TextEditingController searchInput = TextEditingController();
@@ -44,16 +50,25 @@ class PersonilController extends GetxController {
     if (PklController.i.personils.isEmpty) {
       return;
     }
-    selectedPersonil.value = PklController.i.personils;
-    personils.value = PklController.i.currentPersonil;
+    // selectedPersonil.value = PklController.i.personils;
+    selectedPersonil.value = PklController.i.personils.map((e) => e).toList();
+    // personils.value = PklController.i.currentPersonil;
+    personils.value = PklController.i.currentPersonil
+        .map((e) => Rx<Personil>(Personil(
+              id: e.value.id,
+              name: e.value.name,
+              isKomando: e.value.isKomando,
+              selected: e.value.selected,
+            )))
+        .toList();
   }
 
   @override
   void onInit() {
     super.onInit();
+    copyData();
     getKomando();
     getAnggota();
-    copyData();
   }
 
   void handleAddPersonil(Personil data,
@@ -93,10 +108,15 @@ class PersonilController extends GetxController {
   }
 
   void handleSave() {
-    PklController.i.personils.clear();
-    PklController.i.personils.value = selectedPersonil;
-    PklController.i.currentPersonil.clear();
-    PklController.i.currentPersonil.value = personils;
+    final init = Get.parameters['init'];
+
+    final controller = controllers[Get.parameters["id"]]!;
+
+    final ctr1 = controller[0] as RxList<Personil>;
+    final ctr2 = controller[1] as RxList<Rx<Personil>>;
+    ctr1.value = selectedPersonil;
+    ctr2.value = personils;
+    if (init != null) {}
     Get.back();
   }
 }

@@ -22,7 +22,6 @@ class LaporanBinding implements Bindings {
 
     // Patroli
     Get.lazyPut<PklController>(() => PklController());
-
     Get.lazyPut<PersonilController>(() => PersonilController());
   }
 }

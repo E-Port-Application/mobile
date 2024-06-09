@@ -1,5 +1,6 @@
 import 'package:eport/app/controller/pkl_controller.dart';
 import 'package:eport/app/presentation/partials/laporan/laporan_scaffold.dart';
+import 'package:eport/app/presentation/widgets/app_button.dart';
 import 'package:eport/app/presentation/widgets/app_input.dart';
 import 'package:eport/app/presentation/widgets/app_location.dart';
 import 'package:eport/app/presentation/widgets/app_search_select.dart';
@@ -161,7 +162,10 @@ class PklPage extends GetView<PklController> {
                     placeholder: "Personil Yang Bertugas",
                     readOnly: true,
                     onTap: () {
-                      Get.toNamed(AppRoute.personil);
+                      Get.toNamed(
+                        AppRoute.personil,
+                        parameters: {'id': 'pkl'},
+                      );
                     },
                   )
                 : Column(
@@ -173,7 +177,9 @@ class PklPage extends GetView<PklController> {
                             body3BTextStyle(color: ColorConstants.slate[700]),
                       ),
                       SizedBox(height: 12.h),
-                      ...controller.personils
+                      ...(controller.personils.length > 3
+                              ? controller.personils.sublist(0, 3)
+                              : controller.personils)
                           .map(
                             (data) => Container(
                               margin: EdgeInsets.only(bottom: 6.h),
@@ -199,7 +205,10 @@ class PklPage extends GetView<PklController> {
                       SizedBox(height: 4.h),
                       GestureDetector(
                         onTap: () {
-                          Get.toNamed(AppRoute.personil);
+                          Get.toNamed(
+                            AppRoute.personil,
+                            parameters: {'id': 'pkl'},
+                          );
                         },
                         child: Text(
                           "Lihat ${controller.personils.length} personil lainnya",
@@ -220,6 +229,89 @@ class PklPage extends GetView<PklController> {
             gap: 8.h,
             placeholder: "Masukkan Keterangan",
             hint: "Tulis Keterangan dengan baik dan benar!",
+          ),
+          SizedBox(height: 40.h),
+          Text(
+            "Pilih salah satu opsi",
+            style: body6TextStyle(color: ColorConstants.slate[500]),
+          ),
+          SizedBox(height: 16.h),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Column(
+                children: [
+                  SizedBox(
+                    height: 60.h,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        padding: EdgeInsets.zero,
+                        visualDensity: VisualDensity.compact,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.w),
+                        ),
+                      ),
+                      child: Center(
+                        child: Icon(
+                          Icons.camera_alt,
+                          size: 28.w,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 8.h),
+                  Text(
+                    "Kamera",
+                    style: body5BTextStyle(),
+                  ),
+                ],
+              ),
+              SizedBox(width: 12.w),
+              Column(
+                children: [
+                  SizedBox(
+                    height: 60.h,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        padding: EdgeInsets.zero,
+                        visualDensity: VisualDensity.compact,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.w),
+                        ),
+                      ),
+                      child: Center(
+                        child: Icon(
+                          Icons.photo_library_outlined,
+                          size: 28.w,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 8.h),
+                  Text(
+                    "Galeri",
+                    style: body5BTextStyle(),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          SizedBox(height: 40.h),
+          AppButton(
+            width: 1.sw,
+            onPressed: () {},
+            text: "Buat Rencana Kegiatan",
+          ),
+          SizedBox(height: 8.h),
+          AppButton(
+            width: 1.sw,
+            onPressed: () {},
+            text: "Batal",
+            color: ColorConstants.slate[300],
           ),
         ],
       ),
