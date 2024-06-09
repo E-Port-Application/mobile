@@ -5,10 +5,12 @@ import 'package:eport/app/presentation/widgets/app_location.dart';
 import 'package:eport/app/presentation/widgets/app_search_select.dart';
 import 'package:eport/routes/app_route.dart';
 import 'package:eport/styles/color_constants.dart';
+import 'package:eport/styles/text_styles.dart';
 import 'package:eport/utils/show_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class PklPage extends GetView<PklController> {
   GlobalKey pklRef = GlobalKey();
@@ -41,8 +43,8 @@ class PklPage extends GetView<PklController> {
                 );
 
                 if (date != null) {
-                  // controller.form[element.id]!.text =
-                  //     DateFormat('dd MMMM yyyy').format(date);
+                  controller.form["tanggal"]!.text =
+                      DateFormat('dd MMMM yyyy').format(date);
                 }
               } catch (err) {
                 showAlert(err.toString());
@@ -74,7 +76,7 @@ class PklPage extends GetView<PklController> {
           ),
           SizedBox(height: 12.h),
           Obx(
-            () => AppSearchSelect<int>(
+            () => AppSearchSelect(
               options: controller.jenisPkl,
               show: controller.showPkl.value,
               onTogle: (e) {
@@ -97,7 +99,7 @@ class PklPage extends GetView<PklController> {
           ),
           SizedBox(height: 12.h),
           Obx(
-            () => AppSearchSelect<String>(
+            () => AppSearchSelect(
               options: controller.jenisPelanggaran,
               show: controller.showPelanggaran.value,
               onTogle: (e) {
@@ -120,7 +122,7 @@ class PklPage extends GetView<PklController> {
           ),
           SizedBox(height: 12.h),
           Obx(
-            () => AppSearchSelect<String>(
+            () => AppSearchSelect(
               options: controller.jenisTindakan,
               show: controller.showTindakan.value,
               onTogle: (e) {
@@ -150,15 +152,65 @@ class PklPage extends GetView<PklController> {
             placeholder: "Masukkan Jumlah Pelanggar",
           ),
           SizedBox(height: 12.h),
-          AppInput(
-            controller: TextEditingController(),
-            label: "Personil/Anggota Yang Berugas",
-            gap: 8.h,
-            placeholder: "Personil Yang Bertugas",
-            readOnly: true,
-            onTap: () {
-              Get.toNamed(AppRoute.personil);
-            },
+          Obx(
+            () => controller.personils.isEmpty
+                ? AppInput(
+                    controller: TextEditingController(),
+                    label: "Personil/Anggota Yang Berugas",
+                    gap: 8.h,
+                    placeholder: "Personil Yang Bertugas",
+                    readOnly: true,
+                    onTap: () {
+                      Get.toNamed(AppRoute.personil);
+                    },
+                  )
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        "Personil/Anggota Yang Berugas",
+                        style:
+                            body3BTextStyle(color: ColorConstants.slate[700]),
+                      ),
+                      SizedBox(height: 12.h),
+                      ...controller.personils
+                          .map(
+                            (data) => Container(
+                              margin: EdgeInsets.only(bottom: 6.h),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(8.w),
+                                border: Border.all(
+                                  color: ColorConstants.slate[300]!,
+                                ),
+                              ),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 14.w, vertical: 13.h),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  data.name,
+                                  style: body3TextStyle(),
+                                ),
+                              ),
+                            ),
+                          )
+                          .toList(),
+                      SizedBox(height: 4.h),
+                      GestureDetector(
+                        onTap: () {
+                          Get.toNamed(AppRoute.personil);
+                        },
+                        child: Text(
+                          "Lihat ${controller.personils.length} personil lainnya",
+                          style: body3TextStyle(
+                            color: ColorConstants.info[50],
+                          ),
+                          textAlign: TextAlign.end,
+                        ),
+                      ),
+                    ],
+                  ),
           ),
           SizedBox(height: 12.h),
           AppInput(

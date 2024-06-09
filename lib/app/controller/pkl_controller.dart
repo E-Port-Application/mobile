@@ -1,52 +1,30 @@
+import 'package:eport/app/models/db/laporan_type/laporan_type_model.dart';
 import 'package:eport/app/presentation/widgets/app_radio.dart';
+import 'package:eport/app/presentation/widgets/app_search_dropdown.dart';
+import 'package:eport/app/repository/laporan_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+class A<T> extends RadioProps<T> {
+  final String? a;
+
+  const A({required super.label, required super.value, this.a = ""});
+}
 
 class PklController extends GetxController {
   static PklController get i => Get.find<PklController>();
   Rx<Offset> pklOffset = Rx<Offset>(Offset.zero);
   RxBool showPkl = false.obs;
-  RxnInt selectedPkl = RxnInt();
-  List<RadioProps<int>> jenisPkl = [
-    RadioProps(label: "Lapak", value: 0),
-    RadioProps(label: "Penjual Bermobil", value: 1),
-    RadioProps(label: "Penjual Bersepeda", value: 2),
-    RadioProps(label: "Penjual Bermotor", value: 3),
-    RadioProps(label: "Penjual Bermotor Roda 3", value: 4),
-    RadioProps(label: "Rombong", value: 5),
-    RadioProps(label: "Asongan", value: 6),
-    RadioProps(label: "Tenda", value: 7),
-    RadioProps(label: "Gerobak", value: 8),
-    RadioProps(label: "Becak", value: 9),
-    RadioProps(label: "Lesehan/Beberan", value: 10),
-  ].obs;
+  RxnString selectedPkl = RxnString();
+  RxList<LaporanTypeModel> jenisPkl = <LaporanTypeModel>[].obs;
 
   RxBool showTindakan = false.obs;
-  List<RadioProps<String>> jenisTindakan = [
-    RadioProps(label: "Peringatan Lisan", value: "peringatan-lisan"),
-    RadioProps(label: "Peringatan Tertulis", value: "peringatan-tertulis"),
-    RadioProps(label: "Dihalau", value: "dihalau"),
-    RadioProps(label: "Penyegelan", value: "penyegelan"),
-    RadioProps(label: "Penyitaan", value: "penyitaan"),
-    RadioProps(label: "Penguncian", value: "penguncian"),
-    RadioProps(label: "Penderekan", value: "penderekan"),
-    RadioProps(label: "Pemindahan", value: "pemindahan"),
-    RadioProps(label: "Pemberian Denda", value: "pemberian-denda"),
-    RadioProps(label: "Pembongkaran", value: "pembongkaran"),
-    RadioProps(label: "Tipiring", value: "tipiring"),
-  ].obs;
-  RxString selectedTindakan = "".obs;
+  RxList<LaporanTypeModel> jenisTindakan = <LaporanTypeModel>[].obs;
+  RxnString selectedTindakan = RxnString();
 
   RxBool showPelanggaran = false.obs;
-  List<RadioProps<String>> jenisPelanggaran = [
-    RadioProps(label: "Menggunakan Trotoar", value: "trotoal"),
-    RadioProps(label: "Jalan Raya", value: "jalan-raya"),
-    RadioProps(label: "Bahu Jalan", value: "bahu-jalan"),
-    RadioProps(label: "Diatas Gorong-Gorong", value: "gorong-gorong"),
-    RadioProps(label: "Diatas Irigasi", value: "irigasi"),
-    RadioProps(label: "Fasilitas Umum", value: "fasilitas-umum"),
-  ].obs;
-  RxString selectedPelanggaran = "".obs;
+  RxList<LaporanTypeModel> jenisPelanggaran = <LaporanTypeModel>[].obs;
+  RxnString selectedPelanggaran = RxnString();
 
   RxMap<String, TextEditingController> form = {
     "tanggal": TextEditingController(),
@@ -58,6 +36,40 @@ class PklController extends GetxController {
     "jumlahPelanggar": TextEditingController(),
     "keterangan": TextEditingController(),
   }.obs;
+  RxList<Personil> personils = RxList<Personil>();
+  RxList<Rx<Personil>> currentPersonil = RxList<Rx<Personil>>();
+
+  void getJenisPkl() async {
+    try {
+      var data = await LaporanRepository.getJenisPkl();
+      jenisPkl.value = data;
+      jenisPkl.refresh();
+    } catch (_) {}
+  }
+
+  void getPelanggaranPkl() async {
+    try {
+      var data = await LaporanRepository.getPelanggaranPkl();
+      jenisPelanggaran.value = data;
+      jenisPelanggaran.refresh();
+    } catch (_) {}
+  }
+
+  void getTindakanPkl() async {
+    try {
+      var data = await LaporanRepository.getTindakanPkl();
+      jenisTindakan.value = data;
+      jenisTindakan.refresh();
+    } catch (_) {}
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    getJenisPkl();
+    getTindakanPkl();
+    getPelanggaranPkl();
+  }
 
   void getOffset(GlobalKey ref) {
     RenderBox box = ref.currentContext!.findRenderObject() as RenderBox;

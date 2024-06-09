@@ -68,6 +68,7 @@ class DefaultFirebaseOptions {
 final auth = FirebaseAuth.instance;
 final FirebaseFirestore store = FirebaseFirestore.instance;
 final userRef = store.collection("users");
+final jenisPklRef = store.collection("jenis-pkl");
 
 // Storage
 final storage = FirebaseStorage.instance.ref();

@@ -1,3 +1,4 @@
+import 'package:eport/app/controller/pkl_controller.dart';
 import 'package:eport/app/presentation/widgets/app_search_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -5,7 +6,7 @@ import 'package:get/get.dart';
 class PersonilController extends GetxController {
   static PersonilController get i => Get.find<PersonilController>();
 
-  RxBool show = false.obs;
+  RxBool show = true.obs;
   TextEditingController searchInput = TextEditingController();
   RxList<Personil> selectedPersonil = RxList();
   RxList<Rx<Personil>> personils = [
@@ -39,11 +40,20 @@ class PersonilController extends GetxController {
     anggotas.value = tempRx;
   }
 
+  void copyData() {
+    if (PklController.i.personils.isEmpty) {
+      return;
+    }
+    selectedPersonil.value = PklController.i.personils;
+    personils.value = PklController.i.currentPersonil;
+  }
+
   @override
   void onInit() {
     super.onInit();
     getKomando();
     getAnggota();
+    copyData();
   }
 
   void handleAddPersonil(Personil data,
@@ -82,5 +92,11 @@ class PersonilController extends GetxController {
     selectedPersonil.refresh();
   }
 
-  void handleSave() {}
+  void handleSave() {
+    PklController.i.personils.clear();
+    PklController.i.personils.value = selectedPersonil;
+    PklController.i.currentPersonil.clear();
+    PklController.i.currentPersonil.value = personils;
+    Get.back();
+  }
 }

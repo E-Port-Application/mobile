@@ -126,7 +126,7 @@ class PersonilPage extends GetView<PersonilController> {
                 .toList(),
             SizedBox(height: 32.h),
             Text(
-              "Anggota",
+              "Pasukan",
               style: body3TextStyle(
                 weight: FontWeight.w500,
                 color: ColorConstants.slate[600],
