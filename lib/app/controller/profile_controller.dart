@@ -3,7 +3,6 @@ import 'package:eport/app/models/common/profile/profile_model.dart';
 import 'package:eport/app/presentation/view/variant.dart';
 import 'package:eport/app/presentation/widgets/app_loading.dart';
 import 'package:eport/firebase_options.dart';
-import 'package:eport/routes/app_route.dart';
 import 'package:eport/utils/convert_json.dart';
 import 'package:eport/utils/show_alert.dart';
 import 'package:firebase_auth/firebase_auth.dart';

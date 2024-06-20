@@ -45,7 +45,7 @@ class AppInput extends StatefulWidget {
     this.onTap,
     this.textInputAction,
     this.readOnly = false,
-    this.autovalidateMode,
+    this.autovalidateMode = AutovalidateMode.onUserInteraction,
     this.padding,
     this.hint,
     this.prefixConstraints,
@@ -194,6 +194,8 @@ class _AppInputState extends State<AppInput> {
                     style: body5BTextStyle(
                       color: Colors.red[400],
                     ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   )
                 : widget.hint != null
                     ? Text(

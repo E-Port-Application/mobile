@@ -46,7 +46,6 @@ class _LaporanFilterState extends State<LaporanFilter> {
     setState(() {
       Offset offsetTemp = box.localToGlobal(Offset.zero);
       offsetButton = offsetTemp;
-      print("offsetTemp $offsetTemp");
     });
   }
 

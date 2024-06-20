@@ -31,6 +31,15 @@ class InputPersonil extends StatelessWidget {
                   parameters: {'id': id},
                 );
               },
+              validator: (e) {
+                if (e == null) {
+                  return "Personil tidak boleh kosong";
+                }
+                if (e.isEmpty) {
+                  return "Personil tidak boleh kosong";
+                }
+                return null;
+              },
             )
           : Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,

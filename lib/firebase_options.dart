@@ -66,7 +66,12 @@ class DefaultFirebaseOptions {
 }
 
 final auth = FirebaseAuth.instance;
-final FirebaseFirestore store = FirebaseFirestore.instance;
+FirebaseFirestore store = FirebaseFirestore.instance;
+// store.settings = const Settings(persistenceEnabled: true);
+void a() {
+  store.settings = const Settings(persistenceEnabled: true);
+}
+
 final userRef = store.collection("users");
 final jenisPklRef = store.collection("jenis-pkl");
 

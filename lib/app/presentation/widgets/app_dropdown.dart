@@ -156,7 +156,6 @@ class _AppDropdownState<T> extends State<AppDropdown<T>> {
               ),
               onChanged: !widget.isDisabled
                   ? (T? e) {
-                      print(e);
                       setState(() {
                         if (e != null) {
                           value = e;

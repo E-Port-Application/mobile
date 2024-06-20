@@ -164,7 +164,7 @@ class _AppSearchSelectState<T> extends State<AppSearchSelect<T>> {
                       child: AppButton(
                         onPressed: currentValue != null
                             ? () {
-                                widget.onSave(currentValue!);
+                                widget.onSave(currentValue as T);
                               }
                             : null,
                         text: "Simpan",

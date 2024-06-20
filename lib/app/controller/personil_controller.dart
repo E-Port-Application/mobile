@@ -138,7 +138,6 @@ class PersonilController extends GetxController {
     ctr1.value = selectedPersonil;
     ctr2.value = personils;
 
-    print('cokk ${Get.parameters["id"]}');
     Get.back();
   }
 }
