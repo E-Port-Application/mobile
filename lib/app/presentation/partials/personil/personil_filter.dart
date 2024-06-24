@@ -17,11 +17,13 @@ class PersonilFilter extends StatelessWidget {
         Row(
           children: [
             Expanded(
-              child: SearchDropdown(
-                onClick: (e) {
-                  controller.handleAddPersonil(e.personil, isSearch: true);
-                },
-                options: controller.personils,
+              child: Obx(
+                () => SearchDropdown(
+                  onClick: (e) {
+                    controller.handleAddPersonil(e.personil, isSearch: true);
+                  },
+                  options: controller.personils.value,
+                ),
               ),
             ),
             SizedBox(width: 8.w),

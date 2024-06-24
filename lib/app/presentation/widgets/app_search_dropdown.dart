@@ -29,8 +29,8 @@ class _SearchDropdownState extends State<SearchDropdown> {
   TextEditingController searchInput = TextEditingController();
   bool show = false;
   bool opacityShow = false;
-  late List<PersonilState> options;
-  late List<PersonilState> filteredOptions;
+  List<PersonilState> options = <PersonilState>[];
+  List<PersonilState> filteredOptions = <PersonilState>[];
   GlobalKey ref = GlobalKey();
   Offset offset = Offset.zero;
   Size size = Size(0, 0);
@@ -45,6 +45,15 @@ class _SearchDropdownState extends State<SearchDropdown> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       getOffset(ref);
+    });
+  }
+
+  @override
+  void didUpdateWidget(covariant SearchDropdown oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    setState(() {
+      options = widget.options.map((e) => e.value).toList();
+      filteredOptions = options;
     });
   }
 

@@ -8,11 +8,14 @@ class PersonilModel {
   final bool komando;
   final String? regu;
 
-  const PersonilModel({
+  bool hadir = false;
+
+  PersonilModel({
     required this.id,
     required this.komando,
     required this.name,
     this.regu,
+    this.hadir = false,
   });
 
   factory PersonilModel.fromJson(Map<String, dynamic> json) =>

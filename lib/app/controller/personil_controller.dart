@@ -49,6 +49,7 @@ class PersonilController extends GetxController {
                 isSelected: false,
               )))
           .toList();
+      personils.refresh();
       komandos.value = data[1]
           .map((e) => Rx<PersonilState>(PersonilState(
                 personil: e,

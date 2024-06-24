@@ -42,8 +42,6 @@ class PklModel extends LaporanBase implements ModelFactory {
     required super.personils,
     required this.createdAt,
     required this.updatedAt,
-    super.komando,
-    super.anggota,
     this.jenis,
     this.pelanggaran,
     this.tindakan,

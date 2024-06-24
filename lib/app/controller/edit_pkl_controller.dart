@@ -107,6 +107,7 @@ class EditPklController extends GetxController {
       form['alamat-pelanggar']!.text = pklData.alamatPelanggar ?? "";
       imageUrl.value = pklData.image;
       jenisKelamin.value = pklData.jenisKelamin;
+      personils.value = pklData.personils;
     } catch (_) {}
   }
 

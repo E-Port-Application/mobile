@@ -15,8 +15,6 @@ class LaporanBase {
   String? image;
 
   List<PersonilModel> personils;
-  List<PersonilModel>? komando;
-  List<PersonilModel>? anggota;
 
   LaporanBase({
     required this.waktuMulai,
@@ -24,8 +22,6 @@ class LaporanBase {
     required this.id,
     required this.tanggal,
     required this.personils,
-    this.komando,
-    this.anggota,
     this.image,
   });
 }

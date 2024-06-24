@@ -12,6 +12,7 @@ PersonilModel _$PersonilModelFromJson(Map<String, dynamic> json) =>
       komando: json['komando'] as bool,
       name: json['name'] as String,
       regu: json['regu'] as String?,
+      hadir: json['hadir'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$PersonilModelToJson(PersonilModel instance) =>
@@ -20,4 +21,5 @@ Map<String, dynamic> _$PersonilModelToJson(PersonilModel instance) =>
       'name': instance.name,
       'komando': instance.komando,
       'regu': instance.regu,
+      'hadir': instance.hadir,
     };

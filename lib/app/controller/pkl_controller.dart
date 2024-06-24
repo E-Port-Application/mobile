@@ -133,21 +133,12 @@ class PklController extends GetxController {
         showLoadingDialog(Get.context!, isLoading);
         final formJson = formConverter(form);
         List<PersonilModel> personils = <PersonilModel>[];
-        List<PersonilModel> komando = <PersonilModel>[];
-        List<PersonilModel> anggota = <PersonilModel>[];
 
         for (var personil in this.personils) {
           personils.add(personil);
-          if (personil.komando) {
-            komando.add(personil);
-          } else {
-            anggota.add(personil);
-          }
         }
 
         formJson['personils'] = personils.map((e) => e.toJson()).toList();
-        formJson['komando'] = komando.map((e) => e.toJson()).toList();
-        formJson['anggota'] = anggota.map((e) => e.toJson()).toList();
         formJson['id'] = "dummy-id";
 
         final data = PklModel.fromJson(formJson);
