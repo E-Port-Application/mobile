@@ -12,6 +12,8 @@ typedef ToggleCallback = void Function(bool show);
 typedef OnSearch = void Function(String value);
 typedef OnSave<T> = void Function(T value);
 
+typedef Validator = String? Function(String?)?;
+
 class AppSearchSelect<T> extends StatefulWidget {
   final bool show;
   final ToggleCallback onTogle;
@@ -21,6 +23,7 @@ class AppSearchSelect<T> extends StatefulWidget {
   final List<RadioProps<T>> options;
   final OnSave<T> onSave;
   final T? value;
+  final Validator? validator;
 
   const AppSearchSelect({
     super.key,
@@ -31,6 +34,7 @@ class AppSearchSelect<T> extends StatefulWidget {
     this.label,
     this.placeholder,
     this.value,
+    this.validator,
     required this.onSave,
   });
 
@@ -203,6 +207,7 @@ class _AppSearchSelectState<T> extends State<AppSearchSelect<T>> {
           widget.onTogle(true);
         },
         placeholder: widget.placeholder ?? "",
+        validator: widget.validator,
       ),
     );
   }

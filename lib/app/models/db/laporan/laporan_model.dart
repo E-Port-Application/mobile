@@ -8,12 +8,15 @@ class LaporanModel implements ModelFactory {
   final String id;
   final String type;
   final bool progress;
+
+  final DateTime date;
   Object? data;
 
   LaporanModel({
     required this.id,
     required this.type,
     required this.progress,
+    required this.date,
     this.data,
   });
 

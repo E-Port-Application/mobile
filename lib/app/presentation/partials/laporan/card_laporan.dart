@@ -1,11 +1,13 @@
 import 'package:eport/app/models/db/laporan/laporan_model.dart';
 import 'package:eport/app/models/db/pkl/pkl_model.dart';
 import 'package:eport/app/presentation/widgets/app_button.dart';
+import 'package:eport/routes/app_route.dart';
 import 'package:eport/styles/color_constants.dart';
 import 'package:eport/styles/text_styles.dart';
 import 'package:eport/utils/show_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class CardLaporan extends StatefulWidget {
@@ -122,7 +124,9 @@ class _CardLaporanState extends State<CardLaporan> {
           Align(
             alignment: Alignment.topRight,
             child: AppButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.toNamed(AppRoute.laporanPkl(widget.data.id));
+              },
               text: "Buat Laporan Kegiatan",
               padding: EdgeInsets.symmetric(horizontal: 12.w),
               textStyle: body6BTextStyle(color: Colors.white),

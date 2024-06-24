@@ -252,18 +252,22 @@ class PklPage extends GetView<PklController> {
           keyboardType: TextInputType.number,
         ),
         SizedBox(height: 12.h),
-        AppDropdown<String>(
-          items: [
-            AppDropdownItem(text: "Laki-Laki", value: "laki-laki"),
-            AppDropdownItem(text: "Perempuan", value: "perempuan"),
-          ],
-          label: "Jenis Kelamin",
-          placeholder: "Input Jenis Kelamin",
-          onChanged: (e) {
-            if (e != null) {
-              controller.form['jenis-kelamin']!.text = e;
-            }
-          },
+        Obx(
+          () => AppDropdown<String>(
+            items: [
+              AppDropdownItem(text: "Laki-Laki", value: "laki-laki"),
+              AppDropdownItem(text: "Perempuan", value: "perempuan"),
+            ],
+            label: "Jenis Kelamin",
+            placeholder: "Input Jenis Kelamin",
+            value: controller.jenisKelamin.value,
+            onChanged: (e) {
+              if (e != null) {
+                controller.form['jenis-kelamin']!.text = e;
+                controller.jenisKelamin.value = e;
+              }
+            },
+          ),
         ),
         SizedBox(height: 12.h),
         AppInput(

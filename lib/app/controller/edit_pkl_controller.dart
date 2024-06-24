@@ -10,22 +10,21 @@ import 'package:eport/app/repository/laporan_repository.dart';
 import 'package:eport/firebase_options.dart';
 import 'package:eport/utils/filepicker_handler.dart';
 import 'package:eport/utils/form_converter.dart';
+import 'package:eport/utils/get_id.dart';
 import 'package:eport/utils/show_alert.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
-class PklController extends GetxController {
-  static PklController get i => Get.find<PklController>();
+class EditPklController extends GetxController {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   Rx<Offset> pklOffset = Rx<Offset>(Offset.zero);
   RxBool showPkl = false.obs;
   RxnString selectedPkl = RxnString();
   RxList<LaporanTypeModel> jenisPkl = <LaporanTypeModel>[].obs;
-
-  RxInt formPhase = 1.obs;
 
   RxBool showTindakan = false.obs;
   RxList<LaporanTypeModel> jenisTindakan = <LaporanTypeModel>[].obs;
@@ -55,8 +54,6 @@ class PklController extends GetxController {
       text: DateTime.now().toString(),
     ),
   }.obs;
-
-  RxnString jenisKelamin = RxnString();
 
   RxList<Personil> personils = RxList<Personil>();
   RxList<Rx<Personil>> currentPersonil = RxList<Rx<Personil>>();
@@ -88,12 +85,38 @@ class PklController extends GetxController {
     } catch (_) {}
   }
 
+  Rxn<PklModel> data = Rxn<PklModel>(null);
+  DateFormat dateFormat = DateFormat("dd MMMM yyyy");
+  final DateFormat timeFormat = DateFormat.Hm();
+
+  void getData() async {
+    try {
+      final pklData = await LaporanRepository.getPklDetail(getId());
+      data.value = pklData;
+      form['tanggal']!.text = dateFormat.format(pklData.tanggal);
+      form['waktu-mulai']!.text = timeFormat.format(pklData.waktuMulai);
+      form['waktu-selesai']!.text = timeFormat.format(pklData.waktuSelesai);
+      form['jenis']!.text = pklData.jenis ?? "";
+      form['pelanggaran']!.text = pklData.pelanggaran ?? "";
+      form['tindakan']!.text = pklData.tindakan ?? "";
+      form['jumlah-pelanggar']!.text =
+          (pklData.jumlahPelanggar ?? "").toString();
+      form['keterangan']!.text = pklData.keterangan ?? "";
+      form['nama-pelanggar']!.text = pklData.namaPelanggar ?? "";
+      form['nik-pelanggar']!.text = pklData.nikPelanggar ?? "";
+      form['jenis-kelamin']!.text = pklData.jenisKelamin ?? "";
+      form['alamat-pelanggar']!.text = pklData.alamatPelanggar ?? "";
+      imageUrl.value = pklData.image;
+    } catch (_) {}
+  }
+
   @override
   void onInit() {
     super.onInit();
     getJenisPkl();
     getTindakanPkl();
     getPelanggaranPkl();
+    getData();
   }
 
   void getOffset(GlobalKey ref) {
@@ -112,21 +135,11 @@ class PklController extends GetxController {
   }
 
   void cancel() {
-    if (formPhase.value == 1) {
-      Get.back();
-      return;
-    }
-    formPhase.value = 1;
+    Get.back();
   }
 
   RxBool isLoading = true.obs;
   void submit() async {
-    if (formPhase.value == 1) {
-      if (formKey.currentState!.validate()) {
-        formPhase.value = 2;
-      }
-      return;
-    }
     try {
       if (formKey.currentState!.validate()) {
         isLoading.value = true;
@@ -162,18 +175,17 @@ class PklController extends GetxController {
         }
 
         final laporanData = LaporanModel(
-                id: storedData.id,
-                type: "pkl",
-                progress: true,
-                data: null,
-                date: data.tanggal)
-            .toJson();
-
+          id: storedData.id,
+          type: "pkl",
+          progress: true,
+          data: null,
+          date: data.tanggal,
+        ).toJson();
         await laporanRef.doc(storedData.id).set(laporanData);
 
         await closeLoading(isLoading);
-        showAlert("Berhasil membaut Laporan PKL", isSuccess: true);
         Get.back();
+        showAlert("Berhasil membaut Laporan PKL", isSuccess: true);
       }
     } catch (err) {
       await closeLoading(isLoading);
@@ -182,6 +194,7 @@ class PklController extends GetxController {
   }
 
   Rxn<File> image = Rxn<File>();
+  RxnString imageUrl = RxnString();
 
   void uploadPhoto({bool isCamera = false}) async {
     try {
@@ -205,6 +218,10 @@ class PklController extends GetxController {
   }
 
   void removePhoto() {
+    if (imageUrl.value != null) {
+      imageUrl.value = null;
+      return;
+    }
     image.value = null;
   }
 }

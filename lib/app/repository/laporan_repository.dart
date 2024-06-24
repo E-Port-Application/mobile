@@ -26,7 +26,8 @@ class LaporanRepository {
 
   static Future<List<LaporanModel>> getProsesReport() async {
     try {
-      final laporanRef = store.collection("laporan");
+      final laporanRef =
+          store.collection("laporan").orderBy("date", descending: false);
 
       var laporans = await laporanRef.get();
       return (await Future.wait(
@@ -41,6 +42,17 @@ class LaporanRepository {
         ),
       ))
           .toList();
+    } catch (err) {
+      showAlert(err.toString());
+      rethrow;
+    }
+  }
+
+  static Future<PklModel> getPklDetail(String id) async {
+    try {
+      final pklRef = store.collection("pkl");
+      var data = await pklRef.doc(id).get();
+      return PklModel.fromJson(data.data()!);
     } catch (err) {
       showAlert(err.toString());
       rethrow;
