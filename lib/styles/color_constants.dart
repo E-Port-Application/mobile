@@ -47,6 +47,16 @@ class ColorConstants {
     70: Color(0xff047443),
     80: Color(0xff024E2D),
   };
+  static Map<int, Color> errors = {
+    10: Color(0xffFBCCCC),
+    20: Color(0xffF69999),
+    30: Color(0xffF26666),
+    40: Color(0xffED3333),
+    50: Color(0xffE90000),
+    60: Color(0xffBA0000),
+    70: Color(0xff8C0000),
+    80: Color(0xff5D0000),
+  };
 
   static Map<int, Gradient> gradient = {
     1: LinearGradient(

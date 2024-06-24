@@ -7,13 +7,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+enum PersonilVariant { create, edit, show }
+
 class InputPersonil extends StatelessWidget {
   final RxList<PersonilModel> personils;
   final String id;
-  const InputPersonil({
+  String docId;
+  PersonilVariant variant;
+  InputPersonil({
     super.key,
     required this.personils,
     required this.id,
+    this.variant = PersonilVariant.create,
+    this.docId = "",
   });
 
   @override
@@ -26,10 +32,16 @@ class InputPersonil extends StatelessWidget {
               placeholder: "Personil Yang Bertugas",
               readOnly: true,
               onTap: () {
-                Get.toNamed(
-                  AppRoute.personil,
-                  parameters: {'id': id},
-                );
+                if (variant == PersonilVariant.create) {
+                  Get.toNamed(
+                    AppRoute.personil,
+                    parameters: {'id': id},
+                  );
+                  return;
+                }
+                if (variant == PersonilVariant.edit) {
+                  // Get.toNamed(page)
+                }
               },
               validator: (e) {
                 if (e == null) {
@@ -75,10 +87,20 @@ class InputPersonil extends StatelessWidget {
                 SizedBox(height: 4.h),
                 GestureDetector(
                   onTap: () {
-                    Get.toNamed(
-                      AppRoute.personil,
-                      parameters: {'id': id},
-                    );
+                    if (variant == PersonilVariant.create) {
+                      Get.toNamed(
+                        AppRoute.personil,
+                        parameters: {'id': id},
+                      );
+                      return;
+                    }
+                    if (variant == PersonilVariant.edit) {
+                      Get.toNamed(
+                        AppRoute.laporanPersonil("pkl"),
+                        parameters: {"doc": docId},
+                      );
+                      return;
+                    }
                   },
                   child: Text(
                     "Lihat ${personils.length} personil lainnya",

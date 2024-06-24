@@ -22,7 +22,12 @@ class PersonilPage extends GetView<PersonilController> {
         () => Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            PersonilFilter(),
+            PersonilFilter(
+              handleAddPersonil: controller.handleAddPersonil,
+              handleSave: controller.handleSave,
+              personils: controller.personils,
+              disabled: controller.selectedPersonil.isEmpty,
+            ),
             SizedBox(height: 12.h),
             Container(
               decoration: BoxDecoration(
@@ -124,7 +129,7 @@ class PersonilPage extends GetView<PersonilController> {
                   ),
                 )
                 .toList(),
-            SizedBox(height: 32.h),
+            SizedBox(height: 16.h),
             Text(
               "Pasukan",
               style: body3TextStyle(

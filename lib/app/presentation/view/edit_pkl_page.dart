@@ -8,6 +8,7 @@ import 'package:eport/app/presentation/widgets/app_input.dart';
 import 'package:eport/app/presentation/widgets/app_location.dart';
 import 'package:eport/app/presentation/widgets/app_search_select.dart';
 import 'package:eport/styles/color_constants.dart';
+import 'package:eport/styles/text_styles.dart';
 import 'package:eport/utils/input_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -38,6 +39,24 @@ class EditPklPage extends GetView<EditPklController> {
                       uploadGallery: controller.uploadPhoto,
                     )
                   : Container(),
+              FormField(
+                validator: (_) {
+                  if (controller.imageUrl.value != null ||
+                      controller.image.value != null) {
+                    return null;
+                  }
+                  return "Media tidak boleh kosong";
+                },
+                builder: (state) {
+                  return Text(
+                    state.errorText ?? "",
+                    style: body3TextStyle(
+                      color: ColorConstants.error,
+                      weight: FontWeight.w500,
+                    ),
+                  );
+                },
+              ),
               SizedBox(height: 32.h),
               AppButton(
                 width: 1.sw,
@@ -266,7 +285,12 @@ class EditPklPage extends GetView<EditPklController> {
             },
           ),
           SizedBox(height: 12.h),
-          InputPersonil(personils: controller.personils, id: "pkl"),
+          InputPersonil(
+            personils: controller.personils,
+            id: "pkl",
+            variant: PersonilVariant.edit,
+            docId: "pkl/${controller.data.value?.id}",
+          ),
           SizedBox(height: 12.h),
           AppInput(
             controller: controller.form['keterangan']!,
@@ -288,15 +312,19 @@ class EditPklPage extends GetView<EditPklController> {
       children: [
         AppInput(
           controller: controller.form['nama-pelanggar']!,
-          label: "Nama Pelanggar",
+          label: "Nama Pelanggar *",
           placeholder: "Input Nama Pelanggar",
+          validator: (e) {
+            return inputValidator(e, "Nama pelanggar");
+          },
         ),
         SizedBox(height: 12.h),
         AppInput(
           controller: controller.form['nik-pelanggar']!,
-          label: "NIK Pelanggar",
+          label: "NIK Pelanggar *",
           placeholder: "Input NIK Pelanggar",
           keyboardType: TextInputType.number,
+          validator: controller.nikValidator,
         ),
         SizedBox(height: 12.h),
         AppDropdown<String>(
@@ -307,6 +335,9 @@ class EditPklPage extends GetView<EditPklController> {
           label: "Jenis Kelamin",
           placeholder: "Input Jenis Kelamin",
           value: controller.jenisKelamin.value,
+          validator: (e) {
+            return inputValidator(e, "Jenis kelamin");
+          },
           onChanged: (e) {
             if (e != null) {
               controller.form['jenis-kelamin']!.text = e;
@@ -316,9 +347,12 @@ class EditPklPage extends GetView<EditPklController> {
         SizedBox(height: 12.h),
         AppInput(
           controller: controller.form['alamat-pelanggar']!,
-          label: "Alamat Lengkap Pelanggar",
+          label: "Alamat Lengkap Pelanggar *",
           placeholder: "Input Alamat Lengkap",
           maxLines: 4,
+          validator: (e) {
+            return inputValidator(e, "Alamat");
+          },
         )
       ],
     );

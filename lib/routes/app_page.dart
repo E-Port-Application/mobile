@@ -3,6 +3,7 @@ import 'package:eport/app/bindings/edit_laporan_bindings.dart';
 import 'package:eport/app/bindings/laporan_bindings.dart';
 import 'package:eport/app/bindings/profile_bindings.dart';
 import 'package:eport/app/controller/piket_page.dart';
+import 'package:eport/app/presentation/view/edit_personil_page.dart';
 import 'package:eport/app/presentation/view/edit_pkl_page.dart';
 import 'package:eport/app/presentation/view/kransos_page.dart';
 import 'package:eport/app/presentation/view/laporan_page.dart';
@@ -138,6 +139,12 @@ List<GetPage<dynamic>> appPage() {
       binding: LaporanBinding(),
       transition: Transition.rightToLeftWithFade,
     ),
+    GetPage(
+        name: AppRoute.laporanPersonil(":id"),
+        page: () => Portal(
+              child: EditPersonilPage(),
+            ),
+        binding: EditLaporanBinding()),
     GetPage(
       name: AppRoute.laporanPkl(":id"),
       page: () => Portal(child: EditPklPage()),

@@ -84,6 +84,16 @@ class EditPklController extends GetxController {
     } catch (_) {}
   }
 
+  String? nikValidator(String? e) {
+    if (e == null || e.isEmpty) {
+      return "NIK tidak boleh kosong";
+    }
+    if (e.length != 16) {
+      return "NIK tidak valid";
+    }
+    return null;
+  }
+
   Rxn<PklModel> data = Rxn<PklModel>(null);
   DateFormat dateFormat = DateFormat("dd MMMM yyyy");
   final DateFormat timeFormat = DateFormat.Hm();
