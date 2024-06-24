@@ -131,22 +131,23 @@ class PklController extends GetxController {
       if (formKey.currentState!.validate()) {
         isLoading.value = true;
         showLoadingDialog(Get.context!, isLoading);
-        isLoading.value = true;
         final formJson = formConverter(form);
-        List<String> personils = <String>[];
-        List<String> komando = <String>[];
-        List<String> anggota = <String>[];
+        List<PersonilModel> personils = <PersonilModel>[];
+        List<PersonilModel> komando = <PersonilModel>[];
+        List<PersonilModel> anggota = <PersonilModel>[];
+
         for (var personil in this.personils) {
-          personils.add(personil.name);
+          personils.add(personil);
           if (personil.komando) {
-            komando.add(personil.name);
+            komando.add(personil);
           } else {
-            anggota.add(personil.name);
+            anggota.add(personil);
           }
         }
-        formJson['personils'] = personils;
-        formJson['komando'] = komando;
-        formJson['anggota'] = anggota;
+
+        formJson['personils'] = personils.map((e) => e.toJson()).toList();
+        formJson['komando'] = komando.map((e) => e.toJson()).toList();
+        formJson['anggota'] = anggota.map((e) => e.toJson()).toList();
         formJson['id'] = "dummy-id";
 
         final data = PklModel.fromJson(formJson);
@@ -187,6 +188,7 @@ class PklController extends GetxController {
         Get.back();
       }
     } catch (err) {
+      print(err.toString());
       await closeLoading(isLoading);
       showAlert(err.toString());
     }

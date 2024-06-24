@@ -1,4 +1,5 @@
 import 'package:eport/app/models/db/laporan/laporan_base.dart';
+import 'package:eport/app/models/db/personil/personil_model.dart';
 import 'package:eport/services/api/sources/model_factory.dart';
 import 'package:json_annotation/json_annotation.dart';
 

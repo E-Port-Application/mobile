@@ -1,3 +1,4 @@
+import 'package:eport/app/models/db/personil/personil_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 @JsonSerializable()
@@ -13,9 +14,9 @@ class LaporanBase {
 
   String? image;
 
-  List<String> personils;
-  List<String>? komando;
-  List<String>? anggota;
+  List<PersonilModel> personils;
+  List<PersonilModel>? komando;
+  List<PersonilModel>? anggota;
 
   LaporanBase({
     required this.waktuMulai,

@@ -43,6 +43,7 @@ class LaporanRepository {
       ))
           .toList();
     } catch (err) {
+      print(err.toString());
       showAlert(err.toString());
       rethrow;
     }
