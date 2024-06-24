@@ -16,10 +16,6 @@ class FilteredCard extends StatelessWidget {
           style: body2BTextStyle(),
         ),
         SizedBox(height: 8.h),
-        CardLaporan(),
-        CardLaporan(),
-        CardLaporan(),
-        CardLaporan(),
       ],
     );
   }

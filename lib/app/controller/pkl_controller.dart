@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:eport/app/models/db/laporan/laporan_model.dart';
 import 'package:eport/app/models/db/laporan_type/laporan_type_model.dart';
 import 'package:eport/app/models/db/pkl/pkl_model.dart';
 import 'package:eport/app/presentation/widgets/app_loading.dart';
@@ -139,6 +140,7 @@ class PklController extends GetxController {
         final data = PklModel.fromJson(formJson);
 
         final pklRef = store.collection("pkl");
+        final laporanRef = store.collection("laporan");
         var storedData = await pklRef.add(data.toJson());
 
         if (image.value != null) {
@@ -156,6 +158,15 @@ class PklController extends GetxController {
           formJson['image'] = imageUrl;
           await storedData.set(formJson);
         }
+
+        final laporanData = LaporanModel(
+          id: storedData.id,
+          type: "pkl",
+          progress: true,
+          data: null,
+        ).toJson();
+        await laporanRef.doc(storedData.id).set(laporanData);
+
         await closeLoading(isLoading);
         Get.back();
         showAlert("Berhasil membaut Laporan PKL", isSuccess: true);

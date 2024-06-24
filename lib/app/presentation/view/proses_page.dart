@@ -1,7 +1,6 @@
-import 'package:eport/app/presentation/partials/laporan/filtered_card.dart';
+import 'package:eport/app/presentation/partials/laporan/card_laporan.dart';
 import 'package:eport/app/presentation/partials/laporan/laporan_filter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:eport/app/controller/proses_controller.dart';
 
@@ -10,20 +9,19 @@ class ProsesPage extends GetView<ProsesController> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Obx(
-          () => LaporanFilter(
+    return Obx(
+      () => Column(
+        children: [
+          LaporanFilter(
             activities: controller.activities,
             onReset: controller.onReset,
             onActivity: controller.onActivity,
             value: controller.selectedActivity.value,
+            data: controller.datas,
           ),
-        ),
-        SizedBox(height: 20.h),
-        FilteredCard(),
-        FilteredCard(),
-      ],
+          ...controller.datas.map((data) => CardLaporan(data: data)),
+        ],
+      ),
     );
   }
 }

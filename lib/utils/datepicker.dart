@@ -28,8 +28,8 @@ void datePicker(TextEditingController controller) async {
 void timePicker(TextEditingController controller) async {
   try {
     TimeOfDay initialTime = TimeOfDay.now();
+    final DateFormat format = DateFormat.Hm();
     if (controller.text != "") {
-      final DateFormat format = DateFormat.Hm();
       final currentTime = format.parse(controller.text);
       initialTime =
           TimeOfDay(hour: currentTime.hour, minute: currentTime.minute);
@@ -40,9 +40,17 @@ void timePicker(TextEditingController controller) async {
     );
 
     if (date != null) {
-      controller.text = date.format(Get.context!);
+      var formattedDate = date.toDateTime();
+      var formattedTime = format.format(formattedDate);
+      controller.text = formattedTime;
     }
   } catch (err) {
     showAlert(err.toString());
+  }
+}
+
+extension TOD on TimeOfDay {
+  DateTime toDateTime() {
+    return DateTime(1, 1, 1, hour, minute);
   }
 }

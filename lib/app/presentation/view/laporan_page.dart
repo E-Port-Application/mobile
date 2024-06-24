@@ -1,5 +1,6 @@
 import 'package:eport/app/controller/laporan_controller.dart';
 import 'package:eport/app/presentation/partials/laporan/laporan_scaffold.dart';
+import 'package:eport/app/presentation/view/proses_page.dart';
 import 'package:eport/app/presentation/view/rencana_page.dart';
 import 'package:eport/app/presentation/view/riwayat_page.dart';
 import 'package:eport/app/presentation/widgets/scrollable_constraints.dart';
@@ -30,6 +31,13 @@ class LaporanPage extends GetView<LaporanController> {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                 child: RencanaPage(),
+              ),
+            ),
+            ScrollableConstraints(
+              physics: BouncingScrollPhysics(),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                child: ProsesPage(),
               ),
             ),
             ScrollableConstraints(

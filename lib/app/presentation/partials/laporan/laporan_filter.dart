@@ -1,5 +1,5 @@
 import 'package:eport/app/models/common/activity/activity_model.dart';
-import 'package:eport/app/presentation/partials/laporan/filtered_card.dart';
+import 'package:eport/app/models/db/laporan/laporan_model.dart';
 import 'package:eport/app/presentation/widgets/app_input.dart';
 import 'package:eport/app/presentation/widgets/popover.dart';
 import 'package:eport/styles/color_constants.dart';
@@ -15,12 +15,14 @@ class LaporanFilter extends StatefulWidget {
   final ActivityCallback onActivity;
   final List<ActivityModel> activities;
   final ActivityModel? value;
+  final List<LaporanModel> data;
 
   const LaporanFilter({
     super.key,
     required this.onReset,
     required this.onActivity,
     required this.activities,
+    required this.data,
     this.value,
   });
 
@@ -58,7 +60,7 @@ class _LaporanFilterState extends State<LaporanFilter> {
             Expanded(
               child: AppInput(
                 controller: TextEditingController(),
-                placeholder: "Cari Laporan Disini",
+                placeholder: "Cari laporan kegiatan disini",
                 suffixIcon: Icon(Icons.search),
               ),
             ),
@@ -221,7 +223,7 @@ class _LaporanFilterState extends State<LaporanFilter> {
                   vertical: 7.h,
                 ),
                 child: Text(
-                  "Total Seluruh Laporan : 4",
+                  "Total Seluruh Laporan : ${widget.data.length}",
                   style: body5BTextStyle(),
                 ),
               ),
@@ -246,8 +248,6 @@ class _LaporanFilterState extends State<LaporanFilter> {
           ],
         ),
         SizedBox(height: 20.h),
-        FilteredCard(),
-        FilteredCard(),
       ],
     );
   }
