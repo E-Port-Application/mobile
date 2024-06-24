@@ -1,13 +1,13 @@
-import 'package:eport/app/presentation/widgets/app_search_dropdown.dart';
+import 'package:eport/app/models/db/personil/personil_model.dart';
 import 'package:eport/styles/color_constants.dart';
 import 'package:eport/styles/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-typedef HandleTogle = void Function(Personil data);
+typedef HandleTogle = void Function(PersonilModel data);
 
 class CardPersonil extends StatelessWidget {
-  Personil data;
+  PersonilModel data;
   final HandleTogle? onRemove;
   final HandleTogle? onAdd;
   final bool state;

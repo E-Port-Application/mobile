@@ -1,18 +1,11 @@
+import 'package:eport/app/models/db/laporan/laporan_base.dart';
 import 'package:eport/services/api/sources/model_factory.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'pkl_model.g.dart';
 
 @JsonSerializable()
-class PklModel implements ModelFactory {
-  DateTime tanggal;
-
-  @JsonKey(name: "waktu-mulai")
-  DateTime waktuMulai;
-
-  @JsonKey(name: "waktu-selesai")
-  DateTime waktuSelesai;
-
+class PklModel extends LaporanBase implements ModelFactory {
   String? jenis;
   String? pelanggaran;
   String? tindakan;
@@ -20,9 +13,7 @@ class PklModel implements ModelFactory {
   @JsonKey(name: "jumlah-pelanggar")
   int? jumlahPelanggar;
 
-  List<String>? personils;
   String? keterangan;
-  String? image;
 
   @JsonKey(name: "nama-pelanggar")
   String? namaPelanggar;
@@ -43,18 +34,21 @@ class PklModel implements ModelFactory {
   DateTime? updatedAt;
 
   PklModel({
-    required this.tanggal,
-    required this.waktuMulai,
-    required this.waktuSelesai,
+    required super.tanggal,
+    required super.waktuMulai,
+    required super.waktuSelesai,
+    required super.id,
+    required super.personils,
     required this.createdAt,
     required this.updatedAt,
+    super.komando,
+    super.anggota,
     this.jenis,
     this.pelanggaran,
     this.tindakan,
     this.jumlahPelanggar,
-    this.personils,
     this.keterangan,
-    this.image,
+    super.image,
     this.alamatPelanggar,
     this.jenisKelamin,
     this.namaPelanggar,

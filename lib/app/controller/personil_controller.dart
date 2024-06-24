@@ -4,11 +4,10 @@ import 'package:eport/app/controller/perizinan_controller.dart';
 import 'package:eport/app/controller/piket_controller.dart';
 import 'package:eport/app/controller/pkl_controller.dart';
 import 'package:eport/app/controller/reklame_controller.dart';
-import 'package:eport/app/presentation/widgets/app_search_dropdown.dart';
+import 'package:eport/app/models/db/personil/personil_model.dart';
+import 'package:eport/app/repository/personil_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-class Bjir extends GetxController {}
 
 class PersonilController extends GetxController {
   static PersonilController get i => Get.find<PersonilController>();
@@ -36,78 +35,85 @@ class PersonilController extends GetxController {
 
   RxBool show = true.obs;
   TextEditingController searchInput = TextEditingController();
-  RxList<Personil> selectedPersonil = RxList();
-  RxList<Rx<Personil>> personils = [
-    Rx<Personil>(Personil(id: "1", name: "Fadli Hasan", isKomando: true)),
-    Rx<Personil>(Personil(id: "2", name: "Bintang Lazuardi")),
-    Rx<Personil>(Personil(id: "3", name: "Pak Handoyo")),
-    Rx<Personil>(Personil(id: "4", name: "Pak Budi")),
-    Rx<Personil>(Personil(id: "5", name: "Setjen Angkasa 2")),
-    Rx<Personil>(Personil(id: "6", name: "Roiyan Zain")),
-    Rx<Personil>(Personil(id: "7", name: "Tukang Bakso 5")),
-    Rx<Personil>(Personil(id: "8", name: "Pak Cak Man")),
-    Rx<Personil>(Personil(
-        id: "satrio", name: "Satrio Eko Laksono, Let.", isKomando: true)),
-    Rx<Personil>(
-        Personil(id: "prawobo", name: "Bridgen Prawobo", isKomando: true)),
-    Rx<Personil>(Personil(id: "aidit", name: "TNI Aidit", isKomando: true)),
-  ].obs;
+  RxList<PersonilModel> selectedPersonil = RxList();
+  RxList<Rx<PersonilState>> personils = RxList<Rx<PersonilState>>();
+  RxList<Rx<PersonilState>> komandos = RxList<Rx<PersonilState>>();
+  RxList<Rx<PersonilState>> anggotas = RxList<Rx<PersonilState>>();
 
-  RxList<Rx<Personil>> komandos = <Rx<Personil>>[].obs;
-  RxList<Rx<Personil>> anggotas = <Rx<Personil>>[].obs;
+  Future initData() async {
+    try {
+      var data = await PersonilRepository.getPersonels();
+      personils.value = data[0]
+          .map((e) => Rx<PersonilState>(PersonilState(
+                personil: e,
+                isSelected: false,
+              )))
+          .toList();
+      komandos.value = data[1]
+          .map((e) => Rx<PersonilState>(PersonilState(
+                personil: e,
+                isSelected: false,
+              )))
+          .toList();
+      anggotas.value = data[2]
+          .map((e) => Rx<PersonilState>(PersonilState(
+                personil: e,
+                isSelected: false,
+              )))
+          .toList();
+    } catch (_) {}
+  }
 
   void getKomando() {
-    var temp = personils.where((data) => data.value.isKomando).toList();
-    var tempRx = temp.map((e) => Rx<Personil>(e.value)).toList();
+    var temp = personils.where((data) => data.value.personil.komando).toList();
+    var tempRx = temp.map((e) => Rx<PersonilState>(e.value)).toList();
     komandos.value = tempRx;
   }
 
   void getAnggota() {
-    var temp = personils.where((data) => !data.value.isKomando).toList();
-    var tempRx = temp.map((e) => Rx<Personil>(e.value)).toList();
+    var temp = personils.where((data) => !data.value.personil.komando).toList();
+    var tempRx = temp.map((e) => Rx<PersonilState>(e.value)).toList();
     anggotas.value = tempRx;
   }
 
   void copyData() {
     final controller = controllers[Get.parameters["id"]]!;
-    final ctr1 = controller[0] as RxList<Personil>;
-    final ctr2 = controller[1] as RxList<Rx<Personil>>;
+    final ctr1 = controller[0] as RxList<PersonilModel>;
+    final ctr2 = controller[1] as RxList<Rx<PersonilState>>;
     if (ctr1.isEmpty) {
       return;
     }
 
     selectedPersonil.value = ctr1.map((e) => e).toList();
     personils.value = ctr2
-        .map((e) => Rx<Personil>(Personil(
-              id: e.value.id,
-              name: e.value.name,
-              isKomando: e.value.isKomando,
-              selected: e.value.selected,
-            )))
+        .map((e) => Rx<PersonilState>(PersonilState(
+            personil: e.value.personil, isSelected: e.value.isSelected)))
         .toList();
   }
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
+    await initData();
+
     copyData();
     getKomando();
     getAnggota();
   }
 
-  void handleAddPersonil(Personil data,
-      {Rx<Personil>? ref, bool? isSearch = false}) {
+  void handleAddPersonil(PersonilModel data,
+      {Rx<PersonilState>? ref, bool? isSearch = false}) {
     if (ref != null) {
-      ref.value.selected = true;
+      ref.value.isSelected = true;
     }
     var found = selectedPersonil.firstWhereOrNull((e) => e.id == data.id);
     if (found != null) {
       return;
     }
     if (isSearch!) {
-      Rx<Personil> p0 =
-          personils.firstWhere((element) => element.value.id == data.id);
-      p0.value.selected = true;
+      Rx<PersonilState> p0 = personils
+          .firstWhere((element) => element.value.personil.id == data.id);
+      p0.value.isSelected = true;
     }
 
     selectedPersonil.add(data);
@@ -115,17 +121,17 @@ class PersonilController extends GetxController {
   }
 
   void handleRemovePersonil(
-    Personil data, {
-    Rx<Personil>? ref,
+    PersonilModel data, {
+    Rx<PersonilState>? ref,
     bool isAnggota = false,
   }) {
     if (ref != null) {
-      ref.value.selected = false;
+      ref.value.isSelected = false;
     }
     if (isAnggota) {
-      Rx<Personil> p0 =
-          personils.firstWhere((element) => element.value.id == data.id);
-      p0.value.selected = false;
+      Rx<PersonilState> p0 = personils
+          .firstWhere((element) => element.value.personil.id == data.id);
+      p0.value.isSelected = false;
     }
     selectedPersonil.remove(data);
     selectedPersonil.refresh();
@@ -133,8 +139,8 @@ class PersonilController extends GetxController {
 
   void handleSave() {
     final controller = controllers[Get.parameters["id"]]!;
-    final ctr1 = controller[0] as RxList<Personil>;
-    final ctr2 = controller[1] as RxList<Rx<Personil>>;
+    final ctr1 = controller[0] as RxList<PersonilModel>;
+    final ctr2 = controller[1] as RxList<Rx<PersonilState>>;
     ctr1.value = selectedPersonil;
     ctr2.value = personils;
 

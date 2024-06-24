@@ -1,6 +1,6 @@
 import 'package:eport/app/models/db/laporan_type/laporan_type_model.dart';
+import 'package:eport/app/models/db/personil/personil_model.dart';
 import 'package:eport/app/presentation/widgets/app_radio.dart';
-import 'package:eport/app/presentation/widgets/app_search_dropdown.dart';
 import 'package:eport/app/repository/laporan_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,8 +28,8 @@ class PiketController extends GetxController {
   RxList<LaporanTypeModel> lokasi = <LaporanTypeModel>[].obs;
   RxnString selectedLokasi = RxnString();
 
-  RxList<Personil> personils = RxList<Personil>();
-  RxList<Rx<Personil>> currentPersonil = RxList<Rx<Personil>>();
+  RxList<PersonilModel> personils = RxList<PersonilModel>();
+  RxList<Rx<PersonilState>> currentPersonil = RxList<Rx<PersonilState>>();
 
   void handleSaveMenu<T>(T val, Rx<T> selected, RxBool show,
       List<RadioProps<T>> options, String formKey) {

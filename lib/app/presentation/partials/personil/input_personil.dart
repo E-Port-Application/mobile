@@ -1,5 +1,5 @@
+import 'package:eport/app/models/db/personil/personil_model.dart';
 import 'package:eport/app/presentation/widgets/app_input.dart';
-import 'package:eport/app/presentation/widgets/app_search_dropdown.dart';
 import 'package:eport/routes/app_route.dart';
 import 'package:eport/styles/color_constants.dart';
 import 'package:eport/styles/text_styles.dart';
@@ -8,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class InputPersonil extends StatelessWidget {
-  final RxList<Personil> personils;
+  final RxList<PersonilModel> personils;
   final String id;
   const InputPersonil({
     super.key,

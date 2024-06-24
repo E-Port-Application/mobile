@@ -19,7 +19,7 @@ class PersonilFilter extends StatelessWidget {
             Expanded(
               child: SearchDropdown(
                 onClick: (e) {
-                  controller.handleAddPersonil(e, isSearch: true);
+                  controller.handleAddPersonil(e.personil, isSearch: true);
                 },
                 options: controller.personils,
               ),

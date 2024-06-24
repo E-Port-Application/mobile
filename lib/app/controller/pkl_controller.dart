@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:eport/app/models/db/laporan/laporan_model.dart';
 import 'package:eport/app/models/db/laporan_type/laporan_type_model.dart';
+import 'package:eport/app/models/db/personil/personil_model.dart';
 import 'package:eport/app/models/db/pkl/pkl_model.dart';
 import 'package:eport/app/presentation/widgets/app_loading.dart';
 import 'package:eport/app/presentation/widgets/app_radio.dart';
-import 'package:eport/app/presentation/widgets/app_search_dropdown.dart';
 import 'package:eport/app/repository/laporan_repository.dart';
 import 'package:eport/firebase_options.dart';
 import 'package:eport/utils/filepicker_handler.dart';
@@ -58,8 +58,8 @@ class PklController extends GetxController {
 
   RxnString jenisKelamin = RxnString();
 
-  RxList<Personil> personils = RxList<Personil>();
-  RxList<Rx<Personil>> currentPersonil = RxList<Rx<Personil>>();
+  RxList<PersonilModel> personils = RxList<PersonilModel>();
+  RxList<Rx<PersonilState>> currentPersonil = RxList<Rx<PersonilState>>();
 
   void getJenisPkl() async {
     try {
@@ -134,10 +134,20 @@ class PklController extends GetxController {
         isLoading.value = true;
         final formJson = formConverter(form);
         List<String> personils = <String>[];
+        List<String> komando = <String>[];
+        List<String> anggota = <String>[];
         for (var personil in this.personils) {
           personils.add(personil.name);
+          if (personil.komando) {
+            komando.add(personil.name);
+          } else {
+            anggota.add(personil.name);
+          }
         }
         formJson['personils'] = personils;
+        formJson['komando'] = komando;
+        formJson['anggota'] = anggota;
+        formJson['id'] = "dummy-id";
 
         final data = PklModel.fromJson(formJson);
 
@@ -158,6 +168,7 @@ class PklController extends GetxController {
           );
           final imageUrl = await photo.getDownloadURL();
           formJson['image'] = imageUrl;
+          formJson['id'] = storedData.id;
           await storedData.set(formJson);
         }
 

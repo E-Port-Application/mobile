@@ -1,3 +1,4 @@
+import 'package:eport/app/models/db/personil/personil_model.dart';
 import 'package:eport/app/presentation/widgets/app_input.dart';
 import 'package:eport/app/presentation/widgets/scrollable_constraints.dart';
 import 'package:eport/styles/color_constants.dart';
@@ -9,23 +10,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-class Personil {
-  String id;
-  String name;
-  bool isKomando;
-  bool selected;
-  Personil({
-    required this.id,
-    required this.name,
-    this.isKomando = false,
-    this.selected = false,
-  });
-}
-
-typedef OnClick = void Function(Personil data);
+typedef OnClick = void Function(PersonilState data);
 
 class SearchDropdown extends StatefulWidget {
-  final List<Rx<Personil>> options;
+  final List<Rx<PersonilState>> options;
   final OnClick onClick;
   const SearchDropdown({
     super.key,
@@ -41,8 +29,8 @@ class _SearchDropdownState extends State<SearchDropdown> {
   TextEditingController searchInput = TextEditingController();
   bool show = false;
   bool opacityShow = false;
-  late List<Personil> options;
-  late List<Personil> filteredOptions;
+  late List<PersonilState> options;
+  late List<PersonilState> filteredOptions;
   GlobalKey ref = GlobalKey();
   Offset offset = Offset.zero;
   Size size = Size(0, 0);
@@ -90,8 +78,8 @@ class _SearchDropdownState extends State<SearchDropdown> {
 
   void handleFilter(String val) {
     String truncedVal = val.toLowerCase().removeAllWhitespace;
-    List<Personil> tempData = options.where((data) {
-      String truncedStr = data.name.toLowerCase().removeAllWhitespace;
+    List<PersonilState> tempData = options.where((data) {
+      String truncedStr = data.personil.name.toLowerCase().removeAllWhitespace;
       if (truncedStr.contains(truncedVal)) {
         return true;
       }
@@ -161,7 +149,7 @@ class _SearchDropdownState extends State<SearchDropdown> {
                                         child: Align(
                                           alignment: Alignment.centerLeft,
                                           child: Text(
-                                            e.name,
+                                            e.personil.name,
                                             style: body3TextStyle(),
                                           ),
                                         ),
@@ -198,7 +186,7 @@ class _SearchDropdownState extends State<SearchDropdown> {
       child: AppInput(
         key: ref,
         controller: searchInput,
-        placeholder: "Cari Nama Personil",
+        placeholder: "Cari Nama PersonilModel",
         suffixIcon: Icon(Icons.search),
         onChange: (e) {
           final debouncer = Debouncer(duration: Duration(milliseconds: 200));

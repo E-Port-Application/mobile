@@ -113,14 +113,14 @@ class PersonilPage extends GetView<PersonilController> {
             ...controller.komandos
                 .map(
                   (element) => CardPersonil(
-                    data: element.value,
+                    data: element.value.personil,
                     onRemove: (e) {
                       controller.handleRemovePersonil(e, ref: element);
                     },
                     onAdd: (e) {
                       controller.handleAddPersonil(e, ref: element);
                     },
-                    state: element.value.selected,
+                    state: element.value.isSelected,
                   ),
                 )
                 .toList(),
@@ -136,14 +136,14 @@ class PersonilPage extends GetView<PersonilController> {
             ...controller.anggotas
                 .map(
                   (element) => CardPersonil(
-                    data: element.value,
+                    data: element.value.personil,
                     onRemove: (e) {
                       controller.handleRemovePersonil(e, ref: element);
                     },
                     onAdd: (e) {
                       controller.handleAddPersonil(e, ref: element);
                     },
-                    state: element.value.selected,
+                    state: element.value.isSelected,
                   ),
                 )
                 .toList(),

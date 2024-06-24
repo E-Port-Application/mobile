@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:eport/app/models/db/laporan/laporan_model.dart';
 import 'package:eport/app/models/db/laporan_type/laporan_type_model.dart';
+import 'package:eport/app/models/db/personil/personil_model.dart';
 import 'package:eport/app/models/db/pkl/pkl_model.dart';
 import 'package:eport/app/presentation/widgets/app_loading.dart';
 import 'package:eport/app/presentation/widgets/app_radio.dart';
-import 'package:eport/app/presentation/widgets/app_search_dropdown.dart';
 import 'package:eport/app/repository/laporan_repository.dart';
 import 'package:eport/firebase_options.dart';
 import 'package:eport/utils/filepicker_handler.dart';
@@ -55,8 +55,7 @@ class EditPklController extends GetxController {
     ),
   }.obs;
 
-  RxList<Personil> personils = RxList<Personil>();
-  RxList<Rx<Personil>> currentPersonil = RxList<Rx<Personil>>();
+  RxList<PersonilModel> personils = RxList<PersonilModel>();
 
   void getJenisPkl() async {
     try {
@@ -107,8 +106,11 @@ class EditPklController extends GetxController {
       form['jenis-kelamin']!.text = pklData.jenisKelamin ?? "";
       form['alamat-pelanggar']!.text = pklData.alamatPelanggar ?? "";
       imageUrl.value = pklData.image;
+      jenisKelamin.value = pklData.jenisKelamin;
     } catch (_) {}
   }
+
+  RxnString jenisKelamin = RxnString();
 
   @override
   void onInit() {

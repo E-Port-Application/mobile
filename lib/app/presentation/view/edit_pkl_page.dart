@@ -306,6 +306,7 @@ class EditPklPage extends GetView<EditPklController> {
           ],
           label: "Jenis Kelamin",
           placeholder: "Input Jenis Kelamin",
+          value: controller.jenisKelamin.value,
           onChanged: (e) {
             if (e != null) {
               controller.form['jenis-kelamin']!.text = e;
