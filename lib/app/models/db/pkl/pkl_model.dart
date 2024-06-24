@@ -1,4 +1,3 @@
-import 'package:eport/app/presentation/widgets/app_radio.dart';
 import 'package:eport/services/api/sources/model_factory.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -25,10 +24,30 @@ class PklModel implements ModelFactory {
   String? keterangan;
   String? image;
 
+  @JsonKey(name: "nama-pelanggar")
+  String? namaPelanggar;
+
+  @JsonKey(name: "nik-pelanggar")
+  String? nikPelanggar;
+
+  @JsonKey(name: "jenis-kelamin")
+  String? jenisKelamin;
+
+  @JsonKey(name: "alamat-pelanggar")
+  String? alamatPelanggar;
+
+  @JsonKey(name: "created-at")
+  DateTime? createdAt;
+
+  @JsonKey(name: "updated-at")
+  DateTime? updatedAt;
+
   PklModel({
     required this.tanggal,
     required this.waktuMulai,
     required this.waktuSelesai,
+    required this.createdAt,
+    required this.updatedAt,
     this.jenis,
     this.pelanggaran,
     this.tindakan,
@@ -36,6 +55,10 @@ class PklModel implements ModelFactory {
     this.personils,
     this.keterangan,
     this.image,
+    this.alamatPelanggar,
+    this.jenisKelamin,
+    this.namaPelanggar,
+    this.nikPelanggar,
   });
 
   factory PklModel.fromJson(Map<String, dynamic> json) =>

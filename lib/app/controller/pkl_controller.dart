@@ -24,6 +24,8 @@ class PklController extends GetxController {
   RxnString selectedPkl = RxnString();
   RxList<LaporanTypeModel> jenisPkl = <LaporanTypeModel>[].obs;
 
+  RxInt formPhase = 1.obs;
+
   RxBool showTindakan = false.obs;
   RxList<LaporanTypeModel> jenisTindakan = <LaporanTypeModel>[].obs;
   RxnString selectedTindakan = RxnString();
@@ -41,6 +43,16 @@ class PklController extends GetxController {
     "tindakan": TextEditingController(),
     "jumlah-pelanggar": TextEditingController(),
     "keterangan": TextEditingController(),
+    "nama-pelanggar": TextEditingController(),
+    "nik-pelanggar": TextEditingController(),
+    "jenis-kelamin": TextEditingController(),
+    "alamat-pelanggar": TextEditingController(),
+    "created-at": TextEditingController(
+      text: DateTime.now().toString(),
+    ),
+    "updated-at": TextEditingController(
+      text: DateTime.now().toString(),
+    ),
   }.obs;
 
   RxList<Personil> personils = RxList<Personil>();
@@ -96,8 +108,22 @@ class PklController extends GetxController {
     }
   }
 
+  void cancel() {
+    if (formPhase.value == 1) {
+      Get.back();
+      return;
+    }
+    formPhase.value = 1;
+  }
+
   RxBool isLoading = true.obs;
   void submit() async {
+    if (formPhase.value == 1) {
+      if (formKey.currentState!.validate()) {
+        formPhase.value = 2;
+      }
+      return;
+    }
     try {
       if (formKey.currentState!.validate()) {
         isLoading.value = true;
@@ -130,11 +156,13 @@ class PklController extends GetxController {
           formJson['image'] = imageUrl;
           await storedData.set(formJson);
         }
+        await closeLoading(isLoading);
+        Get.back();
+        showAlert("Berhasil membaut Laporan PKL", isSuccess: true);
       }
     } catch (err) {
+      await closeLoading(isLoading);
       showAlert(err.toString());
-    } finally {
-      isLoading.value = false;
     }
   }
 

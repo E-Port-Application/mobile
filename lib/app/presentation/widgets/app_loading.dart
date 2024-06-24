@@ -35,3 +35,10 @@ void showLoadingDialog(
     },
   );
 }
+
+Future closeLoading(RxBool condition) async {
+  condition.value = false;
+  await Future.delayed(Duration(milliseconds: 10), () {
+    condition.value = true;
+  });
+}

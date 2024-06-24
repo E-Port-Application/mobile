@@ -22,7 +22,7 @@ class InputPersonil extends StatelessWidget {
       () => personils.isEmpty
           ? AppInput(
               controller: TextEditingController(),
-              label: "Personil/Anggota Yang Berugas",
+              label: "Personil/Anggota Yang Berugas *",
               placeholder: "Personil Yang Bertugas",
               readOnly: true,
               onTap: () {
