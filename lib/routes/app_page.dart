@@ -2,16 +2,19 @@ import 'package:eport/app/bindings/auth_bindings.dart';
 import 'package:eport/app/bindings/edit_laporan_bindings.dart';
 import 'package:eport/app/bindings/laporan_bindings.dart';
 import 'package:eport/app/bindings/profile_bindings.dart';
+import 'package:eport/app/bindings/riwayat_laporan_bindings.dart';
 import 'package:eport/app/controller/piket_page.dart';
-import 'package:eport/app/presentation/view/edit_personil_page.dart';
-import 'package:eport/app/presentation/view/edit_pkl_page.dart';
+import 'package:eport/app/presentation/view/personil/edit_personil_page.dart';
+import 'package:eport/app/presentation/view/personil/riwayat_personil_page.dart';
+import 'package:eport/app/presentation/view/pkl/edit_pkl_page.dart';
 import 'package:eport/app/presentation/view/kransos_page.dart';
 import 'package:eport/app/presentation/view/laporan_page.dart';
 import 'package:eport/app/presentation/view/notification_page.dart';
 import 'package:eport/app/presentation/view/pengamanan_page.dart';
 import 'package:eport/app/presentation/view/perizinan_page.dart';
-import 'package:eport/app/presentation/view/personil_page.dart';
-import 'package:eport/app/presentation/view/pkl_page.dart';
+import 'package:eport/app/presentation/view/personil/personil_page.dart';
+import 'package:eport/app/presentation/view/pkl/pkl_page.dart';
+import 'package:eport/app/presentation/view/pkl/riwayat_pkl_page.dart';
 import 'package:eport/app/presentation/view/reklame_page.dart';
 import 'package:eport/app/presentation/view/rencana_page.dart';
 import 'package:eport/app/presentation/view/profile_page.dart';
@@ -150,5 +153,19 @@ List<GetPage<dynamic>> appPage() {
       page: () => Portal(child: EditPklPage()),
       binding: EditLaporanBinding(),
     ),
+    GetPage(
+      name: AppRoute.riwayatPkl(":id"),
+      page: () => Portal(
+        child: RiwayatPklPage(),
+      ),
+      binding: RiwayatLaporanBinding(),
+    ),
+    GetPage(
+      name: AppRoute.riwayatPersonil(":id"),
+      page: () => Portal(
+        child: RiwayatPersonilPage(),
+      ),
+      binding: RiwayatLaporanBinding(),
+    )
   ];
 }

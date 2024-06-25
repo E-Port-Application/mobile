@@ -1,3 +1,4 @@
+import 'package:eport/app/models/db/laporan/laporan_base.dart';
 import 'package:eport/app/models/db/laporan/laporan_model.dart';
 import 'package:eport/app/models/db/pkl/pkl_model.dart';
 import 'package:eport/app/presentation/widgets/app_button.dart';
@@ -26,11 +27,13 @@ class _CardLaporanState extends State<CardLaporan> {
   Map<String, Object> dataType = {"pkl": PklModel};
   final DateFormat dateFormat = DateFormat("dd MMMM yyyy");
   final DateFormat timeFormat = DateFormat.Hm();
+  bool progress = false;
 
   @override
   void initState() {
     super.initState();
     setState(() {
+      progress = widget.data.progress;
       try {
         switch (widget.data.type) {
           case "pkl":
@@ -47,6 +50,10 @@ class _CardLaporanState extends State<CardLaporan> {
   Widget build(BuildContext context) {
     var data = laporanModel as PklModel;
 
+    return widget.data.progress ? _progressWidget(data) : _riwayatWidget(data);
+  }
+
+  Widget _progressWidget(LaporanBase data) {
     return Container(
       margin: EdgeInsets.only(bottom: 16.h),
       decoration: BoxDecoration(
@@ -68,8 +75,8 @@ class _CardLaporanState extends State<CardLaporan> {
                   child: data.image != null
                       ? Image.network(
                           data.image!,
-                          height: 80.h,
                           width: 85.w,
+                          height: 80.h,
                           fit: BoxFit.cover,
                         )
                       : Container(
@@ -120,19 +127,107 @@ class _CardLaporanState extends State<CardLaporan> {
               ],
             ),
           ),
-          SizedBox(height: 12.h),
-          Align(
-            alignment: Alignment.topRight,
-            child: AppButton(
-              onPressed: () {
-                Get.toNamed(AppRoute.laporanPkl(widget.data.id));
-              },
-              text: "Buat Laporan Kegiatan",
-              padding: EdgeInsets.symmetric(horizontal: 12.w),
-              textStyle: body6BTextStyle(color: Colors.white),
-            ),
-          ),
+          Column(
+            children: [
+              SizedBox(height: 12.h),
+              Align(
+                alignment: Alignment.topRight,
+                child: AppButton(
+                  onPressed: () {
+                    Get.toNamed(AppRoute.laporanPkl(widget.data.id));
+                  },
+                  text: "Buat Laporan Kegiatan",
+                  padding: EdgeInsets.symmetric(horizontal: 12.w),
+                  textStyle: body6BTextStyle(color: Colors.white),
+                ),
+              ),
+            ],
+          )
         ],
+      ),
+    );
+  }
+
+  Widget _riwayatWidget(LaporanBase data) {
+    return GestureDetector(
+      onTap: () {
+        Get.toNamed(AppRoute.riwayatPkl(widget.data.id));
+      },
+      child: Container(
+        margin: EdgeInsets.only(bottom: 16.h),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10.w),
+          boxShadow: [ColorConstants.shadow[2]!],
+        ),
+        padding: EdgeInsets.symmetric(
+          vertical: 16.h,
+          horizontal: 16.w,
+        ),
+        child: Column(
+          children: [
+            IntrinsicHeight(
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8.w),
+                    child: data.image != null
+                        ? Image.network(
+                            data.image!,
+                            width: 101.w,
+                            height: 101.h,
+                            fit: BoxFit.cover,
+                          )
+                        : Container(
+                            width: 101.w,
+                            height: 101.h,
+                            color: Colors.grey,
+                          ),
+                  ),
+                  SizedBox(width: 16.w),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          "Laporan PKL",
+                          style: body3BTextStyle(
+                            color: ColorConstants.slate[900],
+                          ),
+                        ),
+                        SizedBox(height: 3.h),
+                        Text(
+                          "Lokasi",
+                          style: body6BTextStyle(
+                            color: ColorConstants.primary[70],
+                          ),
+                        ),
+                        SizedBox(height: 4.h),
+                        Text(
+                          "${dateFormat.format(data.tanggal)} | ${timeFormat.format(data.waktuMulai)} WIB",
+                          style: body4TextStyle(
+                            color: ColorConstants.slate[500],
+                          ),
+                        ),
+                        Expanded(child: Container()),
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: Text(
+                            "Lihat Detail",
+                            style: body6BTextStyle(
+                              size: 9.sp,
+                              color: Color(0xff004FC6),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

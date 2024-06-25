@@ -1,4 +1,4 @@
-import 'package:eport/app/controller/personil_controller.dart';
+import 'package:eport/app/controller/personil/personil_controller.dart';
 import 'package:eport/app/presentation/partials/laporan/laporan_scaffold.dart';
 import 'package:eport/app/presentation/partials/personil/card_personil.dart';
 import 'package:eport/app/presentation/partials/personil/personil_filter.dart';

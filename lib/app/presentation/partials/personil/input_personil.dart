@@ -87,6 +87,13 @@ class InputPersonil extends StatelessWidget {
                 SizedBox(height: 4.h),
                 GestureDetector(
                   onTap: () {
+                    if (variant == PersonilVariant.show) {
+                      Get.toNamed(
+                        AppRoute.riwayatPersonil("pkl"),
+                        parameters: {"doc": docId},
+                      );
+                      return;
+                    }
                     if (variant == PersonilVariant.create) {
                       Get.toNamed(
                         AppRoute.personil,

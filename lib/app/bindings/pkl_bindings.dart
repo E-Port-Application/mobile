@@ -1,5 +1,5 @@
-import 'package:eport/app/controller/personil_controller.dart';
-import 'package:eport/app/controller/pkl_controller.dart';
+import 'package:eport/app/controller/personil/personil_controller.dart';
+import 'package:eport/app/controller/pkl/pkl_controller.dart';
 import 'package:get/get.dart';
 
 class PklBinding implements Bindings {

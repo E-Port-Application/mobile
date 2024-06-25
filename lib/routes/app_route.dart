@@ -41,4 +41,8 @@ class AppRoute {
   static String laporanReklame(String id) => "/laporan/kegiatan/reklame/$id";
 
   static String laporanPersonil(String id) => "/laporan/kegiatan/personil/$id";
+
+  static String riwayatPkl(String id) => "/laporan/riwayat/pkl/$id";
+
+  static String riwayatPersonil(String id) => "/laporan/riwayat/personil/$id";
 }

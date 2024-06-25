@@ -1,4 +1,4 @@
-import 'package:eport/app/controller/edit_pkl_controller.dart';
+import 'package:eport/app/controller/pkl/pkl_controller.dart';
 import 'package:eport/app/presentation/partials/laporan/laporan_scaffold.dart';
 import 'package:eport/app/presentation/partials/laporan/upload_photo.dart';
 import 'package:eport/app/presentation/partials/personil/input_personil.dart';
@@ -8,66 +8,38 @@ import 'package:eport/app/presentation/widgets/app_input.dart';
 import 'package:eport/app/presentation/widgets/app_location.dart';
 import 'package:eport/app/presentation/widgets/app_search_select.dart';
 import 'package:eport/styles/color_constants.dart';
-import 'package:eport/styles/text_styles.dart';
+import 'package:eport/utils/datepicker.dart';
 import 'package:eport/utils/input_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class EditPklPage extends GetView<EditPklController> {
-  EditPklPage({super.key});
+class PklPage extends GetView<PklController> {
   GlobalKey pklRef = GlobalKey();
+  PklPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return LaporanScaffold.detail(
-      title: "PKL / Laporan Kegiatan",
+      title: "PKL / Rencana Kegiatan",
       child: Form(
         key: controller.formKey,
         child: Obx(() {
+          int phase = controller.formPhase.value;
           return Column(
             children: [
-              formOne(),
-              SizedBox(height: 12.h),
-              formTwo(),
-              controller.image.value == null &&
-                      controller.imageUrl.value == null
-                  ? UploadPhoto(
-                      uploadCamera: () {
-                        controller.uploadPhoto(isCamera: true);
-                      },
-                      uploadGallery: controller.uploadPhoto,
-                    )
-                  : Container(),
-              FormField(
-                validator: (_) {
-                  if (controller.imageUrl.value != null ||
-                      controller.image.value != null) {
-                    return null;
-                  }
-                  return "Media tidak boleh kosong";
-                },
-                builder: (state) {
-                  return Text(
-                    state.errorText ?? "",
-                    style: body3TextStyle(
-                      color: ColorConstants.error,
-                      weight: FontWeight.w500,
-                    ),
-                  );
-                },
-              ),
-              SizedBox(height: 32.h),
+              phase == 1 ? formOne() : formTwo(),
+              SizedBox(height: 40.h),
               AppButton(
                 width: 1.sw,
                 onPressed: controller.submit,
-                text: "Buat Laporan Kegiatan",
+                text: phase == 1 ? "Selanjutnya" : "Buat Rencana Kegiatan",
               ),
               SizedBox(height: 14.h),
               AppButton(
                 width: 1.sw,
                 onPressed: controller.cancel,
-                text: "Kembali",
+                text: phase == 1 ? "Batal" : "Kembali",
                 color: ColorConstants.slate[300],
               ),
             ],
@@ -83,83 +55,43 @@ class EditPklPage extends GetView<EditPklController> {
         children: [
           AppLocation(),
           SizedBox(height: 12.h),
-          Obx(() {
-            if (controller.imageUrl.value != null) {
-              return Container(
-                margin: EdgeInsets.only(bottom: 16.h),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12.w),
-                ),
-                clipBehavior: Clip.antiAlias,
-                constraints: BoxConstraints(maxHeight: 240.h),
-                child: Stack(
-                  children: [
-                    Image.network(
-                      controller.imageUrl.value!,
-                      width: 1.sw,
-                      fit: BoxFit.cover,
-                    ),
-                    Positioned(
-                      top: 10.h,
-                      right: 12.w,
-                      child: GestureDetector(
-                        onTap: controller.removePhoto,
-                        child: Container(
-                          padding: EdgeInsets.all(2.w),
-                          decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(.3),
-                            borderRadius: BorderRadius.circular(20.w),
-                          ),
-                          child: Icon(
-                            Icons.close,
-                            color: Colors.black,
+          controller.image.value != null
+              ? Container(
+                  margin: EdgeInsets.only(bottom: 16.h),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12.w),
+                  ),
+                  clipBehavior: Clip.antiAlias,
+                  constraints: BoxConstraints(maxHeight: 240.h),
+                  child: Stack(
+                    children: [
+                      Image.file(
+                        controller.image.value!,
+                        width: 1.sw,
+                        fit: BoxFit.cover,
+                      ),
+                      Positioned(
+                        top: 10.h,
+                        right: 12.w,
+                        child: GestureDetector(
+                          onTap: controller.removePhoto,
+                          child: Container(
+                            padding: EdgeInsets.all(2.w),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(.3),
+                              borderRadius: BorderRadius.circular(20.w),
+                            ),
+                            child: Icon(
+                              Icons.close,
+                              color: Colors.black,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              );
-            }
-            if (controller.image.value != null) {
-              return Container(
-                margin: EdgeInsets.only(bottom: 16.h),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12.w),
-                ),
-                clipBehavior: Clip.antiAlias,
-                constraints: BoxConstraints(maxHeight: 240.h),
-                child: Stack(
-                  children: [
-                    Image.file(
-                      controller.image.value!,
-                      width: 1.sw,
-                      fit: BoxFit.cover,
-                    ),
-                    Positioned(
-                      top: 10.h,
-                      right: 12.w,
-                      child: GestureDetector(
-                        onTap: controller.removePhoto,
-                        child: Container(
-                          padding: EdgeInsets.all(2.w),
-                          decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(.3),
-                            borderRadius: BorderRadius.circular(20.w),
-                          ),
-                          child: Icon(
-                            Icons.close,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            }
-            return Container();
-          }),
+                    ],
+                  ),
+                )
+              : Container(),
           AppInput(
             controller: controller.form['tanggal']!,
             label: "Tanggal *",
@@ -167,6 +99,9 @@ class EditPklPage extends GetView<EditPklController> {
               Icons.calendar_month_outlined,
             ),
             readOnly: true,
+            onTap: () {
+              datePicker(controller.form['tanggal']!);
+            },
             placeholder: "DD/MM/YYYY",
             validator: (e) {
               return inputValidator(e, "Tanggal");
@@ -181,6 +116,9 @@ class EditPklPage extends GetView<EditPklController> {
                   label: "Waktu Mulai *",
                   placeholder: "Waktu ",
                   prefixIcon: Icon(Icons.access_time_outlined),
+                  onTap: () {
+                    timePicker(controller.form['waktu-mulai']!);
+                  },
                   readOnly: true,
                   validator: (e) {
                     return inputValidator(e, "Waktu mulai");
@@ -194,6 +132,9 @@ class EditPklPage extends GetView<EditPklController> {
                   label: "Waktu Selesai *",
                   placeholder: "Waktu ",
                   prefixIcon: Icon(Icons.access_time_outlined),
+                  onTap: () {
+                    timePicker(controller.form['waktu-selesai']!);
+                  },
                   readOnly: true,
                   validator: (e) {
                     return inputValidator(e, "Waktu selesai");
@@ -209,13 +150,10 @@ class EditPklPage extends GetView<EditPklController> {
             onTogle: (e) {
               controller.showPkl.value = e;
             },
-            label: "Jenis PKL *",
+            label: "Jenis PKL",
             placeholder: "Jenis PKL",
             controller: controller.form['jenis']!,
             value: controller.selectedPkl.value,
-            validator: (e) {
-              return inputValidator(e, "Jenis PKL");
-            },
             onSave: (data) {
               controller.handleSaveMenu(
                 data,
@@ -233,7 +171,7 @@ class EditPklPage extends GetView<EditPklController> {
             onTogle: (e) {
               controller.showPelanggaran.value = e;
             },
-            label: "Jenis Pelanggaran *",
+            label: "Jenis Pelanggaran",
             placeholder: "Jenis Pelanggaran",
             controller: controller.form['pelanggaran']!,
             value: controller.selectedPelanggaran.value,
@@ -245,9 +183,6 @@ class EditPklPage extends GetView<EditPklController> {
                 controller.jenisPelanggaran,
                 "pelanggaran",
               );
-            },
-            validator: (e) {
-              return inputValidator(e, "Jenis Pelanggaran");
             },
           ),
           SizedBox(height: 12.h),
@@ -270,9 +205,6 @@ class EditPklPage extends GetView<EditPklController> {
                 "tindakan",
               );
             },
-            validator: (e) {
-              return inputValidator(e, "Jenis Tindakan");
-            },
           ),
           SizedBox(height: 12.h),
           AppInput(
@@ -280,17 +212,9 @@ class EditPklPage extends GetView<EditPklController> {
             keyboardType: TextInputType.number,
             label: "Jumlah Pelanggar",
             placeholder: "Masukkan Jumlah Pelanggar",
-            validator: (e) {
-              return inputValidator(e, "Jumlah Pelanggar");
-            },
           ),
           SizedBox(height: 12.h),
-          InputPersonil(
-            personils: controller.personils,
-            id: "pkl",
-            variant: PersonilVariant.edit,
-            docId: "pkl/${controller.data.value?.id}",
-          ),
+          InputPersonil(personils: controller.personils, id: "pkl"),
           SizedBox(height: 12.h),
           AppInput(
             controller: controller.form['keterangan']!,
@@ -298,10 +222,15 @@ class EditPklPage extends GetView<EditPklController> {
             label: "Keterangan",
             placeholder: "Masukkan Keterangan",
             hint: "Tulis Keterangan dengan baik dan benar!",
-            validator: (e) {
-              return inputValidator(e, "Keterangan");
-            },
           ),
+          controller.image.value == null
+              ? UploadPhoto(
+                  uploadCamera: () {
+                    controller.uploadPhoto(isCamera: true);
+                  },
+                  uploadGallery: controller.uploadPhoto,
+                )
+              : Container(),
         ],
       ),
     );
@@ -312,48 +241,40 @@ class EditPklPage extends GetView<EditPklController> {
       children: [
         AppInput(
           controller: controller.form['nama-pelanggar']!,
-          label: "Nama Pelanggar *",
+          label: "Nama Pelanggar",
           placeholder: "Input Nama Pelanggar",
-          validator: (e) {
-            return inputValidator(e, "Nama pelanggar");
-          },
         ),
         SizedBox(height: 12.h),
         AppInput(
           controller: controller.form['nik-pelanggar']!,
-          label: "NIK Pelanggar *",
+          label: "NIK Pelanggar",
           placeholder: "Input NIK Pelanggar",
           keyboardType: TextInputType.number,
-          validator: controller.nikValidator,
         ),
         SizedBox(height: 12.h),
-        AppDropdown<String>(
-          items: [
-            AppDropdownItem(text: "Laki-Laki", value: "laki-laki"),
-            AppDropdownItem(text: "Perempuan", value: "perempuan"),
-          ],
-          label: "Jenis Kelamin",
-          placeholder: "Input Jenis Kelamin",
-          value: controller.jenisKelamin.value,
-          validator: (e) {
-            return inputValidator(e, "Jenis kelamin");
-          },
-          onChanged: (e) {
-            if (e != null) {
-              controller.form['jenis-kelamin']!.text = e;
-              controller.jenisKelamin.value = e;
-            }
-          },
+        Obx(
+          () => AppDropdown<String>(
+            items: [
+              AppDropdownItem(text: "Laki-Laki", value: "laki-laki"),
+              AppDropdownItem(text: "Perempuan", value: "perempuan"),
+            ],
+            label: "Jenis Kelamin",
+            placeholder: "Input Jenis Kelamin",
+            value: controller.jenisKelamin.value,
+            onChanged: (e) {
+              if (e != null) {
+                controller.form['jenis-kelamin']!.text = e;
+                controller.jenisKelamin.value = e;
+              }
+            },
+          ),
         ),
         SizedBox(height: 12.h),
         AppInput(
           controller: controller.form['alamat-pelanggar']!,
-          label: "Alamat Lengkap Pelanggar *",
+          label: "Alamat Lengkap Pelanggar",
           placeholder: "Input Alamat Lengkap",
           maxLines: 4,
-          validator: (e) {
-            return inputValidator(e, "Alamat");
-          },
         )
       ],
     );
