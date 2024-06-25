@@ -19,7 +19,9 @@ class ProsesController extends GetxController {
 
   void getData() async {
     try {
-      datas.value = await LaporanRepository.getProsesReport();
+      datas.value = await LaporanRepository.getReportData(
+        isProgress: true,
+      );
     } catch (_) {}
   }
 

@@ -28,7 +28,7 @@ class InputPersonil extends StatelessWidget {
       () => personils.isEmpty
           ? AppInput(
               controller: TextEditingController(),
-              label: "Personil/Anggota Yang Berugas *",
+              label: "Personil/Anggota Yang Bertugas *",
               placeholder: "Personil Yang Bertugas",
               readOnly: true,
               onTap: () {
@@ -57,7 +57,7 @@ class InputPersonil extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  "Personil/Anggota Yang Berugas",
+                  "Personil/Anggota Yang Bertugas",
                   style: body3BTextStyle(color: ColorConstants.slate[700]),
                 ),
                 SizedBox(height: 12.h),

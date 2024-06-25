@@ -10,11 +10,12 @@ class RiwayatPage extends GetView<RiwayatController> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // LaporanFilter(
-        //   onReset: controller.onReset,
-        //   onActivity: controller.onActivity,
-        //   activities: controller.activities,
-        // )
+        LaporanFilter(
+          onReset: controller.onReset,
+          onActivity: controller.onActivity,
+          activities: controller.activities,
+          data: controller.datas,
+        )
       ],
     );
   }

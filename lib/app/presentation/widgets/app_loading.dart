@@ -38,7 +38,7 @@ void showLoadingDialog(
 
 Future closeLoading(RxBool condition) async {
   condition.value = false;
-  await Future.delayed(Duration(milliseconds: 10), () {
+  await Future.delayed(Duration(milliseconds: 5), () {
     condition.value = true;
   });
 }

@@ -24,10 +24,13 @@ class LaporanRepository {
     }
   }
 
-  static Future<List<LaporanModel>> getProsesReport() async {
+  static Future<List<LaporanModel>> getReportData(
+      {required bool isProgress}) async {
     try {
-      final laporanRef =
-          store.collection("laporan").orderBy("date", descending: false);
+      final laporanRef = store
+          .collection("laporan")
+          .where("progress", isEqualTo: isProgress)
+          .orderBy("date", descending: false);
 
       var laporans = await laporanRef.get();
       return (await Future.wait(

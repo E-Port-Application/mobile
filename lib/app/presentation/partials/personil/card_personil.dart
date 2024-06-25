@@ -51,7 +51,7 @@ class CardPersonil extends StatelessWidget {
                   ? ColorConstants.success[10]
                   : Colors.white
               : data.hadir
-                  ? ColorConstants.success[20]
+                  ? ColorConstants.success[10]
                   : ColorConstants.errors[20],
           borderRadius: BorderRadius.circular(10.w),
           border: Border.all(color: ColorConstants.slate[300]!),
