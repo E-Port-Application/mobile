@@ -14,14 +14,14 @@ class LaporanBase {
 
   String? image;
 
-  List<PersonilModel> personils;
+  List<PersonilModel>? personils;
 
   LaporanBase({
     required this.waktuMulai,
     required this.waktuSelesai,
     required this.id,
     required this.tanggal,
-    required this.personils,
+    this.personils,
     this.image,
   });
 }

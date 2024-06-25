@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:eport/app/models/db/laporan/laporan_model.dart';
 import 'package:eport/app/models/db/laporan_type/laporan_type_model.dart';
 import 'package:eport/app/models/db/personil/personil_model.dart';
 import 'package:eport/app/models/db/pkl/pkl_model.dart';
@@ -47,9 +46,6 @@ class EditPklController extends GetxController {
     "nik-pelanggar": TextEditingController(),
     "jenis-kelamin": TextEditingController(),
     "alamat-pelanggar": TextEditingController(),
-    "created-at": TextEditingController(
-      text: DateTime.now().toString(),
-    ),
     "updated-at": TextEditingController(
       text: DateTime.now().toString(),
     ),
@@ -117,7 +113,7 @@ class EditPklController extends GetxController {
       form['alamat-pelanggar']!.text = pklData.alamatPelanggar ?? "";
       imageUrl.value = pklData.image;
       jenisKelamin.value = pklData.jenisKelamin;
-      personils.value = pklData.personils;
+      personils.value = pklData.personils ?? [];
     } catch (_) {}
   }
 
@@ -157,24 +153,20 @@ class EditPklController extends GetxController {
       if (formKey.currentState!.validate()) {
         isLoading.value = true;
         showLoadingDialog(Get.context!, isLoading);
-        isLoading.value = true;
+
         final formJson = formConverter(form);
-        List<String> personils = <String>[];
-        for (var personil in this.personils) {
-          personils.add(personil.name);
-        }
-        formJson['personils'] = personils;
-
-        final data = PklModel.fromJson(formJson);
-
-        final pklRef = store.collection("pkl");
-        final laporanRef = store.collection("laporan");
-        var storedData = await pklRef.add(data.toJson());
+        formJson['id'] = data.value!.id;
+        final pklRef = store.collection("pkl").doc(data.value!.id);
+        final laporanRef = store.collection("laporan").doc(data.value!.id);
+        formJson['nik-pelanggar'] = formJson['nik-pelanggar'].toString();
+        formJson['alamat-pelanggar'] = formJson['alamat-pelanggar'].toString();
+        formJson['nama-pelanggar'] = formJson['nama-pelanggar'].toString();
+        formJson['keterangan'] = formJson['keterangan'].toString();
 
         if (image.value != null) {
           var splittedFile = image.value!.path.split(".");
           final pklStorage = storage.child("laporan/pkl");
-          String fileName = "${storedData.id}.${splittedFile.last}";
+          String fileName = "${data.value!.id}.${splittedFile.last}";
           final photo = pklStorage.child(fileName);
           await photo.putFile(
             image.value!,
@@ -182,22 +174,13 @@ class EditPklController extends GetxController {
               contentType: "image/${splittedFile.last}",
             ),
           );
-          final imageUrl = await photo.getDownloadURL();
-          formJson['image'] = imageUrl;
-          await storedData.set(formJson);
+          final imageUrl = {"image": await photo.getDownloadURL()};
+          await pklRef.update(imageUrl);
         }
-
-        final laporanData = LaporanModel(
-          id: storedData.id,
-          type: "pkl",
-          progress: true,
-          data: null,
-          date: data.tanggal,
-        ).toJson();
-        await laporanRef.doc(storedData.id).set(laporanData);
+        await laporanRef.update({"progress": false});
+        await pklRef.update(formJson);
 
         await closeLoading(isLoading);
-        Get.back();
         showAlert("Berhasil membaut Laporan PKL", isSuccess: true);
       }
     } catch (err) {

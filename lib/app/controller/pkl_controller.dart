@@ -160,9 +160,10 @@ class PklController extends GetxController {
           );
           final imageUrl = await photo.getDownloadURL();
           formJson['image'] = imageUrl;
-          formJson['id'] = storedData.id;
           await storedData.set(formJson);
         }
+        var updateId = {"id": storedData.id};
+        await storedData.update(updateId);
 
         final laporanData = LaporanModel(
                 id: storedData.id,

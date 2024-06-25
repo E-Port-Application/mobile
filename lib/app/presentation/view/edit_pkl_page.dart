@@ -341,6 +341,7 @@ class EditPklPage extends GetView<EditPklController> {
           onChanged: (e) {
             if (e != null) {
               controller.form['jenis-kelamin']!.text = e;
+              controller.jenisKelamin.value = e;
             }
           },
         ),

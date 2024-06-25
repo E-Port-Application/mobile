@@ -1,8 +1,12 @@
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 
-Map<String, dynamic> formConverter(Map<String, TextEditingController> form) {
+Map<String, dynamic> formConverter(Map<String, TextEditingController> form,
+    {bool isCast = true}) {
   return form.map((key, value) {
+    if (!isCast) {
+      return MapEntry(key, value.text);
+    }
     DateFormat formatDate = DateFormat("dd MMMM yyyy");
     DateFormat formatTime = DateFormat.Hm();
     try {
