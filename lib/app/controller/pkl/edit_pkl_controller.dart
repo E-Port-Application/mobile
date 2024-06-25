@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:eport/app/controller/laporan_controller.dart';
 import 'package:eport/app/models/db/laporan_type/laporan_type_model.dart';
 import 'package:eport/app/models/db/personil/personil_model.dart';
 import 'package:eport/app/models/db/pkl/pkl_model.dart';
@@ -181,7 +182,9 @@ class EditPklController extends GetxController {
         await pklRef.update(formJson);
 
         await closeLoading(isLoading);
-        showAlert("Berhasil membaut Laporan PKL", isSuccess: true);
+        showAlert("Berhasil membuat Laporan PKL", isSuccess: true);
+        LaporanController.i.getData();
+        Get.back();
       }
     } catch (err) {
       await closeLoading(isLoading);

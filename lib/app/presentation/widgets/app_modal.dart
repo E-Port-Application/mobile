@@ -52,7 +52,7 @@ class AppModal extends StatelessWidget {
                           SizedBox(height: 8.h),
                           Text(
                             description!,
-                            style: body4TextStyle(color: Colors.black),
+                            style: body4TextStyle(),
                             textAlign: TextAlign.center,
                           ),
                         ],
@@ -74,6 +74,7 @@ class AppModal extends StatelessWidget {
                         variant: AppButtonVariant.secondary,
                         onPressed: onSecondary,
                         text: secondaryText,
+                        type: AppButtonType.outlined,
                         textStyle: body3BTextStyle(
                           color: ColorConstants.primary[70],
                         ),

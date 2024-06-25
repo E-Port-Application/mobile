@@ -3,9 +3,13 @@ import 'package:eport/app/controller/laporan_controller.dart';
 import 'package:eport/app/controller/pamwal_controller.dart';
 import 'package:eport/app/controller/pengamanan_controller.dart';
 import 'package:eport/app/controller/perizinan_controller.dart';
+import 'package:eport/app/controller/personil/edit_personil_controller.dart';
 import 'package:eport/app/controller/personil/personil_controller.dart';
+import 'package:eport/app/controller/personil/riwayat_personil_controller.dart';
 import 'package:eport/app/controller/piket_controller.dart';
+import 'package:eport/app/controller/pkl/edit_pkl_controller.dart';
 import 'package:eport/app/controller/pkl/pkl_controller.dart';
+import 'package:eport/app/controller/pkl/riwayat_pkl_controller.dart';
 import 'package:eport/app/controller/reklame_controller.dart';
 import 'package:eport/app/controller/rencana_controller.dart';
 import 'package:eport/app/controller/perkada_page_controller.dart';
@@ -34,5 +38,13 @@ class LaporanBinding implements Bindings {
     Get.lazyPut<PerizinanController>(() => PerizinanController());
 
     Get.lazyPut<PersonilController>(() => PersonilController());
+
+    // Edit Laporan
+    Get.lazyPut<EditPklController>(() => EditPklController());
+    Get.lazyPut<EditPersonilController>(() => EditPersonilController());
+
+    // Riwayat Laporan
+    Get.lazyPut<RiwayatPersonilController>(() => RiwayatPersonilController());
+    Get.lazyPut<RiwayatPklController>(() => RiwayatPklController());
   }
 }

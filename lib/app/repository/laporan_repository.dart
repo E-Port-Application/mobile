@@ -62,4 +62,16 @@ class LaporanRepository {
       rethrow;
     }
   }
+
+  static remove(String collection, String id) async {
+    try {
+      var a = storage.child("laporan/$collection/$id.jpg");
+      a.delete().then((_) {}).catchError((_) {});
+      await store.collection(collection).doc(id).delete();
+      await store.collection("laporan").doc(id).delete();
+    } catch (err) {
+      showAlert(err.toString());
+      rethrow;
+    }
+  }
 }

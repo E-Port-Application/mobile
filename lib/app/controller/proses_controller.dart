@@ -1,7 +1,6 @@
 import 'package:eport/app/controller/laporan_controller.dart';
 import 'package:eport/app/models/common/activity/activity_model.dart';
 import 'package:eport/app/models/db/laporan/laporan_model.dart';
-import 'package:eport/app/repository/laporan_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,9 +18,11 @@ class ProsesController extends GetxController {
 
   void getData() async {
     try {
-      datas.value = await LaporanRepository.getReportData(
-        isProgress: true,
-      );
+      LaporanController.i.getData();
+      LaporanController.i.prosesData.listen((p0) {
+        datas.value = p0;
+        datas.refresh();
+      });
     } catch (_) {}
   }
 

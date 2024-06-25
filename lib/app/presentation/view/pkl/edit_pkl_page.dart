@@ -1,4 +1,5 @@
 import 'package:eport/app/controller/pkl/edit_pkl_controller.dart';
+import 'package:eport/app/presentation/partials/edit_laporan/laporan_action.dart';
 import 'package:eport/app/presentation/partials/laporan/laporan_scaffold.dart';
 import 'package:eport/app/presentation/partials/laporan/upload_photo.dart';
 import 'package:eport/app/presentation/partials/personil/input_personil.dart';
@@ -6,9 +7,12 @@ import 'package:eport/app/presentation/widgets/app_button.dart';
 import 'package:eport/app/presentation/widgets/app_dropdown.dart';
 import 'package:eport/app/presentation/widgets/app_input.dart';
 import 'package:eport/app/presentation/widgets/app_location.dart';
+import 'package:eport/app/presentation/widgets/app_modal.dart';
 import 'package:eport/app/presentation/widgets/app_search_select.dart';
+import 'package:eport/app/repository/laporan_repository.dart';
 import 'package:eport/styles/color_constants.dart';
 import 'package:eport/styles/text_styles.dart';
+import 'package:eport/utils/get_id.dart';
 import 'package:eport/utils/input_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -58,12 +62,17 @@ class EditPklPage extends GetView<EditPklController> {
                 },
               ),
               SizedBox(height: 32.h),
+              LaporanAction(
+                onPdf: () {},
+                collection: "pkl",
+              ),
+              SizedBox(height: 20.h),
               AppButton(
                 width: 1.sw,
                 onPressed: controller.submit,
                 text: "Buat Laporan Kegiatan",
               ),
-              SizedBox(height: 14.h),
+              SizedBox(height: 10.h),
               AppButton(
                 width: 1.sw,
                 onPressed: controller.cancel,

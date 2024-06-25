@@ -24,10 +24,9 @@ void showLoadingDialog(
                   ),
                 ],
               ),
-              onWillPop: () async => false,
+              onWillPop: () async => true,
             );
           } else {
-            Get.back();
             return Container();
           }
         },
@@ -38,7 +37,8 @@ void showLoadingDialog(
 
 Future closeLoading(RxBool condition) async {
   condition.value = false;
-  await Future.delayed(Duration(milliseconds: 5), () {
+  await Future.delayed(Duration(milliseconds: 50), () {
+    Get.back();
     condition.value = true;
   });
 }

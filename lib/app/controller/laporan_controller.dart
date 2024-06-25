@@ -1,5 +1,7 @@
 import 'package:eport/app/models/common/activity/activity_model.dart';
 import 'package:eport/app/models/common/menu/laporan_menu_model.dart';
+import 'package:eport/app/models/db/laporan/laporan_model.dart';
+import 'package:eport/app/repository/laporan_repository.dart';
 import 'package:eport/utils/convert_json.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,14 +30,29 @@ class LaporanController extends GetxController {
     ),
   ]);
 
+  RxList<LaporanModel> prosesData = RxList<LaporanModel>();
+  RxList<LaporanModel> riwayatData = RxList<LaporanModel>();
+
   void getMenu() async {
     menu.value =
         await convertJson<LaporanMenuModel>("assets/data/menu_laporan.json");
+  }
+
+  void getData() async {
+    try {
+      prosesData.value = await LaporanRepository.getReportData(
+        isProgress: true,
+      );
+      riwayatData.value = await LaporanRepository.getReportData(
+        isProgress: false,
+      );
+    } catch (_) {}
   }
 
   @override
   void onInit() {
     super.onInit();
     getMenu();
+    getData();
   }
 }

@@ -2,10 +2,10 @@ import 'package:eport/app/models/db/laporan/laporan_base.dart';
 import 'package:eport/app/models/db/laporan/laporan_model.dart';
 import 'package:eport/app/models/db/pkl/pkl_model.dart';
 import 'package:eport/app/presentation/widgets/app_button.dart';
+import 'package:eport/app/presentation/widgets/app_shimmer.dart';
 import 'package:eport/routes/app_route.dart';
 import 'package:eport/styles/color_constants.dart';
 import 'package:eport/styles/text_styles.dart';
-import 'package:eport/utils/show_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -13,10 +13,27 @@ import 'package:intl/intl.dart';
 
 class CardLaporan extends StatefulWidget {
   final LaporanModel data;
-  const CardLaporan({
+  bool isLoading;
+
+  CardLaporan({
     super.key,
     required this.data,
+    this.isLoading = false,
   });
+
+  factory CardLaporan.loading() {
+    LaporanModel data = LaporanModel(
+      date: DateTime.now(),
+      id: "",
+      progress: false,
+      type: "",
+      data: null,
+    );
+    return CardLaporan(
+      data: data,
+      isLoading: true,
+    );
+  }
 
   @override
   State<CardLaporan> createState() => _CardLaporanState();
@@ -34,23 +51,109 @@ class _CardLaporanState extends State<CardLaporan> {
     super.initState();
     setState(() {
       progress = widget.data.progress;
-      try {
-        switch (widget.data.type) {
-          case "pkl":
-            laporanModel = widget.data.data as PklModel;
-            return;
-        }
-      } catch (err) {
-        showAlert(err.toString());
-      }
+      laporanModel = widget.data.data;
+    });
+  }
+
+  @override
+  void didUpdateWidget(covariant CardLaporan oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    setState(() {
+      laporanModel = widget.data.data;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    if (widget.isLoading) {
+      return _loadingWidget();
+    }
+    if (laporanModel == null) {
+      return _loadingWidget();
+    }
     var data = laporanModel as PklModel;
 
     return widget.data.progress ? _progressWidget(data) : _riwayatWidget(data);
+  }
+
+  Widget _loadingWidget() {
+    return AppShimmer.loading(
+      overlay: Container(
+        padding: EdgeInsets.symmetric(
+          vertical: 16.h,
+        ),
+        child: Column(
+          children: [
+            IntrinsicHeight(
+              child: Row(
+                children: [
+                  Container(
+                    width: 105.w,
+                    height: 105.h,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12.w),
+                    ),
+                  ),
+                  SizedBox(width: 16.w),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: 120.w,
+                          height: 22.h,
+                          margin: EdgeInsets.only(bottom: 4.h),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8.w),
+                          ),
+                        ),
+                        Container(
+                          width: 1.sw,
+                          height: 14.h,
+                          margin: EdgeInsets.only(bottom: 4.h),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8.w),
+                          ),
+                        ),
+                        Container(
+                          width: 1.sw,
+                          height: 12.h,
+                          margin: EdgeInsets.only(bottom: 4.h),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8.w),
+                          ),
+                        ),
+                        Container(
+                          width: 150.w,
+                          height: 12.h,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8.w),
+                          ),
+                        ),
+                        Expanded(child: Container()),
+                        Align(
+                          alignment: Alignment.bottomRight,
+                          child: Container(
+                            width: 100.w,
+                            height: 16.h,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget _progressWidget(LaporanBase data) {

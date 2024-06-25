@@ -6,12 +6,21 @@ class AppShimmer extends StatelessWidget {
   final Widget child;
   final Widget overlay;
   final bool show;
+
   const AppShimmer({
     super.key,
     this.show = true,
     required this.overlay,
     required this.child,
   });
+
+  factory AppShimmer.loading({required Widget overlay}) {
+    return AppShimmer(
+      overlay: overlay,
+      show: false,
+      child: Container(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

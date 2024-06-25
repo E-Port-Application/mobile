@@ -18,7 +18,13 @@ class RiwayatPage extends GetView<RiwayatController> {
             activities: controller.activities,
             data: controller.datas,
           ),
-          ...controller.datas.map((data) => CardLaporan(data: data)),
+          Column(
+            children: controller.datas.isEmpty
+                ? List.filled(5, 0).map((e) => CardLaporan.loading()).toList()
+                : controller.datas
+                    .map((data) => CardLaporan(data: data))
+                    .toList(),
+          ),
         ],
       ),
     );

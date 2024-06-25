@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:eport/app/controller/laporan_controller.dart';
 import 'package:eport/app/models/db/laporan/laporan_model.dart';
 import 'package:eport/app/models/db/laporan_type/laporan_type_model.dart';
 import 'package:eport/app/models/db/personil/personil_model.dart';
@@ -111,7 +112,7 @@ class PklController extends GetxController {
     }
   }
 
-  void cancel() {
+  void cancel() async {
     if (formPhase.value == 1) {
       Get.back();
       return;
@@ -129,7 +130,6 @@ class PklController extends GetxController {
     }
     try {
       if (formKey.currentState!.validate()) {
-        isLoading.value = true;
         showLoadingDialog(Get.context!, isLoading);
         final formJson = formConverter(form);
         List<PersonilModel> personils = <PersonilModel>[];
@@ -176,11 +176,12 @@ class PklController extends GetxController {
         await laporanRef.doc(storedData.id).set(laporanData);
 
         await closeLoading(isLoading);
-        showAlert("Berhasil membaut Laporan PKL", isSuccess: true);
+        await Future.delayed(Duration(milliseconds: 200));
+        showAlert("Berhasil membaut rencana kegiatan", isSuccess: true);
+        LaporanController.i.getData();
         Get.back();
       }
     } catch (err) {
-      print(err.toString());
       await closeLoading(isLoading);
       showAlert(err.toString());
     }

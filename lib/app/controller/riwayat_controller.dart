@@ -1,7 +1,6 @@
 import 'package:eport/app/controller/laporan_controller.dart';
 import 'package:eport/app/models/common/activity/activity_model.dart';
 import 'package:eport/app/models/db/laporan/laporan_model.dart';
-import 'package:eport/app/repository/laporan_repository.dart';
 import 'package:get/get.dart';
 
 class RiwayatController extends GetxController {
@@ -12,9 +11,11 @@ class RiwayatController extends GetxController {
 
   void getData() async {
     try {
-      datas.value = await LaporanRepository.getReportData(
-        isProgress: false,
-      );
+      LaporanController.i.getData();
+      LaporanController.i.riwayatData.listen((p0) {
+        datas.value = p0;
+        datas.refresh();
+      });
     } catch (_) {}
   }
 

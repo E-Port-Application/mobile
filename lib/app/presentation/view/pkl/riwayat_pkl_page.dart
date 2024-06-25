@@ -1,10 +1,12 @@
 import 'package:eport/app/controller/pkl/riwayat_pkl_controller.dart';
+import 'package:eport/app/presentation/partials/edit_laporan/laporan_action.dart';
 import 'package:eport/app/presentation/partials/laporan/laporan_scaffold.dart';
 import 'package:eport/app/presentation/partials/personil/input_personil.dart';
 import 'package:eport/app/presentation/widgets/app_button.dart';
 import 'package:eport/app/presentation/widgets/app_input.dart';
 import 'package:eport/app/presentation/widgets/app_location.dart';
 import 'package:eport/styles/color_constants.dart';
+import 'package:eport/styles/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -25,12 +27,17 @@ class RiwayatPklPage extends GetView<RiwayatPklController> {
               SizedBox(height: 12.h),
               formTwo(),
               SizedBox(height: 32.h),
+              LaporanAction(
+                onPdf: () {},
+                collection: "pkl",
+              ),
+              SizedBox(height: 20.h),
               AppButton(
                 width: 1.sw,
                 onPressed: controller.submit,
                 text: "Unduh Laporan Kegiatan",
               ),
-              SizedBox(height: 14.h),
+              SizedBox(height: 10.h),
               AppButton(
                 width: 1.sw,
                 onPressed: controller.cancel,

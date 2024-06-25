@@ -1,8 +1,6 @@
 import 'package:eport/app/bindings/auth_bindings.dart';
-import 'package:eport/app/bindings/edit_laporan_bindings.dart';
 import 'package:eport/app/bindings/laporan_bindings.dart';
 import 'package:eport/app/bindings/profile_bindings.dart';
-import 'package:eport/app/bindings/riwayat_laporan_bindings.dart';
 import 'package:eport/app/controller/piket_page.dart';
 import 'package:eport/app/presentation/view/personil/edit_personil_page.dart';
 import 'package:eport/app/presentation/view/personil/riwayat_personil_page.dart';
@@ -147,25 +145,25 @@ List<GetPage<dynamic>> appPage() {
         page: () => Portal(
               child: EditPersonilPage(),
             ),
-        binding: EditLaporanBinding()),
+        binding: LaporanBinding()),
     GetPage(
       name: AppRoute.laporanPkl(":id"),
       page: () => Portal(child: EditPklPage()),
-      binding: EditLaporanBinding(),
+      binding: LaporanBinding(),
     ),
     GetPage(
       name: AppRoute.riwayatPkl(":id"),
       page: () => Portal(
         child: RiwayatPklPage(),
       ),
-      binding: RiwayatLaporanBinding(),
+      binding: LaporanBinding(),
     ),
     GetPage(
       name: AppRoute.riwayatPersonil(":id"),
       page: () => Portal(
         child: RiwayatPersonilPage(),
       ),
-      binding: RiwayatLaporanBinding(),
+      binding: LaporanBinding(),
     )
   ];
 }
