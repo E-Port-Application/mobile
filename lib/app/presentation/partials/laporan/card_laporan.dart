@@ -63,6 +63,9 @@ class _CardLaporanState extends State<CardLaporan> {
         case "reklame":
           title = "Reklame";
           break;
+        case "kransos":
+          title = "Keransos";
+          break;
       }
     });
   }
@@ -79,12 +82,16 @@ class _CardLaporanState extends State<CardLaporan> {
         case "reklame":
           title = "Reklame";
           break;
+        case "kransos":
+          title = "Keransos";
+          break;
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    print(laporanModel);
     if (widget.isLoading) {
       return _loadingWidget();
     }
@@ -264,6 +271,21 @@ class _CardLaporanState extends State<CardLaporan> {
                       case "reklame":
                         Get.toNamed(AppRoute.laporanReklame(widget.data.id));
                         return;
+                      case "kransos":
+                        Get.toNamed(AppRoute.laporanKransos(widget.data.id));
+                        return;
+                      case "pengamanan":
+                        Get.toNamed(AppRoute.laporanPengamanan(widget.data.id));
+                        return;
+                      case "pamwal":
+                        Get.toNamed(AppRoute.laporanPamwal(widget.data.id));
+                        return;
+                      case "piket":
+                        Get.toNamed(AppRoute.laporanPiket(widget.data.id));
+                        return;
+                      case "perizinan":
+                        Get.toNamed(AppRoute.laporanPerizinan(widget.data.id));
+                        return;
                     }
                   },
                   text: "Buat Laporan Kegiatan",
@@ -287,6 +309,21 @@ class _CardLaporanState extends State<CardLaporan> {
             return;
           case "reklame":
             Get.toNamed(AppRoute.riwayatReklame(widget.data.id));
+            return;
+          case "kransos":
+            Get.toNamed(AppRoute.riwayatKransos(widget.data.id));
+            return;
+          case "pengamanan":
+            Get.toNamed(AppRoute.riwayatPengamanan(widget.data.id));
+            return;
+          case "pamwal":
+            Get.toNamed(AppRoute.riwayatPamwal(widget.data.id));
+            return;
+          case "piket":
+            Get.toNamed(AppRoute.riwayatPiket(widget.data.id));
+            return;
+          case "perizinan":
+            Get.toNamed(AppRoute.riwayatPerizinan(widget.data.id));
             return;
         }
       },

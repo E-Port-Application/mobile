@@ -169,6 +169,15 @@ List<GetPage<dynamic>> appPage() {
       binding: LaporanBinding(),
     ),
     GetPage(
+      name: AppRoute.laporanKransos(":id"),
+      page: () => Portal(
+        child: KransosPage(
+          type: LaporanType.update,
+        ),
+      ),
+      binding: LaporanBinding(),
+    ),
+    GetPage(
       name: AppRoute.riwayatPkl(":id"),
       page: () => Portal(
         child: RiwayatPklPage(),
@@ -179,6 +188,15 @@ List<GetPage<dynamic>> appPage() {
       name: AppRoute.riwayatReklame(":id"),
       page: () => Portal(
         child: ReklamePage(
+          type: LaporanType.history,
+        ),
+      ),
+      binding: LaporanBinding(),
+    ),
+    GetPage(
+      name: AppRoute.riwayatKransos(":id"),
+      page: () => Portal(
+        child: KransosPage(
           type: LaporanType.history,
         ),
       ),

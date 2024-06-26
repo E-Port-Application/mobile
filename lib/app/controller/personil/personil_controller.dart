@@ -18,7 +18,7 @@ class PersonilController extends GetxController {
       ReklameController.i.personils,
       ReklameController.i.currentPersonil
     ],
-    "keransos": [
+    "kransos": [
       KransosController.i.personils,
       KransosController.i.currentPersonil
     ],

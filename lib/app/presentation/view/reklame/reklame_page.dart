@@ -1,4 +1,6 @@
+import 'package:eport/app/controller/laporan_controller.dart';
 import 'package:eport/app/presentation/partials/edit_laporan/laporan_action.dart';
+import 'package:eport/app/presentation/partials/laporan/laporan_image.dart';
 import 'package:eport/app/presentation/partials/laporan/laporan_scaffold.dart';
 import 'package:eport/app/presentation/partials/laporan/upload_photo.dart';
 import 'package:eport/app/presentation/partials/personil/input_personil.dart';
@@ -34,32 +36,10 @@ class ReklamePage extends GetView<ReklameController> {
     }
   }
 
-  String _title() {
-    switch (type) {
-      case LaporanType.create:
-        return "Rencana";
-      case LaporanType.update:
-        return "Laporan";
-      default:
-        return "Riwayat";
-    }
-  }
-
-  String _buttonText() {
-    switch (type) {
-      case LaporanType.create:
-        return "Buat Rencana Kegiatan";
-      case LaporanType.update:
-        return "Buat Laporan Kegiatan";
-      default:
-        return "Unduh Laporan Kegiatan";
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return LaporanScaffold.detail(
-      title: "Reklame / ${_title()} Kegiatan",
+      title: "Reklame / ${LaporanController.i.title(type)} Kegiatan",
       child: Form(
         key: controller.formKey,
         child: Obx(
@@ -67,90 +47,11 @@ class ReklamePage extends GetView<ReklameController> {
             children: [
               AppLocation(),
               SizedBox(height: 12.h),
-              Obx(
-                () {
-                  if (controller.imageUrl.value != null) {
-                    return Container(
-                      margin: EdgeInsets.only(bottom: 16.h),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12.w),
-                      ),
-                      clipBehavior: Clip.antiAlias,
-                      constraints: BoxConstraints(maxHeight: 240.h),
-                      child: Stack(
-                        children: [
-                          Image.network(
-                            controller.imageUrl.value!,
-                            width: 1.sw,
-                            fit: BoxFit.cover,
-                          ),
-                          type != LaporanType.history
-                              ? Positioned(
-                                  top: 10.h,
-                                  right: 12.w,
-                                  child: GestureDetector(
-                                    onTap: controller.removePhoto,
-                                    child: Container(
-                                      padding: EdgeInsets.all(2.w),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white.withOpacity(.3),
-                                        borderRadius:
-                                            BorderRadius.circular(20.w),
-                                      ),
-                                      child: Icon(
-                                        Icons.close,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              : Container()
-                        ],
-                      ),
-                    );
-                  }
-                  if (controller.image.value != null) {
-                    return Container(
-                      margin: EdgeInsets.only(bottom: 16.h),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12.w),
-                      ),
-                      clipBehavior: Clip.antiAlias,
-                      constraints: BoxConstraints(maxHeight: 240.h),
-                      child: Stack(
-                        children: [
-                          Image.file(
-                            controller.image.value!,
-                            width: 1.sw,
-                            fit: BoxFit.cover,
-                          ),
-                          type != LaporanType.history
-                              ? Positioned(
-                                  top: 10.h,
-                                  right: 12.w,
-                                  child: GestureDetector(
-                                    onTap: controller.removePhoto,
-                                    child: Container(
-                                      padding: EdgeInsets.all(2.w),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white.withOpacity(.3),
-                                        borderRadius:
-                                            BorderRadius.circular(20.w),
-                                      ),
-                                      child: Icon(
-                                        Icons.close,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              : Container()
-                        ],
-                      ),
-                    );
-                  }
-                  return Container();
-                },
+              LaporanImage(
+                image: controller.image.value,
+                imageUrl: controller.imageUrl.value,
+                type: type,
+                removePhoto: controller.removePhoto,
               ),
               AppInput(
                 controller: controller.form['tanggal']!,
@@ -304,8 +205,8 @@ class ReklamePage extends GetView<ReklameController> {
               InputPersonil(
                 personils: controller.personils,
                 id: "reklame",
-                variant: _variant(),
                 docId: "reklame/${controller.data.value?.id}",
+                type: type,
               ),
               SizedBox(height: 12.h),
               AppInput(
@@ -364,7 +265,7 @@ class ReklamePage extends GetView<ReklameController> {
                       },
                     )
                   : Container(),
-              SizedBox(height: 20.h),
+              SizedBox(height: 32.h),
               type == LaporanType.update || type == LaporanType.history
                   ? LaporanAction(
                       onPdf: () {},
@@ -374,7 +275,7 @@ class ReklamePage extends GetView<ReklameController> {
               AppButton(
                 width: 1.sw,
                 onPressed: controller.submit,
-                text: _buttonText(),
+                text: LaporanController.i.buttonText(type),
               ),
               SizedBox(height: 8.h),
               AppButton(

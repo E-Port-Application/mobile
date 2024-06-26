@@ -1,5 +1,6 @@
 import 'package:eport/app/models/db/personil/personil_model.dart';
 import 'package:eport/app/presentation/widgets/app_input.dart';
+import 'package:eport/app/types/laporan_type.dart';
 import 'package:eport/routes/app_route.dart';
 import 'package:eport/styles/color_constants.dart';
 import 'package:eport/styles/text_styles.dart';
@@ -13,14 +14,26 @@ class InputPersonil extends StatelessWidget {
   final RxList<PersonilModel> personils;
   final String id;
   String docId;
-  PersonilVariant variant;
+  LaporanType type;
+
   InputPersonil({
     super.key,
     required this.personils,
     required this.id,
-    this.variant = PersonilVariant.create,
+    this.type = LaporanType.create,
     this.docId = "",
   });
+
+  PersonilVariant _variant() {
+    switch (type) {
+      case LaporanType.create:
+        return PersonilVariant.create;
+      case LaporanType.update:
+        return PersonilVariant.edit;
+      default:
+        return PersonilVariant.show;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +45,14 @@ class InputPersonil extends StatelessWidget {
               placeholder: "Personil Yang Bertugas",
               readOnly: true,
               onTap: () {
-                if (variant == PersonilVariant.create) {
+                if (_variant() == PersonilVariant.create) {
                   Get.toNamed(
                     AppRoute.personil,
                     parameters: {'id': id},
                   );
                   return;
                 }
-                if (variant == PersonilVariant.edit) {
+                if (_variant() == PersonilVariant.edit) {
                   // Get.toNamed(page)
                 }
               },
@@ -87,21 +100,21 @@ class InputPersonil extends StatelessWidget {
                 SizedBox(height: 4.h),
                 GestureDetector(
                   onTap: () {
-                    if (variant == PersonilVariant.show) {
+                    if (_variant() == PersonilVariant.show) {
                       Get.toNamed(
                         AppRoute.riwayatPersonil("pkl"),
                         parameters: {"doc": docId},
                       );
                       return;
                     }
-                    if (variant == PersonilVariant.create) {
+                    if (_variant() == PersonilVariant.create) {
                       Get.toNamed(
                         AppRoute.personil,
                         parameters: {'id': id},
                       );
                       return;
                     }
-                    if (variant == PersonilVariant.edit) {
+                    if (_variant() == PersonilVariant.edit) {
                       Get.toNamed(
                         AppRoute.laporanPersonil(id),
                         parameters: {"doc": docId},

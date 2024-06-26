@@ -5,6 +5,7 @@ import 'package:eport/app/presentation/partials/personil/input_personil.dart';
 import 'package:eport/app/presentation/widgets/app_button.dart';
 import 'package:eport/app/presentation/widgets/app_input.dart';
 import 'package:eport/app/presentation/widgets/app_location.dart';
+import 'package:eport/app/types/laporan_type.dart';
 import 'package:eport/styles/color_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -144,8 +145,8 @@ class RiwayatPklPage extends GetView<RiwayatPklController> {
           InputPersonil(
             personils: controller.personils,
             id: "pkl",
-            variant: PersonilVariant.show,
             docId: "pkl/${controller.data.value?.id}",
+            type: LaporanType.history,
           ),
           SizedBox(height: 12.h),
           AppInput(

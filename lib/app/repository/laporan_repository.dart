@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eport/app/controller/laporan_controller.dart';
+import 'package:eport/app/models/db/kransos/kransos_model.dart';
 import 'package:eport/app/models/db/laporan/laporan_model.dart';
 import 'package:eport/app/models/db/laporan_type/laporan_type_model.dart';
 import 'package:eport/app/models/db/personil/personil_model.dart';
@@ -55,6 +56,8 @@ class LaporanRepository {
               temp.data = PklModel.fromJson(data.data()!);
             } else if (temp.type == "reklame") {
               temp.data = ReklameModel.fromJson(data.data()!);
+            } else if (temp.type == "kransos") {
+              temp.data = KransosModel.fromJson(data.data()!);
             }
             return temp;
           },
@@ -134,6 +137,10 @@ class LaporanRepository {
           case "reklame":
             data = ReklameModel.fromJson(formJson);
             title = "Reklame";
+            break;
+          case "kransos":
+            data = KransosModel.fromJson(formJson);
+            title = "Keransos";
             break;
         }
 
@@ -218,6 +225,9 @@ class LaporanRepository {
           case "reklame":
             title = "Reklame";
             break;
+          case "kransos":
+            title = "Keransos";
+            break;
         }
 
         if (cast != null) {
@@ -225,6 +235,7 @@ class LaporanRepository {
             formJson[key] = formJson[key]?.toString();
           }
         }
+        print(formJson);
 
         final dataRef = store.collection(type);
         final laporanRef = store.collection("laporan");

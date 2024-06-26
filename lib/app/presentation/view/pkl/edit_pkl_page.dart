@@ -8,6 +8,7 @@ import 'package:eport/app/presentation/widgets/app_dropdown.dart';
 import 'package:eport/app/presentation/widgets/app_input.dart';
 import 'package:eport/app/presentation/widgets/app_location.dart';
 import 'package:eport/app/presentation/widgets/app_search_select.dart';
+import 'package:eport/app/types/laporan_type.dart';
 import 'package:eport/styles/color_constants.dart';
 import 'package:eport/styles/text_styles.dart';
 import 'package:eport/utils/input_validator.dart';
@@ -293,7 +294,7 @@ class EditPklPage extends GetView<EditPklController> {
           InputPersonil(
             personils: controller.personils,
             id: "pkl",
-            variant: PersonilVariant.edit,
+            type: LaporanType.update,
             docId: "pkl/${controller.data.value?.id}",
           ),
           SizedBox(height: 12.h),

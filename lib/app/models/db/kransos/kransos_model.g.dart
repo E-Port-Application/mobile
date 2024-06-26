@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'reklame_model.dart';
+part of 'kransos_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-ReklameModel _$ReklameModelFromJson(Map<String, dynamic> json) => ReklameModel(
+KransosModel _$KransosModelFromJson(Map<String, dynamic> json) => KransosModel(
       tanggal: DateTime.parse(json['tanggal'] as String),
       waktuMulai: DateTime.parse(json['waktu-mulai'] as String),
       waktuSelesai: DateTime.parse(json['waktu-selesai'] as String),
@@ -17,15 +17,13 @@ ReklameModel _$ReklameModelFromJson(Map<String, dynamic> json) => ReklameModel(
           ?.map((e) => PersonilModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       image: json['image'] as String?,
-      keterangan: json['keterangan'] as String?,
-      nama: json['nama'] as String?,
+      deskripsi: json['deskripsi-pelanggaran'] as String?,
+      jumlah: json['jumlah-pelanggar'] as int?,
+      tindakan: json['tindakan-pelanggaran'] as String?,
       jenis: json['jenis'] as String?,
-      pelanggaran: json['pelanggaran'] as String?,
-      jumlah: json['jumlah'] as int?,
-      tindakan: json['tindakan'] as String?,
-    );
+    )..keterangan = json['keterangan'] as String?;
 
-Map<String, dynamic> _$ReklameModelToJson(ReklameModel instance) =>
+Map<String, dynamic> _$KransosModelToJson(KransosModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'created-at': instance.createdAt.toIso8601String(),
@@ -36,9 +34,8 @@ Map<String, dynamic> _$ReklameModelToJson(ReklameModel instance) =>
       'image': instance.image,
       'personils': instance.personils?.map((e) => e.toJson()).toList(),
       'keterangan': instance.keterangan,
-      'nama': instance.nama,
       'jenis': instance.jenis,
-      'pelanggaran': instance.pelanggaran,
-      'jumlah': instance.jumlah,
-      'tindakan': instance.tindakan,
+      'deskripsi-pelanggaran': instance.deskripsi,
+      'tindakan-pelanggaran': instance.tindakan,
+      'jumlah-pelanggar': instance.jumlah,
     };

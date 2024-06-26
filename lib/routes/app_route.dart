@@ -40,10 +40,23 @@ class AppRoute {
   // Laporan Progress
   static String laporanPkl(String id) => "/laporan/kegiatan/pkl/$id";
   static String laporanReklame(String id) => "/laporan/kegiatan/reklame/$id";
+  static String laporanKransos(String id) => "/laporan/kegiatan/kransos/$id";
+  static String laporanPengamanan(String id) =>
+      "/laporan/kegiatan/pengamanan/$id";
+  static String laporanPerizinan(String id) =>
+      "/laporan/kegiatan/perizinan/$id";
+  static String laporanPamwal(String id) => "/laporan/kegiatan/pamwal/$id";
+  static String laporanPiket(String id) => "/laporan/kegiatan/piket/$id";
   static String laporanPersonil(String id) => "/laporan/kegiatan/personil/$id";
 
   // Riwayat
   static String riwayatPkl(String id) => "/laporan/riwayat/pkl/$id";
   static String riwayatReklame(String id) => "/laporan/riwayat/reklame/$id";
   static String riwayatPersonil(String id) => "/laporan/riwayat/personil/$id";
+  static String riwayatKransos(String id) => "/laporan/riwayat/kransos/$id";
+  static String riwayatPengamanan(String id) =>
+      "/laporan/riwayat/pengamanan/$id";
+  static String riwayatPamwal(String id) => "/laporan/riwayat/pamwal/$id";
+  static String riwayatPerizinan(String id) => "/laporan/riwayat/perizinan/$id";
+  static String riwayatPiket(String id) => "/laporan/riwayat/piket/$id";
 }

@@ -2,6 +2,7 @@ import 'package:eport/app/models/common/activity/activity_model.dart';
 import 'package:eport/app/models/common/menu/laporan_menu_model.dart';
 import 'package:eport/app/models/db/laporan/laporan_model.dart';
 import 'package:eport/app/repository/laporan_repository.dart';
+import 'package:eport/app/types/laporan_type.dart';
 import 'package:eport/utils/convert_json.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -29,6 +30,28 @@ class LaporanController extends GetxController {
       id: "pam-in",
     ),
   ]);
+
+  String buttonText(LaporanType type) {
+    switch (type) {
+      case LaporanType.create:
+        return "Buat Rencana Kegiatan";
+      case LaporanType.update:
+        return "Buat Laporan Kegiatan";
+      default:
+        return "Unduh Laporan Kegiatan";
+    }
+  }
+
+  String title(LaporanType type) {
+    switch (type) {
+      case LaporanType.create:
+        return "Rencana";
+      case LaporanType.update:
+        return "Laporan";
+      default:
+        return "Riwayat";
+    }
+  }
 
   RxList<LaporanModel> prosesData = RxList<LaporanModel>();
   RxList<LaporanModel> riwayatData = RxList<LaporanModel>();
