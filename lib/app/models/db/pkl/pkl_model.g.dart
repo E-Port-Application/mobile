@@ -36,7 +36,7 @@ Map<String, dynamic> _$PklModelToJson(PklModel instance) => <String, dynamic>{
       'waktu-mulai': instance.waktuMulai.toIso8601String(),
       'waktu-selesai': instance.waktuSelesai.toIso8601String(),
       'image': instance.image,
-      'personils': instance.personils,
+      'personils': instance.personils?.map((e) => e.toJson()).toList(),
       'keterangan': instance.keterangan,
       'jenis': instance.jenis,
       'pelanggaran': instance.pelanggaran,

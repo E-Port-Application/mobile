@@ -1,12 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'reklame_model.dart';
+part of 'perizinan_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-ReklameModel _$ReklameModelFromJson(Map<String, dynamic> json) => ReklameModel(
+PerizinanModel _$PerizinanModelFromJson(Map<String, dynamic> json) =>
+    PerizinanModel(
       tanggal: DateTime.parse(json['tanggal'] as String),
       waktuMulai: DateTime.parse(json['waktu-mulai'] as String),
       waktuSelesai: DateTime.parse(json['waktu-selesai'] as String),
@@ -16,16 +17,15 @@ ReklameModel _$ReklameModelFromJson(Map<String, dynamic> json) => ReklameModel(
       personils: (json['personils'] as List<dynamic>?)
           ?.map((e) => PersonilModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      image: json['image'] as String?,
-      keterangan: json['keterangan'] as String?,
-      nama: json['nama'] as String?,
       jenis: json['jenis'] as String?,
+      nama: json['nama'] as String?,
       pelanggaran: json['pelanggaran'] as String?,
-      jumlah: json['jumlah'] as int?,
       tindakan: json['tindakan'] as String?,
-    );
+    )
+      ..image = json['image'] as String?
+      ..keterangan = json['keterangan'] as String?;
 
-Map<String, dynamic> _$ReklameModelToJson(ReklameModel instance) =>
+Map<String, dynamic> _$PerizinanModelToJson(PerizinanModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'created-at': instance.createdAt.toIso8601String(),
@@ -39,6 +39,5 @@ Map<String, dynamic> _$ReklameModelToJson(ReklameModel instance) =>
       'nama': instance.nama,
       'jenis': instance.jenis,
       'pelanggaran': instance.pelanggaran,
-      'jumlah': instance.jumlah,
       'tindakan': instance.tindakan,
     };

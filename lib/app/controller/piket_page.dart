@@ -178,7 +178,12 @@ class PiketPage extends GetView<PiketController> {
                     : null,
               ),
               SizedBox(height: 12.h),
-              InputPersonil(personils: controller.personils, id: "piket"),
+              InputPersonil(
+                personils: controller.personils,
+                id: "piket",
+                docId: "piket/${controller.data.value?.id}",
+                type: type,
+              ),
               SizedBox(height: 12.h),
               AppInput(
                 controller: controller.form['keterangan']!,

@@ -7,6 +7,7 @@ import 'package:eport/app/models/db/laporan/laporan_model.dart';
 import 'package:eport/app/models/db/laporan_type/laporan_type_model.dart';
 import 'package:eport/app/models/db/pamwal/pamwal_model.dart';
 import 'package:eport/app/models/db/pengamanan/pengamanan_model.dart';
+import 'package:eport/app/models/db/perizinan/perizinan_model.dart';
 import 'package:eport/app/models/db/personil/personil_model.dart';
 import 'package:eport/app/models/db/piket/piket_model.dart';
 import 'package:eport/app/models/db/pkl/pkl_model.dart';
@@ -67,6 +68,8 @@ class LaporanRepository {
               temp.data = PengamananModel.fromJson(data.data()!);
             } else if (temp.type == "piket") {
               temp.data = PiketModel.fromJson(data.data()!);
+            } else if (temp.type == "perizinan") {
+              temp.data = PerizinanModel.fromJson(data.data()!);
             }
 
             return temp;
@@ -164,6 +167,10 @@ class LaporanRepository {
             data = PiketModel.fromJson(formJson);
             title = "Piket";
             break;
+          case "perizinan":
+            data = PerizinanModel.fromJson(formJson);
+            title = "Perizinan";
+            break;
         }
 
         if (cast != null) {
@@ -258,6 +265,9 @@ class LaporanRepository {
             break;
           case "piket":
             title = "Piket";
+            break;
+          case "perizinan":
+            title = "Perizinan";
             break;
         }
 

@@ -18,6 +18,7 @@ class PamwalController extends GetxController {
 
   Rx<LaporanType> type = LaporanType.create.obs;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   RxMap<String, TextEditingController> form = {
     "tanggal": TextEditingController(),
     "waktu-mulai": TextEditingController(),
