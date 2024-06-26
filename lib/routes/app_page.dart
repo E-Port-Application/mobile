@@ -2,6 +2,7 @@ import 'package:eport/app/bindings/auth_bindings.dart';
 import 'package:eport/app/bindings/laporan_bindings.dart';
 import 'package:eport/app/bindings/profile_bindings.dart';
 import 'package:eport/app/controller/piket_page.dart';
+import 'package:eport/app/presentation/view/pamwal_page.dart';
 import 'package:eport/app/presentation/view/personil/edit_personil_page.dart';
 import 'package:eport/app/presentation/view/personil/riwayat_personil_page.dart';
 import 'package:eport/app/presentation/view/pkl/edit_pkl_page.dart';
@@ -134,8 +135,7 @@ List<GetPage<dynamic>> appPage() {
     GetPage(
       name: AppRoute.rencanaPatroliPamwal,
       page: () => Portal(
-        child: PengamananPage(
-          isPamwal: true,
+        child: PamwalPage(
           type: LaporanType.create,
         ),
       ),
@@ -197,6 +197,15 @@ List<GetPage<dynamic>> appPage() {
       binding: LaporanBinding(),
     ),
     GetPage(
+      name: AppRoute.laporanPamwal(":id"),
+      page: () => Portal(
+        child: PamwalPage(
+          type: LaporanType.update,
+        ),
+      ),
+      binding: LaporanBinding(),
+    ),
+    GetPage(
       name: AppRoute.riwayatPkl(":id"),
       page: () => Portal(
         child: RiwayatPklPage(),
@@ -225,6 +234,15 @@ List<GetPage<dynamic>> appPage() {
       name: AppRoute.riwayatPengamanan(":id"),
       page: () => Portal(
         child: PengamananPage(
+          type: LaporanType.history,
+        ),
+      ),
+      binding: LaporanBinding(),
+    ),
+    GetPage(
+      name: AppRoute.riwayatPamwal(":id"),
+      page: () => Portal(
+        child: PamwalPage(
           type: LaporanType.history,
         ),
       ),

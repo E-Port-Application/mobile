@@ -1,4 +1,5 @@
 import 'package:eport/app/controller/kransos_controller.dart';
+import 'package:eport/app/controller/pamwal_controller.dart';
 import 'package:eport/app/controller/pengamanan_controller.dart';
 import 'package:eport/app/controller/perizinan_controller.dart';
 import 'package:eport/app/controller/piket_controller.dart';
@@ -25,6 +26,10 @@ class PersonilController extends GetxController {
     "pengamanan": [
       PengamananController.i.personils,
       PengamananController.i.currentPersonil
+    ],
+    "pamwal": [
+      PamwalController.i.personils,
+      PamwalController.i.currentPersonil
     ],
     "piket": [PiketController.i.personils, PiketController.i.currentPersonil],
     "perizinan": [
