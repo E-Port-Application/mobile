@@ -3,22 +3,14 @@ import 'package:eport/app/models/db/personil/personil_model.dart';
 import 'package:eport/services/api/sources/model_factory.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'kransos_model.g.dart';
+part 'pamwal_model.g.dart';
 
 @JsonSerializable()
-class KransosModel extends LaporanBase implements ModelFactory {
-  final String? jenis;
-
-  @JsonKey(name: "deskripsi-pelanggaran")
-  final String? deskripsi;
-
-  @JsonKey(name: "tindakan-pelanggaran")
+class PamwalModel extends LaporanBase implements ModelFactory {
+  final String? kejadian;
   final String? tindakan;
 
-  @JsonKey(name: "jumlah-pelanggar")
-  final int? jumlah;
-
-  KransosModel({
+  PamwalModel({
     required super.tanggal,
     required super.waktuMulai,
     required super.waktuSelesai,
@@ -26,16 +18,13 @@ class KransosModel extends LaporanBase implements ModelFactory {
     required super.createdAt,
     required super.updatedAt,
     super.personils,
-    super.image,
-    this.deskripsi,
-    this.jumlah,
+    this.kejadian,
     this.tindakan,
-    this.jenis,
   });
 
-  factory KransosModel.fromJson(Map<String, dynamic> json) =>
-      _$KransosModelFromJson(json);
+  factory PamwalModel.fromJson(Map<String, dynamic> json) =>
+      _$PamwalModelFromJson(json);
 
   @override
-  Map<String, dynamic> toJson() => _$KransosModelToJson(this);
+  Map<String, dynamic> toJson() => _$PamwalModelToJson(this);
 }

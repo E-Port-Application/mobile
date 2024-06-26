@@ -25,28 +25,6 @@ class KransosPage extends GetView<KransosController> {
     required this.type,
   });
 
-  String _title() {
-    switch (type) {
-      case LaporanType.create:
-        return "Rencana";
-      case LaporanType.update:
-        return "Laporan";
-      default:
-        return "Riwayat";
-    }
-  }
-
-  String _buttonText() {
-    switch (type) {
-      case LaporanType.create:
-        return "Buat Rencana Kegiatan";
-      case LaporanType.update:
-        return "Buat Laporan Kegiatan";
-      default:
-        return "Unduh Laporan Kegiatan";
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return LaporanScaffold.detail(

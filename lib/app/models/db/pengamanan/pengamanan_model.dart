@@ -3,17 +3,14 @@ import 'package:eport/services/api/sources/model_factory.dart';
 import 'package:eport/app/models/db/personil/personil_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'reklame_model.g.dart';
+part 'pengamanan_model.g.dart';
 
 @JsonSerializable()
-class ReklameModel extends LaporanBase implements ModelFactory {
-  String? nama;
-  String? jenis;
-  String? pelanggaran;
-  int? jumlah;
-  String? tindakan;
+class PengamananModel extends LaporanBase implements ModelFactory {
+  final String? kejadian;
+  final String? tindakan;
 
-  ReklameModel({
+  PengamananModel({
     required super.tanggal,
     required super.waktuMulai,
     required super.waktuSelesai,
@@ -21,18 +18,13 @@ class ReklameModel extends LaporanBase implements ModelFactory {
     required super.createdAt,
     required super.updatedAt,
     super.personils,
-    super.image,
-    super.keterangan,
-    this.nama,
-    this.jenis,
-    this.pelanggaran,
-    this.jumlah,
+    this.kejadian,
     this.tindakan,
   });
 
-  factory ReklameModel.fromJson(Map<String, dynamic> json) =>
-      _$ReklameModelFromJson(json);
+  factory PengamananModel.fromJson(Map<String, dynamic> json) =>
+      _$PengamananModelFromJson(json);
 
   @override
-  Map<String, dynamic> toJson() => _$ReklameModelToJson(this);
+  Map<String, dynamic> toJson() => _$PengamananModelToJson(this);
 }

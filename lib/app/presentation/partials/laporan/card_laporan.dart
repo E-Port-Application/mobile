@@ -66,6 +66,12 @@ class _CardLaporanState extends State<CardLaporan> {
         case "kransos":
           title = "Keransos";
           break;
+        case "pengamanan":
+          title = "Pengamanan";
+          break;
+        case "pamwal":
+          title = "Pamwal";
+          break;
       }
     });
   }
@@ -85,13 +91,18 @@ class _CardLaporanState extends State<CardLaporan> {
         case "kransos":
           title = "Keransos";
           break;
+        case "pengamanan":
+          title = "Pengamanan";
+          break;
+        case "pamwal":
+          title = "Pamwal";
+          break;
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    print(laporanModel);
     if (widget.isLoading) {
       return _loadingWidget();
     }

@@ -24,5 +24,7 @@ class LaporanModel extends BaseModel implements ModelFactory {
 
   factory LaporanModel.fromJson(Map<String, dynamic> json) =>
       _$LaporanModelFromJson(json);
+
+  @override
   Map<String, dynamic> toJson() => _$LaporanModelToJson(this);
 }

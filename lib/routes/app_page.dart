@@ -124,12 +124,21 @@ List<GetPage<dynamic>> appPage() {
     ),
     GetPage(
       name: AppRoute.rencanaPatroliPengamanan,
-      page: () => Portal(child: PengamananPage()),
+      page: () => Portal(
+        child: PengamananPage(
+          type: LaporanType.create,
+        ),
+      ),
       binding: LaporanBinding(),
     ),
     GetPage(
       name: AppRoute.rencanaPatroliPamwal,
-      page: () => Portal(child: PengamananPage(isPamwal: true)),
+      page: () => Portal(
+        child: PengamananPage(
+          isPamwal: true,
+          type: LaporanType.create,
+        ),
+      ),
       binding: LaporanBinding(),
     ),
     GetPage(
@@ -163,15 +172,25 @@ List<GetPage<dynamic>> appPage() {
     GetPage(
       name: AppRoute.laporanReklame(":id"),
       page: () => Portal(
-          child: ReklamePage(
-        type: LaporanType.update,
-      )),
+        child: ReklamePage(
+          type: LaporanType.update,
+        ),
+      ),
       binding: LaporanBinding(),
     ),
     GetPage(
       name: AppRoute.laporanKransos(":id"),
       page: () => Portal(
         child: KransosPage(
+          type: LaporanType.update,
+        ),
+      ),
+      binding: LaporanBinding(),
+    ),
+    GetPage(
+      name: AppRoute.laporanPengamanan(":id"),
+      page: () => Portal(
+        child: PengamananPage(
           type: LaporanType.update,
         ),
       ),
@@ -197,6 +216,15 @@ List<GetPage<dynamic>> appPage() {
       name: AppRoute.riwayatKransos(":id"),
       page: () => Portal(
         child: KransosPage(
+          type: LaporanType.history,
+        ),
+      ),
+      binding: LaporanBinding(),
+    ),
+    GetPage(
+      name: AppRoute.riwayatPengamanan(":id"),
+      page: () => Portal(
+        child: PengamananPage(
           type: LaporanType.history,
         ),
       ),

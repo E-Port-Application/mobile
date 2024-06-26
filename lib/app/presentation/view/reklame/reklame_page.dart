@@ -25,17 +25,6 @@ class ReklamePage extends GetView<ReklameController> {
     required this.type,
   });
 
-  PersonilVariant _variant() {
-    switch (type) {
-      case LaporanType.create:
-        return PersonilVariant.create;
-      case LaporanType.update:
-        return PersonilVariant.edit;
-      default:
-        return PersonilVariant.show;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return LaporanScaffold.detail(

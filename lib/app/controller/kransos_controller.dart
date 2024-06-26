@@ -79,6 +79,7 @@ class KransosController extends GetxController {
       form['tindakan-pelanggaran']!.text = tempData.tindakan ?? "";
       form['keterangan']!.text = tempData.keterangan ?? "";
       form['jumlah-pelanggar']!.text = (tempData.jumlah ?? "").toString();
+      form['updated-at']!.text = DateTime.now().toString();
       imageUrl.value = tempData.image;
       personils.value = tempData.personils ?? [];
     } catch (_) {}

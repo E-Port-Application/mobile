@@ -17,4 +17,8 @@ class BaseModel {
     required this.id,
     required this.updatedAt,
   });
+
+  factory BaseModel.fromJson(Map<String, dynamic> json) =>
+      _$BaseModelFromJson(json);
+  Map<String, dynamic> toJson() => _$BaseModelToJson(this);
 }
