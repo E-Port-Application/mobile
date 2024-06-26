@@ -54,5 +54,6 @@ class PklModel extends LaporanBase implements ModelFactory {
 
   factory PklModel.fromJson(Map<String, dynamic> json) =>
       _$PklModelFromJson(json);
+
   Map<String, dynamic> toJson() => _$PklModelToJson(this);
 }

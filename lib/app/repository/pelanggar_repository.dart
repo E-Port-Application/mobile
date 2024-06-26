@@ -14,6 +14,7 @@ class PelanggarRepository {
       return data.docs.map((e) => PelanggarModel.fromJson(e.data())).toList();
     } catch (err) {
       showAlert(err.toString());
+
       rethrow;
     }
   }
@@ -27,6 +28,7 @@ class PelanggarRepository {
       return data.docs.map((e) => PelanggarModel.fromJson(e.data())).toList();
     } catch (err) {
       showAlert(err.toString());
+
       rethrow;
     }
   }

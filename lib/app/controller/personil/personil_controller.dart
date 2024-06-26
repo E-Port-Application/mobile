@@ -43,6 +43,7 @@ class PersonilController extends GetxController {
   Future initData() async {
     try {
       var data = await PersonilRepository.getPersonels();
+
       personils.value = data[0]
           .map((e) => Rx<PersonilState>(PersonilState(
                 personil: e,
@@ -50,6 +51,7 @@ class PersonilController extends GetxController {
               )))
           .toList();
       personils.refresh();
+
       komandos.value = data[1]
           .map((e) => Rx<PersonilState>(PersonilState(
                 personil: e,

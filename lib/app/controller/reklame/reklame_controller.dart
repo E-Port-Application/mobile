@@ -1,21 +1,13 @@
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:eport/app/controller/laporan_controller.dart';
-import 'package:eport/app/models/db/laporan/laporan_model.dart';
 import 'package:eport/app/models/db/laporan_type/laporan_type_model.dart';
 import 'package:eport/app/models/db/personil/personil_model.dart';
 import 'package:eport/app/models/db/reklame/reklame_model.dart';
-import 'package:eport/app/presentation/widgets/app_loading.dart';
 import 'package:eport/app/presentation/widgets/app_radio.dart';
 import 'package:eport/app/repository/laporan_repository.dart';
-import 'package:eport/firebase_options.dart';
-import 'package:eport/routes/app_route.dart';
 import 'package:eport/utils/filepicker_handler.dart';
-import 'package:eport/utils/form_converter.dart';
 import 'package:eport/utils/get_id.dart';
 import 'package:eport/utils/show_alert.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -102,7 +94,7 @@ class ReklameController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    isEdit.value = !(Get.currentRoute == AppRoute.rencanaPatroliReklame);
+    isEdit.value = Get.currentRoute.contains("/laporan/kegiatan/reklame");
     if (isEdit.value) {
       getData();
     }
@@ -141,81 +133,27 @@ class ReklameController extends GetxController {
   RxBool isLoading = true.obs;
   void submit() async {
     isLoading.value = true;
-    try {
-      if (formKey.currentState!.validate()) {
-        final String id = this.data.value?.id ?? "";
-        showLoadingDialog(Get.context!, isLoading);
-        final formJson = formConverter(form);
-        List<PersonilModel> personils = <PersonilModel>[];
-
-        for (var personil in this.personils) {
-          personils.add(personil);
-        }
-
-        if (!isEdit.value) {
-          formJson['personils'] = personils.map((e) => e.toJson()).toList();
-        }
-        formJson['id'] = "dummy-id";
-        formJson['nama'] = formJson['nama']?.toString();
-        formJson['tindakan'] = formJson['tindakan']?.toString();
-        formJson['keterangan'] = formJson['keterangan']?.toString();
-
-        print(formJson);
-
-        final data = ReklameModel.fromJson(formJson);
-
-        final dataRef = store.collection("reklame");
-        final laporanRef = store.collection("laporan");
-        DocumentReference storedData;
-        if (isEdit.value) {
-          storedData = dataRef.doc(id);
-        } else {
-          storedData = await dataRef.add(data.toJson());
-        }
-
-        if (image.value != null) {
-          var splittedFile = image.value!.path.split(".");
-          final dataStorage = storage.child("laporan/reklame");
-          String fileName = "${storedData.id}.${splittedFile.last}";
-          final photo = dataStorage.child(fileName);
-          await photo.putFile(
-            image.value!,
-            SettableMetadata(
-              contentType: "image/${splittedFile.last}",
-            ),
-          );
-          final imageUrl = {"image": await photo.getDownloadURL()};
-          await storedData.update(imageUrl);
-        }
-
-        if (isEdit.value) {
-          await laporanRef.doc(id).update({"progress": false});
-          await storedData.update(formJson);
-        } else {
-          var updateId = {"id": storedData.id};
-          await storedData.update(updateId);
-
-          final laporanData = LaporanModel(
-                  id: storedData.id,
-                  type: "reklame",
-                  progress: true,
-                  data: null,
-                  date: data.tanggal)
-              .toJson();
-
-          await laporanRef.doc(storedData.id).set(laporanData);
-        }
-
-        await closeLoading(isLoading);
-        showAlert(
-            "Berhasil membuat ${isEdit.value ? "rencana" : "laporan"} kegiatan patroli Reklame",
-            isSuccess: true);
-        LaporanController.i.getData();
-        Get.back();
-      }
-    } catch (err) {
-      await closeLoading(isLoading);
-      showAlert(err.toString());
+    if (isEdit.value) {
+      LaporanRepository.update(
+        data.value!.id,
+        isLoading,
+        formKey,
+        form,
+        personils,
+        image.value,
+        "reklame",
+        ["nama", "tindakan", "keterangan"],
+      );
+    } else {
+      LaporanRepository.create(
+        isLoading,
+        formKey,
+        form,
+        personils,
+        image.value,
+        "reklame",
+        ["nama", "tindakan", "keterangan"],
+      );
     }
   }
 }

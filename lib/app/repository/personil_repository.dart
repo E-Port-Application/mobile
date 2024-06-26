@@ -16,6 +16,7 @@ class PersonilRepository {
       }).toList();
     } catch (err) {
       showAlert(err.toString());
+
       rethrow;
     }
   }
@@ -34,6 +35,7 @@ class PersonilRepository {
           .toList();
     } catch (err) {
       showAlert(err.toString());
+
       rethrow;
     }
   }
@@ -49,6 +51,7 @@ class PersonilRepository {
       await personilRef.update(data);
     } catch (err) {
       showAlert(err.toString());
+
       rethrow;
     }
   }

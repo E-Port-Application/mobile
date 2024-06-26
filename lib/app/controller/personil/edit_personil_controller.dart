@@ -56,7 +56,6 @@ class EditPersonilController extends GetxController {
   }
 
   Future initData() async {
-    print(Get.parameters['doc']);
     try {
       var data =
           await PersonilRepository.getDetailPersonil(Get.parameters['doc']!);

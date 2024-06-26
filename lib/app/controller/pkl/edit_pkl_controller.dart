@@ -1,18 +1,13 @@
 import 'dart:io';
 
-import 'package:eport/app/controller/laporan_controller.dart';
 import 'package:eport/app/models/db/laporan_type/laporan_type_model.dart';
 import 'package:eport/app/models/db/personil/personil_model.dart';
 import 'package:eport/app/models/db/pkl/pkl_model.dart';
-import 'package:eport/app/presentation/widgets/app_loading.dart';
 import 'package:eport/app/presentation/widgets/app_radio.dart';
 import 'package:eport/app/repository/laporan_repository.dart';
-import 'package:eport/firebase_options.dart';
 import 'package:eport/utils/filepicker_handler.dart';
-import 'package:eport/utils/form_converter.dart';
 import 'package:eport/utils/get_id.dart';
 import 'package:eport/utils/show_alert.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -150,46 +145,16 @@ class EditPklController extends GetxController {
 
   RxBool isLoading = true.obs;
   void submit() async {
-    try {
-      if (formKey.currentState!.validate()) {
-        isLoading.value = true;
-        showLoadingDialog(Get.context!, isLoading);
-
-        final formJson = formConverter(form);
-        formJson['id'] = data.value!.id;
-        final pklRef = store.collection("pkl").doc(data.value!.id);
-        final laporanRef = store.collection("laporan").doc(data.value!.id);
-        formJson['nik-pelanggar'] = formJson['nik-pelanggar'].toString();
-        formJson['alamat-pelanggar'] = formJson['alamat-pelanggar'].toString();
-        formJson['nama-pelanggar'] = formJson['nama-pelanggar'].toString();
-        formJson['keterangan'] = formJson['keterangan'].toString();
-
-        if (image.value != null) {
-          var splittedFile = image.value!.path.split(".");
-          final pklStorage = storage.child("laporan/pkl");
-          String fileName = "${data.value!.id}.${splittedFile.last}";
-          final photo = pklStorage.child(fileName);
-          await photo.putFile(
-            image.value!,
-            SettableMetadata(
-              contentType: "image/${splittedFile.last}",
-            ),
-          );
-          final imageUrl = {"image": await photo.getDownloadURL()};
-          await pklRef.update(imageUrl);
-        }
-        await laporanRef.update({"progress": false});
-        await pklRef.update(formJson);
-
-        await closeLoading(isLoading);
-        showAlert("Berhasil membuat Laporan PKL", isSuccess: true);
-        LaporanController.i.getData();
-        Get.back();
-      }
-    } catch (err) {
-      await closeLoading(isLoading);
-      showAlert(err.toString());
-    }
+    LaporanRepository.update(
+      data.value!.id,
+      isLoading,
+      formKey,
+      form,
+      personils,
+      image.value,
+      "pkl",
+      ['nik-pelanggar', 'alamat-pelanggar', 'nama-pelanggar', 'keterangan'],
+    );
   }
 
   Rxn<File> image = Rxn<File>();
