@@ -31,7 +31,7 @@ Map<String, dynamic> _$PamwalModelToJson(PamwalModel instance) =>
       'waktu-mulai': instance.waktuMulai.toIso8601String(),
       'waktu-selesai': instance.waktuSelesai.toIso8601String(),
       'image': instance.image,
-      'personils': instance.personils?.map((e) => e.toJson()).toList(),
+      'personils': instance.personils,
       'keterangan': instance.keterangan,
       'kejadian': instance.kejadian,
       'tindakan': instance.tindakan,

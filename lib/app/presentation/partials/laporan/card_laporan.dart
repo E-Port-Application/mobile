@@ -72,6 +72,12 @@ class _CardLaporanState extends State<CardLaporan> {
         case "pamwal":
           title = "Pamwal";
           break;
+        case "piket":
+          title = "Piket";
+          break;
+        case "perizinan":
+          title = "Perizinan";
+          break;
       }
     });
   }
@@ -96,6 +102,12 @@ class _CardLaporanState extends State<CardLaporan> {
           break;
         case "pamwal":
           title = "Pamwal";
+          break;
+        case "piket":
+          title = "Piket";
+          break;
+        case "perizinan":
+          title = "Perizinan";
           break;
       }
     });

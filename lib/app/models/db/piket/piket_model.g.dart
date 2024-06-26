@@ -1,13 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'pengamanan_model.dart';
+part of 'piket_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-PengamananModel _$PengamananModelFromJson(Map<String, dynamic> json) =>
-    PengamananModel(
+PiketModel _$PiketModelFromJson(Map<String, dynamic> json) => PiketModel(
       tanggal: DateTime.parse(json['tanggal'] as String),
       waktuMulai: DateTime.parse(json['waktu-mulai'] as String),
       waktuSelesai: DateTime.parse(json['waktu-selesai'] as String),
@@ -17,13 +16,14 @@ PengamananModel _$PengamananModelFromJson(Map<String, dynamic> json) =>
       personils: (json['personils'] as List<dynamic>?)
           ?.map((e) => PersonilModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      kejadian: json['kejadian'] as String?,
+      shift: json['shift'] as String?,
+      lokasi: json['lokasi'] as String?,
       tindakan: json['tindakan'] as String?,
     )
       ..image = json['image'] as String?
       ..keterangan = json['keterangan'] as String?;
 
-Map<String, dynamic> _$PengamananModelToJson(PengamananModel instance) =>
+Map<String, dynamic> _$PiketModelToJson(PiketModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'created-at': instance.createdAt.toIso8601String(),
@@ -32,8 +32,9 @@ Map<String, dynamic> _$PengamananModelToJson(PengamananModel instance) =>
       'waktu-mulai': instance.waktuMulai.toIso8601String(),
       'waktu-selesai': instance.waktuSelesai.toIso8601String(),
       'image': instance.image,
-      'personils': instance.personils,
+      'personils': instance.personils?.map((e) => e.toJson()).toList(),
       'keterangan': instance.keterangan,
-      'kejadian': instance.kejadian,
+      'shift': instance.shift,
+      'lokasi': instance.lokasi,
       'tindakan': instance.tindakan,
     };

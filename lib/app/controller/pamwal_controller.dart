@@ -45,8 +45,8 @@ class PamwalController extends GetxController {
       final tempData = await PamwalRepository.getDetail(getId());
       data.value = tempData;
       form['tanggal']!.text = dateFormat.format(tempData.tanggal);
-      form['waktu-mulai']!.text = dateFormat.format(tempData.waktuMulai);
-      form['waktu-selesai']!.text = dateFormat.format(tempData.waktuSelesai);
+      form['waktu-mulai']!.text = timeFormat.format(tempData.waktuMulai);
+      form['waktu-selesai']!.text = timeFormat.format(tempData.waktuSelesai);
       form['kejadian']!.text = tempData.kejadian ?? "";
       form['tindakan']!.text = tempData.tindakan ?? "";
       form['keterangan']!.text = tempData.keterangan ?? "";

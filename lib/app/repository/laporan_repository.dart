@@ -8,6 +8,7 @@ import 'package:eport/app/models/db/laporan_type/laporan_type_model.dart';
 import 'package:eport/app/models/db/pamwal/pamwal_model.dart';
 import 'package:eport/app/models/db/pengamanan/pengamanan_model.dart';
 import 'package:eport/app/models/db/personil/personil_model.dart';
+import 'package:eport/app/models/db/piket/piket_model.dart';
 import 'package:eport/app/models/db/pkl/pkl_model.dart';
 import 'package:eport/app/models/db/reklame/reklame_model.dart';
 import 'package:eport/app/presentation/widgets/app_loading.dart';
@@ -64,7 +65,10 @@ class LaporanRepository {
               temp.data = PengamananModel.fromJson(data.data()!);
             } else if (temp.type == "pamwal") {
               temp.data = PengamananModel.fromJson(data.data()!);
+            } else if (temp.type == "piket") {
+              temp.data = PiketModel.fromJson(data.data()!);
             }
+
             return temp;
           },
         ),
@@ -155,6 +159,10 @@ class LaporanRepository {
           case "pamwal":
             data = PamwalModel.fromJson(formJson);
             title = "Pamwal";
+            break;
+          case "piket":
+            data = PiketModel.fromJson(formJson);
+            title = "Piket";
             break;
         }
 
@@ -247,6 +255,9 @@ class LaporanRepository {
             break;
           case "pamwal":
             title = "Pamwal";
+            break;
+          case "piket":
+            title = "Piket";
             break;
         }
 

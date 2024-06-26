@@ -143,7 +143,11 @@ List<GetPage<dynamic>> appPage() {
     ),
     GetPage(
       name: AppRoute.rencanaPatroliPiket,
-      page: () => Portal(child: PiketPage()),
+      page: () => Portal(
+        child: PiketPage(
+          type: LaporanType.create,
+        ),
+      ),
       binding: LaporanBinding(),
     ),
     GetPage(
@@ -206,6 +210,15 @@ List<GetPage<dynamic>> appPage() {
       binding: LaporanBinding(),
     ),
     GetPage(
+      name: AppRoute.laporanPiket(":id"),
+      page: () => Portal(
+        child: PiketPage(
+          type: LaporanType.update,
+        ),
+      ),
+      binding: LaporanBinding(),
+    ),
+    GetPage(
       name: AppRoute.riwayatPkl(":id"),
       page: () => Portal(
         child: RiwayatPklPage(),
@@ -243,6 +256,15 @@ List<GetPage<dynamic>> appPage() {
       name: AppRoute.riwayatPamwal(":id"),
       page: () => Portal(
         child: PamwalPage(
+          type: LaporanType.history,
+        ),
+      ),
+      binding: LaporanBinding(),
+    ),
+    GetPage(
+      name: AppRoute.riwayatPiket(":id"),
+      page: () => Portal(
+        child: PiketPage(
           type: LaporanType.history,
         ),
       ),
