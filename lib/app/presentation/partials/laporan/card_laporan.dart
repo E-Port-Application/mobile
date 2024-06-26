@@ -1,7 +1,6 @@
 import 'package:eport/app/models/db/laporan/laporan_base.dart';
 import 'package:eport/app/models/db/laporan/laporan_model.dart';
 import 'package:eport/app/models/db/pkl/pkl_model.dart';
-import 'package:eport/app/models/db/reklame/reklame_model.dart';
 import 'package:eport/app/presentation/widgets/app_button.dart';
 import 'package:eport/app/presentation/widgets/app_shimmer.dart';
 import 'package:eport/routes/app_route.dart';
@@ -46,6 +45,7 @@ class _CardLaporanState extends State<CardLaporan> {
   final DateFormat dateFormat = DateFormat("dd MMMM yyyy");
   final DateFormat timeFormat = DateFormat.Hm();
   bool progress = false;
+  String title = "";
 
   @override
   void initState() {
@@ -53,6 +53,14 @@ class _CardLaporanState extends State<CardLaporan> {
     setState(() {
       progress = widget.data.progress;
       laporanModel = widget.data.data;
+      switch (widget.data.type) {
+        case "pkl":
+          title = "PKL";
+          break;
+        case "reklame":
+          title = "Reklame";
+          break;
+      }
     });
   }
 
@@ -61,6 +69,14 @@ class _CardLaporanState extends State<CardLaporan> {
     super.didUpdateWidget(oldWidget);
     setState(() {
       laporanModel = widget.data.data;
+      switch (widget.data.type) {
+        case "pkl":
+          title = "PKL";
+          break;
+        case "reklame":
+          title = "Reklame";
+          break;
+      }
     });
   }
 
@@ -158,16 +174,6 @@ class _CardLaporanState extends State<CardLaporan> {
   }
 
   Widget _progressWidget(LaporanBase data) {
-    String title = "";
-    switch (widget.data.type) {
-      case "pkl":
-        title = "Laporan PKL";
-        break;
-      case "reklame":
-        data as ReklameModel;
-        title = "Laporan Reklame";
-    }
-
     return Container(
       margin: EdgeInsets.only(bottom: 16.h),
       decoration: BoxDecoration(
@@ -205,7 +211,7 @@ class _CardLaporanState extends State<CardLaporan> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(
-                        title,
+                        "Laporan $title",
                         style: body3BTextStyle(
                           color: ColorConstants.slate[900],
                         ),
@@ -272,7 +278,14 @@ class _CardLaporanState extends State<CardLaporan> {
   Widget _riwayatWidget(LaporanBase data) {
     return GestureDetector(
       onTap: () {
-        Get.toNamed(AppRoute.riwayatPkl(widget.data.id));
+        switch (widget.data.type) {
+          case "pkl":
+            Get.toNamed(AppRoute.riwayatPkl(widget.data.id));
+            return;
+          case "reklame":
+            Get.toNamed(AppRoute.riwayatReklame(widget.data.id));
+            return;
+        }
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 16.h),
@@ -311,7 +324,7 @@ class _CardLaporanState extends State<CardLaporan> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Text(
-                          "Laporan PKL",
+                          "Laporan $title",
                           style: body3BTextStyle(
                             color: ColorConstants.slate[900],
                           ),

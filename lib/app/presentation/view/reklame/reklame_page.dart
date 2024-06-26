@@ -6,6 +6,7 @@ import 'package:eport/app/presentation/widgets/app_button.dart';
 import 'package:eport/app/presentation/widgets/app_input.dart';
 import 'package:eport/app/presentation/widgets/app_location.dart';
 import 'package:eport/app/presentation/widgets/app_search_select.dart';
+import 'package:eport/app/types/laporan_type.dart';
 import 'package:eport/styles/color_constants.dart';
 import 'package:eport/styles/text_styles.dart';
 import 'package:eport/utils/datepicker.dart';
@@ -16,16 +17,49 @@ import 'package:get/get.dart';
 import 'package:eport/app/controller/reklame/reklame_controller.dart';
 
 class ReklamePage extends GetView<ReklameController> {
-  final bool edit;
+  final LaporanType type;
   const ReklamePage({
     super.key,
-    this.edit = false,
+    required this.type,
   });
+
+  PersonilVariant _variant() {
+    switch (type) {
+      case LaporanType.create:
+        return PersonilVariant.create;
+      case LaporanType.update:
+        return PersonilVariant.edit;
+      default:
+        return PersonilVariant.show;
+    }
+  }
+
+  String _title() {
+    switch (type) {
+      case LaporanType.create:
+        return "Rencana";
+      case LaporanType.update:
+        return "Laporan";
+      default:
+        return "Riwayat";
+    }
+  }
+
+  String _buttonText() {
+    switch (type) {
+      case LaporanType.create:
+        return "Buat Rencana Kegiatan";
+      case LaporanType.update:
+        return "Buat Laporan Kegiatan";
+      default:
+        return "Unduh Laporan Kegiatan";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return LaporanScaffold.detail(
-      title: "Reklame / ${edit ? "Laporan" : "Rencana"} Kegiatan",
+      title: "Reklame / ${_title()} Kegiatan",
       child: Form(
         key: controller.formKey,
         child: Obx(
@@ -50,24 +84,27 @@ class ReklamePage extends GetView<ReklameController> {
                             width: 1.sw,
                             fit: BoxFit.cover,
                           ),
-                          Positioned(
-                            top: 10.h,
-                            right: 12.w,
-                            child: GestureDetector(
-                              onTap: controller.removePhoto,
-                              child: Container(
-                                padding: EdgeInsets.all(2.w),
-                                decoration: BoxDecoration(
-                                  color: Colors.white.withOpacity(.3),
-                                  borderRadius: BorderRadius.circular(20.w),
-                                ),
-                                child: Icon(
-                                  Icons.close,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ),
+                          type != LaporanType.history
+                              ? Positioned(
+                                  top: 10.h,
+                                  right: 12.w,
+                                  child: GestureDetector(
+                                    onTap: controller.removePhoto,
+                                    child: Container(
+                                      padding: EdgeInsets.all(2.w),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white.withOpacity(.3),
+                                        borderRadius:
+                                            BorderRadius.circular(20.w),
+                                      ),
+                                      child: Icon(
+                                        Icons.close,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : Container()
                         ],
                       ),
                     );
@@ -87,24 +124,27 @@ class ReklamePage extends GetView<ReklameController> {
                             width: 1.sw,
                             fit: BoxFit.cover,
                           ),
-                          Positioned(
-                            top: 10.h,
-                            right: 12.w,
-                            child: GestureDetector(
-                              onTap: controller.removePhoto,
-                              child: Container(
-                                padding: EdgeInsets.all(2.w),
-                                decoration: BoxDecoration(
-                                  color: Colors.white.withOpacity(.3),
-                                  borderRadius: BorderRadius.circular(20.w),
-                                ),
-                                child: Icon(
-                                  Icons.close,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ),
+                          type != LaporanType.history
+                              ? Positioned(
+                                  top: 10.h,
+                                  right: 12.w,
+                                  child: GestureDetector(
+                                    onTap: controller.removePhoto,
+                                    child: Container(
+                                      padding: EdgeInsets.all(2.w),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white.withOpacity(.3),
+                                        borderRadius:
+                                            BorderRadius.circular(20.w),
+                                      ),
+                                      child: Icon(
+                                        Icons.close,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : Container()
                         ],
                       ),
                     );
@@ -119,7 +159,7 @@ class ReklamePage extends GetView<ReklameController> {
                   Icons.calendar_month_outlined,
                 ),
                 readOnly: true,
-                onTap: !edit
+                onTap: type == LaporanType.create
                     ? () {
                         datePicker(controller.form['tanggal']!);
                       }
@@ -138,7 +178,7 @@ class ReklamePage extends GetView<ReklameController> {
                       label: "Waktu Mulai",
                       placeholder: "Waktu ",
                       prefixIcon: Icon(Icons.access_time_outlined),
-                      onTap: !edit
+                      onTap: type == LaporanType.create
                           ? () {
                               timePicker(controller.form['waktu-mulai']!);
                             }
@@ -156,7 +196,7 @@ class ReklamePage extends GetView<ReklameController> {
                       label: "Waktu Selesai",
                       placeholder: "Waktu ",
                       prefixIcon: Icon(Icons.access_time_outlined),
-                      onTap: !edit
+                      onTap: type == LaporanType.create
                           ? () {
                               timePicker(controller.form['waktu-selesai']!);
                             }
@@ -174,7 +214,8 @@ class ReklamePage extends GetView<ReklameController> {
                 controller: controller.form['nama']!,
                 label: "Nama Reklame",
                 placeholder: "contoh: nama toko/yang diiklankan",
-                validator: edit
+                readOnly: type == LaporanType.history,
+                validator: type == LaporanType.update
                     ? (e) {
                         return inputValidator(e, "Nama reklame");
                       }
@@ -200,7 +241,7 @@ class ReklamePage extends GetView<ReklameController> {
                     "jenis",
                   );
                 },
-                validator: edit
+                validator: type == LaporanType.update
                     ? (e) {
                         return inputValidator(e, "Jenis reklame");
                       }
@@ -226,7 +267,7 @@ class ReklamePage extends GetView<ReklameController> {
                     "pelanggaran",
                   );
                 },
-                validator: edit
+                validator: type == LaporanType.update
                     ? (e) {
                         return inputValidator(e, "Pelanggaran reklame");
                       }
@@ -237,8 +278,9 @@ class ReklamePage extends GetView<ReklameController> {
                 controller: controller.form['jumlah']!,
                 label: "Jumlah Reklame",
                 placeholder: "Masukkan Jumlah Reklame",
+                readOnly: type == LaporanType.history,
                 keyboardType: TextInputType.number,
-                validator: edit
+                validator: type == LaporanType.update
                     ? (e) {
                         return inputValidator(e, "Jumlah reklame");
                       }
@@ -248,7 +290,7 @@ class ReklamePage extends GetView<ReklameController> {
               InputPersonil(
                 personils: controller.personils,
                 id: "reklame",
-                variant: edit ? PersonilVariant.edit : PersonilVariant.create,
+                variant: _variant(),
                 docId: "reklame/${controller.data.value?.id}",
               ),
               SizedBox(height: 12.h),
@@ -256,9 +298,10 @@ class ReklamePage extends GetView<ReklameController> {
                 controller: controller.form['tindakan']!,
                 label: "Tindakan",
                 maxLines: 4,
+                readOnly: type == LaporanType.history,
                 placeholder: "Masukkan Tindakan",
                 hint: "Tulis tindakan dengan baik dan benar!",
-                validator: edit
+                validator: type == LaporanType.update
                     ? (e) {
                         return inputValidator(e, "Tindakan");
                       }
@@ -269,9 +312,10 @@ class ReklamePage extends GetView<ReklameController> {
                 controller: controller.form['keterangan']!,
                 label: "Keterangan",
                 maxLines: 8,
+                readOnly: type == LaporanType.history,
                 placeholder: "Masukkan keterangan",
                 hint: "Tulis keterangan dengan baik dan benar!",
-                validator: edit
+                validator: type == LaporanType.update
                     ? (e) {
                         return inputValidator(e, "Keterangan");
                       }
@@ -286,7 +330,7 @@ class ReklamePage extends GetView<ReklameController> {
                       uploadGallery: controller.uploadPhoto,
                     )
                   : Container(),
-              edit
+              type == LaporanType.update
                   ? FormField(
                       validator: (_) {
                         if (controller.imageUrl.value != null ||
@@ -307,7 +351,7 @@ class ReklamePage extends GetView<ReklameController> {
                     )
                   : Container(),
               SizedBox(height: 20.h),
-              edit
+              type == LaporanType.update || type == LaporanType.history
                   ? LaporanAction(
                       onPdf: () {},
                       collection: "reklame",
@@ -316,7 +360,7 @@ class ReklamePage extends GetView<ReklameController> {
               AppButton(
                 width: 1.sw,
                 onPressed: controller.submit,
-                text: "Buat Rencana Kegiatan",
+                text: _buttonText(),
               ),
               SizedBox(height: 8.h),
               AppButton(

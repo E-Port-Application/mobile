@@ -18,6 +18,7 @@ class ReklameController extends GetxController {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   RxBool isEdit = false.obs;
+  RxBool isRiwayat = false.obs;
   RxMap<String, TextEditingController> form = {
     "tanggal": TextEditingController(),
     "waktu-mulai": TextEditingController(),
@@ -95,7 +96,8 @@ class ReklameController extends GetxController {
   void onInit() {
     super.onInit();
     isEdit.value = Get.currentRoute.contains("/laporan/kegiatan/reklame");
-    if (isEdit.value) {
+    isRiwayat.value = Get.currentRoute.contains("/laporan/riwayat/reklame");
+    if (isEdit.value || isRiwayat.value) {
       getData();
     }
     getJenisReklame();
@@ -133,6 +135,9 @@ class ReklameController extends GetxController {
   RxBool isLoading = true.obs;
   void submit() async {
     isLoading.value = true;
+    if (isRiwayat.value) {
+      return;
+    }
     if (isEdit.value) {
       LaporanRepository.update(
         data.value!.id,

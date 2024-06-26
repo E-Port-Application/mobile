@@ -19,6 +19,7 @@ import 'package:eport/app/presentation/view/profile_page.dart';
 import 'package:eport/app/presentation/view/proses_page.dart';
 import 'package:eport/app/presentation/view/riwayat_page.dart';
 import 'package:eport/app/presentation/view/variant.dart';
+import 'package:eport/app/types/laporan_type.dart';
 import 'package:flutter_portal/flutter_portal.dart';
 import 'package:get/get.dart';
 import 'package:eport/app/bindings/home_bindings.dart';
@@ -106,7 +107,10 @@ List<GetPage<dynamic>> appPage() {
     ),
     GetPage(
       name: AppRoute.rencanaPatroliReklame,
-      page: () => Portal(child: ReklamePage()),
+      page: () => Portal(
+          child: ReklamePage(
+        type: LaporanType.create,
+      )),
       binding: LaporanBinding(),
     ),
     GetPage(
@@ -154,13 +158,25 @@ List<GetPage<dynamic>> appPage() {
     ),
     GetPage(
       name: AppRoute.laporanReklame(":id"),
-      page: () => Portal(child: ReklamePage(edit: true)),
+      page: () => Portal(
+          child: ReklamePage(
+        type: LaporanType.update,
+      )),
       binding: LaporanBinding(),
     ),
     GetPage(
       name: AppRoute.riwayatPkl(":id"),
       page: () => Portal(
         child: RiwayatPklPage(),
+      ),
+      binding: LaporanBinding(),
+    ),
+    GetPage(
+      name: AppRoute.riwayatReklame(":id"),
+      page: () => Portal(
+        child: ReklamePage(
+          type: LaporanType.history,
+        ),
       ),
       binding: LaporanBinding(),
     ),

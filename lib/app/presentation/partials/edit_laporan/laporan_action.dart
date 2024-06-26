@@ -62,7 +62,9 @@ class LaporanAction extends StatelessWidget {
                                 Get.back();
                               } catch (_) {}
                             },
-                            onSecondary: () {},
+                            onSecondary: () {
+                              Get.back();
+                            },
                             title: "Konfirmasi Penghapusan Laporan",
                             description:
                                 "Apakah Anda yakin ingin menghapus laporan ini? Tindakan ini tidak dapat dibatalkan. Pastikan Anda telah memeriksa kembali data yang akan dihapus.",
