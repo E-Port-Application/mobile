@@ -170,12 +170,14 @@ class EditReklameController extends GetxController {
         await storedData.update(updateId);
 
         final laporanData = LaporanModel(
-                id: storedData.id,
-                type: "reklame",
-                progress: true,
-                data: null,
-                date: data.tanggal)
-            .toJson();
+          id: storedData.id,
+          type: "reklame",
+          progress: true,
+          data: null,
+          date: data.tanggal,
+          createdAt: DateTime.now(),
+          updatedAt: DateTime.now(),
+        ).toJson();
 
         await laporanRef.doc(storedData.id).set(laporanData);
 

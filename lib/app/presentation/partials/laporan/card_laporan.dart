@@ -28,7 +28,10 @@ class CardLaporan extends StatefulWidget {
       progress: false,
       type: "",
       data: null,
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
     );
+
     return CardLaporan(
       data: data,
       isLoading: true,

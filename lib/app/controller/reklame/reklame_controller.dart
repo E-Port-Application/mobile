@@ -29,6 +29,12 @@ class ReklameController extends GetxController {
     "jumlah": TextEditingController(),
     "tindakan": TextEditingController(),
     "keterangan": TextEditingController(),
+    "created-at": TextEditingController(
+      text: DateTime.now().toString(),
+    ),
+    "updated-at": TextEditingController(
+      text: DateTime.now().toString(),
+    ),
   }.obs;
 
   RxBool showJenis = false.obs;
@@ -87,6 +93,7 @@ class ReklameController extends GetxController {
       form['jumlah']!.text = (reklameData.jumlah ?? "").toString();
       form['tindakan']!.text = reklameData.tindakan ?? "";
       form['keterangan']!.text = reklameData.keterangan ?? "";
+      form['updated-at']!.text = DateTime.now().toString();
       imageUrl.value = reklameData.image;
       personils.value = reklameData.personils ?? [];
     } catch (_) {}

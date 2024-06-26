@@ -166,12 +166,14 @@ class LaporanRepository {
         await storedData.update(updateId);
 
         final laporanData = LaporanModel(
-                id: storedData.id,
-                type: type,
-                progress: true,
-                data: null,
-                date: data.tanggal)
-            .toJson();
+          id: storedData.id,
+          type: type,
+          progress: true,
+          data: null,
+          date: data.tanggal,
+          createdAt: DateTime.now(),
+          updatedAt: DateTime.now(),
+        ).toJson();
 
         await laporanRef.doc(storedData.id).set(laporanData);
 

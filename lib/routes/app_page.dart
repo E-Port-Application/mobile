@@ -115,7 +115,11 @@ List<GetPage<dynamic>> appPage() {
     ),
     GetPage(
       name: AppRoute.rencanaPatroliKransos,
-      page: () => Portal(child: KransosPage()),
+      page: () => Portal(
+        child: KransosPage(
+          type: LaporanType.create,
+        ),
+      ),
       binding: LaporanBinding(),
     ),
     GetPage(

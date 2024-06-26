@@ -13,17 +13,13 @@ class ReklameModel extends LaporanBase implements ModelFactory {
   int? jumlah;
   String? tindakan;
 
-  @JsonKey(name: "created-at")
-  DateTime? createdAt;
-
-  @JsonKey(name: "updated-at")
-  DateTime? updatedAt;
-
   ReklameModel({
     required super.tanggal,
     required super.waktuMulai,
     required super.waktuSelesai,
     required super.id,
+    required super.createdAt,
+    required super.updatedAt,
     super.personils,
     super.image,
     super.keterangan,
@@ -32,8 +28,6 @@ class ReklameModel extends LaporanBase implements ModelFactory {
     this.pelanggaran,
     this.jumlah,
     this.tindakan,
-    this.createdAt,
-    this.updatedAt,
   });
 
   factory ReklameModel.fromJson(Map<String, dynamic> json) =>

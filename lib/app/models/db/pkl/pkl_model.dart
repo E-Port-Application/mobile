@@ -26,19 +26,13 @@ class PklModel extends LaporanBase implements ModelFactory {
   @JsonKey(name: "alamat-pelanggar")
   String? alamatPelanggar;
 
-  @JsonKey(name: "created-at")
-  DateTime? createdAt;
-
-  @JsonKey(name: "updated-at")
-  DateTime? updatedAt;
-
   PklModel({
     required super.tanggal,
     required super.waktuMulai,
     required super.waktuSelesai,
     required super.id,
-    required this.createdAt,
-    required this.updatedAt,
+    required super.createdAt,
+    required super.updatedAt,
     super.personils,
     super.image,
     super.keterangan,

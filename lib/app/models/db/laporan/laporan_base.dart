@@ -1,10 +1,9 @@
+import 'package:eport/app/models/db/base/base_model.dart';
 import 'package:eport/app/models/db/personil/personil_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 @JsonSerializable()
-class LaporanBase {
-  final String id;
-
+class LaporanBase extends BaseModel {
   DateTime tanggal;
   @JsonKey(name: "waktu-mulai")
   final DateTime waktuMulai;
@@ -20,7 +19,9 @@ class LaporanBase {
   LaporanBase({
     required this.waktuMulai,
     required this.waktuSelesai,
-    required this.id,
+    required super.id,
+    required super.createdAt,
+    required super.updatedAt,
     required this.tanggal,
     this.personils,
     this.keterangan,

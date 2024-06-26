@@ -11,12 +11,8 @@ PklModel _$PklModelFromJson(Map<String, dynamic> json) => PklModel(
       waktuMulai: DateTime.parse(json['waktu-mulai'] as String),
       waktuSelesai: DateTime.parse(json['waktu-selesai'] as String),
       id: json['id'] as String,
-      createdAt: json['created-at'] == null
-          ? null
-          : DateTime.parse(json['created-at'] as String),
-      updatedAt: json['updated-at'] == null
-          ? null
-          : DateTime.parse(json['updated-at'] as String),
+      createdAt: DateTime.parse(json['created-at'] as String),
+      updatedAt: DateTime.parse(json['updated-at'] as String),
       personils: (json['personils'] as List<dynamic>?)
           ?.map((e) => PersonilModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -34,6 +30,8 @@ PklModel _$PklModelFromJson(Map<String, dynamic> json) => PklModel(
 
 Map<String, dynamic> _$PklModelToJson(PklModel instance) => <String, dynamic>{
       'id': instance.id,
+      'created-at': instance.createdAt.toIso8601String(),
+      'updated-at': instance.updatedAt.toIso8601String(),
       'tanggal': instance.tanggal.toIso8601String(),
       'waktu-mulai': instance.waktuMulai.toIso8601String(),
       'waktu-selesai': instance.waktuSelesai.toIso8601String(),
@@ -48,6 +46,4 @@ Map<String, dynamic> _$PklModelToJson(PklModel instance) => <String, dynamic>{
       'nik-pelanggar': instance.nikPelanggar,
       'jenis-kelamin': instance.jenisKelamin,
       'alamat-pelanggar': instance.alamatPelanggar,
-      'created-at': instance.createdAt?.toIso8601String(),
-      'updated-at': instance.updatedAt?.toIso8601String(),
     };

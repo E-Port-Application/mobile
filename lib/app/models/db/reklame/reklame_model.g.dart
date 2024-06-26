@@ -21,17 +21,15 @@ ReklameModel _$ReklameModelFromJson(Map<String, dynamic> json) => ReklameModel(
       pelanggaran: json['pelanggaran'] as String?,
       jumlah: json['jumlah'] as int?,
       tindakan: json['tindakan'] as String?,
-      createdAt: json['created-at'] == null
-          ? null
-          : DateTime.parse(json['created-at'] as String),
-      updatedAt: json['updated-at'] == null
-          ? null
-          : DateTime.parse(json['updated-at'] as String),
+      createdAt: DateTime.parse(json['created-at'] as String),
+      updatedAt: DateTime.parse(json['updated-at'] as String),
     );
 
 Map<String, dynamic> _$ReklameModelToJson(ReklameModel instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'created-at': instance.createdAt.toIso8601String(),
+      'updated-at': instance.updatedAt.toIso8601String(),
       'tanggal': instance.tanggal.toIso8601String(),
       'waktu-mulai': instance.waktuMulai.toIso8601String(),
       'waktu-selesai': instance.waktuSelesai.toIso8601String(),
@@ -43,6 +41,4 @@ Map<String, dynamic> _$ReklameModelToJson(ReklameModel instance) =>
       'pelanggaran': instance.pelanggaran,
       'jumlah': instance.jumlah,
       'tindakan': instance.tindakan,
-      'created-at': instance.createdAt?.toIso8601String(),
-      'updated-at': instance.updatedAt?.toIso8601String(),
     };
