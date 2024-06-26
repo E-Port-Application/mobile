@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eport/app/controller/laporan_controller.dart';
 import 'package:eport/app/models/db/laporan/laporan_model.dart';
 import 'package:eport/app/models/db/laporan_type/laporan_type_model.dart';
@@ -9,18 +10,22 @@ import 'package:eport/app/presentation/widgets/app_loading.dart';
 import 'package:eport/app/presentation/widgets/app_radio.dart';
 import 'package:eport/app/repository/laporan_repository.dart';
 import 'package:eport/firebase_options.dart';
+import 'package:eport/routes/app_route.dart';
 import 'package:eport/utils/filepicker_handler.dart';
 import 'package:eport/utils/form_converter.dart';
+import 'package:eport/utils/get_id.dart';
 import 'package:eport/utils/show_alert.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 class ReklameController extends GetxController {
   static ReklameController get i => Get.find();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
+  RxBool isEdit = false.obs;
   RxMap<String, TextEditingController> form = {
     "tanggal": TextEditingController(),
     "waktu-mulai": TextEditingController(),
@@ -72,13 +77,40 @@ class ReklameController extends GetxController {
     } catch (_) {}
   }
 
+  Rxn<ReklameModel> data = Rxn<ReklameModel>(null);
+  DateFormat dateFormat = DateFormat("dd MMMM yyyy");
+  final DateFormat timeFormat = DateFormat.Hm();
+
+  void getData() async {
+    try {
+      final reklameData = await LaporanRepository.getReklameDetail(getId());
+      data.value = reklameData;
+      form['tanggal']!.text = dateFormat.format(reklameData.tanggal);
+      form['waktu-mulai']!.text = timeFormat.format(reklameData.waktuMulai);
+      form['waktu-selesai']!.text = timeFormat.format(reklameData.waktuSelesai);
+      form['nama']!.text = reklameData.nama ?? "";
+      form['jenis']!.text = reklameData.jenis ?? "";
+      form['pelanggaran']!.text = reklameData.pelanggaran ?? "";
+      form['jumlah']!.text = (reklameData.jumlah ?? "").toString();
+      form['tindakan']!.text = reklameData.tindakan ?? "";
+      form['keterangan']!.text = reklameData.keterangan ?? "";
+      imageUrl.value = reklameData.image;
+      personils.value = reklameData.personils ?? [];
+    } catch (_) {}
+  }
+
   @override
   void onInit() {
     super.onInit();
+    isEdit.value = !(Get.currentRoute == AppRoute.rencanaPatroliReklame);
+    if (isEdit.value) {
+      getData();
+    }
     getJenisReklame();
     getPelanggaranReklame();
   }
 
+  RxnString imageUrl = RxnString();
   Rxn<File> image = Rxn<File>();
 
   void uploadPhoto({bool isCamera = false}) async {
@@ -108,8 +140,10 @@ class ReklameController extends GetxController {
 
   RxBool isLoading = true.obs;
   void submit() async {
+    isLoading.value = true;
     try {
       if (formKey.currentState!.validate()) {
+        final String id = this.data.value?.id ?? "";
         showLoadingDialog(Get.context!, isLoading);
         final formJson = formConverter(form);
         List<PersonilModel> personils = <PersonilModel>[];
@@ -118,46 +152,64 @@ class ReklameController extends GetxController {
           personils.add(personil);
         }
 
-        formJson['personils'] = personils.map((e) => e.toJson()).toList();
+        if (!isEdit.value) {
+          formJson['personils'] = personils.map((e) => e.toJson()).toList();
+        }
         formJson['id'] = "dummy-id";
+        formJson['nama'] = formJson['nama']?.toString();
+        formJson['tindakan'] = formJson['tindakan']?.toString();
+        formJson['keterangan'] = formJson['keterangan']?.toString();
+
+        print(formJson);
 
         final data = ReklameModel.fromJson(formJson);
 
         final dataRef = store.collection("reklame");
         final laporanRef = store.collection("laporan");
-        var storedData = await dataRef.add(data.toJson());
+        DocumentReference storedData;
+        if (isEdit.value) {
+          storedData = dataRef.doc(id);
+        } else {
+          storedData = await dataRef.add(data.toJson());
+        }
 
         if (image.value != null) {
           var splittedFile = image.value!.path.split(".");
-          final pklStorage = storage.child("laporan/reklame");
+          final dataStorage = storage.child("laporan/reklame");
           String fileName = "${storedData.id}.${splittedFile.last}";
-          final photo = pklStorage.child(fileName);
+          final photo = dataStorage.child(fileName);
           await photo.putFile(
             image.value!,
             SettableMetadata(
               contentType: "image/${splittedFile.last}",
             ),
           );
-          final imageUrl = await photo.getDownloadURL();
-          formJson['image'] = imageUrl;
-          await storedData.set(formJson);
+          final imageUrl = {"image": await photo.getDownloadURL()};
+          await storedData.update(imageUrl);
         }
-        var updateId = {"id": storedData.id};
-        await storedData.update(updateId);
 
-        final laporanData = LaporanModel(
-                id: storedData.id,
-                type: "reklame",
-                progress: true,
-                data: null,
-                date: data.tanggal)
-            .toJson();
+        if (isEdit.value) {
+          await laporanRef.doc(id).update({"progress": false});
+          await storedData.update(formJson);
+        } else {
+          var updateId = {"id": storedData.id};
+          await storedData.update(updateId);
 
-        await laporanRef.doc(storedData.id).set(laporanData);
+          final laporanData = LaporanModel(
+                  id: storedData.id,
+                  type: "reklame",
+                  progress: true,
+                  data: null,
+                  date: data.tanggal)
+              .toJson();
+
+          await laporanRef.doc(storedData.id).set(laporanData);
+        }
 
         await closeLoading(isLoading);
-        await Future.delayed(Duration(milliseconds: 200));
-        showAlert("Berhasil membaut rencana kegiatan", isSuccess: true);
+        showAlert(
+            "Berhasil membuat ${isEdit.value ? "rencana" : "laporan"} kegiatan patroli Reklame",
+            isSuccess: true);
         LaporanController.i.getData();
         Get.back();
       }

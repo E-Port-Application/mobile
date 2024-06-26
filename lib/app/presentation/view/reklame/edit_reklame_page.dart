@@ -6,11 +6,14 @@ import 'package:eport/app/presentation/widgets/app_button.dart';
 import 'package:eport/app/presentation/widgets/app_input.dart';
 import 'package:eport/app/presentation/widgets/app_location.dart';
 import 'package:eport/app/presentation/widgets/app_search_select.dart';
+import 'package:eport/styles/color_constants.dart';
+import 'package:eport/styles/text_styles.dart';
 import 'package:eport/utils/datepicker.dart';
 import 'package:eport/utils/input_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:eport/app/presentation/partials/edit_laporan/laporan_action.dart';
 
 class EditReklamePage extends GetView<EditReklameController> {
   const EditReklamePage({super.key});
@@ -159,6 +162,9 @@ class EditReklamePage extends GetView<EditReklameController> {
                 controller: controller.form['nama']!,
                 label: "Nama Reklame",
                 placeholder: "contoh: nama toko/yang diiklankan",
+                validator: (e) {
+                  return inputValidator(e, "Nama reklame");
+                },
               ),
               SizedBox(height: 12.h),
               AppSearchSelect(
@@ -179,6 +185,9 @@ class EditReklamePage extends GetView<EditReklameController> {
                     controller.jenis,
                     "jenis",
                   );
+                },
+                validator: (e) {
+                  return inputValidator(e, "Jenis reklame");
                 },
               ),
               SizedBox(height: 12.h),
@@ -201,6 +210,9 @@ class EditReklamePage extends GetView<EditReklameController> {
                     "pelanggaran",
                   );
                 },
+                validator: (e) {
+                  return inputValidator(e, "Pelanggaran reklame");
+                },
               ),
               SizedBox(height: 12.h),
               AppInput(
@@ -208,6 +220,9 @@ class EditReklamePage extends GetView<EditReklameController> {
                 label: "Jumlah",
                 placeholder: "Masukkan Jumlah",
                 keyboardType: TextInputType.number,
+                validator: (e) {
+                  return inputValidator(e, "Jumlah");
+                },
               ),
               SizedBox(height: 12.h),
               InputPersonil(personils: controller.personils, id: "reklame"),
@@ -218,6 +233,9 @@ class EditReklamePage extends GetView<EditReklameController> {
                 maxLines: 4,
                 placeholder: "Masukkan Tindakan",
                 hint: "Tulis tindakan dengan baik dan benar!",
+                validator: (e) {
+                  return inputValidator(e, "Tindakan");
+                },
               ),
               SizedBox(height: 12.h),
               AppInput(
@@ -226,6 +244,9 @@ class EditReklamePage extends GetView<EditReklameController> {
                 maxLines: 8,
                 placeholder: "Masukkan keterangan",
                 hint: "Tulis keterangan dengan baik dan benar!",
+                validator: (e) {
+                  return inputValidator(e, "Keterangan");
+                },
               ),
               controller.image.value == null &&
                       controller.imageUrl.value == null
@@ -236,11 +257,34 @@ class EditReklamePage extends GetView<EditReklameController> {
                       uploadGallery: controller.uploadPhoto,
                     )
                   : Container(),
-              SizedBox(height: 40.h),
+              FormField(
+                validator: (_) {
+                  if (controller.imageUrl.value != null ||
+                      controller.image.value != null) {
+                    return null;
+                  }
+                  return "Media tidak boleh kosong";
+                },
+                builder: (state) {
+                  return Text(
+                    state.errorText ?? "",
+                    style: body3TextStyle(
+                      color: ColorConstants.error,
+                      weight: FontWeight.w500,
+                    ),
+                  );
+                },
+              ),
+              SizedBox(height: 20.h),
+              LaporanAction(
+                onPdf: () {},
+                collection: "pkl",
+              ),
+              SizedBox(height: 12.h),
               AppButton(
                 width: 1.sw,
                 onPressed: controller.submit,
-                text: "Buat Rencana Kegiatan",
+                text: "Buat Laporan Kegiatan",
               ),
               SizedBox(height: 8.h),
               AppButton(

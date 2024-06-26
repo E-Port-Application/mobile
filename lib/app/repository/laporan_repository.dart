@@ -31,7 +31,7 @@ class LaporanRepository {
       final laporanRef = store
           .collection("laporan")
           .where("progress", isEqualTo: isProgress)
-          .orderBy("date", descending: false);
+          .orderBy("date", descending: true);
 
       var laporans = await laporanRef.get();
       return (await Future.wait(

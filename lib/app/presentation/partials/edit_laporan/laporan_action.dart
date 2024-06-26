@@ -23,99 +23,102 @@ class LaporanAction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Aksi",
-              style: body4BTextStyle(),
-            ),
-            SizedBox(height: 4.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AppModal(
-                          primaryText: "Hapus",
-                          secondaryText: "Batal",
-                          onPrimary: () async {
-                            try {
-                              await LaporanRepository.remove(
-                                collection,
-                                getId(),
-                              );
-                              LaporanController.i.getData();
-                              showAlert(
-                                "Berhasil hapus data laporan",
-                                isSuccess: true,
-                              );
-                              Get.back();
-                              Get.back();
-                            } catch (_) {}
-                          },
-                          onSecondary: () {},
-                          title: "Konfirmasi Penghapusan Laporan",
-                          description:
-                              "Apakah Anda yakin ingin menghapus laporan ini? Tindakan ini tidak dapat dibatalkan. Pastikan Anda telah memeriksa kembali data yang akan dihapus.",
-                        );
-                      },
-                    );
-                  },
-                  child: Icon(
-                    Icons.delete,
-                    size: 32.w,
-                    color: ColorConstants.error,
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-        onExcel != null || onPdf != null
-            ? Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+    return Container(
+      margin: EdgeInsets.only(bottom: 12.h),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Aksi",
+                style: body4BTextStyle(),
+              ),
+              SizedBox(height: 4.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(
-                    "Unduh Laporan",
-                    style: body4BTextStyle(),
-                  ),
-                  SizedBox(height: 4.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      onPdf != null
-                          ? GestureDetector(
-                              child: Image.asset(
-                                "assets/icons/pdf.png",
-                                width: 32.w,
-                                height: 32.h,
-                                fit: BoxFit.cover,
-                              ),
-                            )
-                          : Container(),
-                      onExcel != null
-                          ? GestureDetector(
-                              child: Image.asset(
-                                "assets/icons/excel.png",
-                                width: 32.w,
-                                height: 32.h,
-                                fit: BoxFit.cover,
-                              ),
-                            )
-                          : Container(),
-                    ],
+                  GestureDetector(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AppModal(
+                            primaryText: "Hapus",
+                            secondaryText: "Batal",
+                            onPrimary: () async {
+                              try {
+                                await LaporanRepository.remove(
+                                  collection,
+                                  getId(),
+                                );
+                                LaporanController.i.getData();
+                                showAlert(
+                                  "Berhasil hapus data laporan",
+                                  isSuccess: true,
+                                );
+                                Get.back();
+                                Get.back();
+                              } catch (_) {}
+                            },
+                            onSecondary: () {},
+                            title: "Konfirmasi Penghapusan Laporan",
+                            description:
+                                "Apakah Anda yakin ingin menghapus laporan ini? Tindakan ini tidak dapat dibatalkan. Pastikan Anda telah memeriksa kembali data yang akan dihapus.",
+                          );
+                        },
+                      );
+                    },
+                    child: Icon(
+                      Icons.delete,
+                      size: 32.w,
+                      color: ColorConstants.error,
+                    ),
                   ),
                 ],
-              )
-            : Container(),
-      ],
+              ),
+            ],
+          ),
+          onExcel != null || onPdf != null
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      "Unduh Laporan",
+                      style: body4BTextStyle(),
+                    ),
+                    SizedBox(height: 4.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        onPdf != null
+                            ? GestureDetector(
+                                child: Image.asset(
+                                  "assets/icons/pdf.png",
+                                  width: 32.w,
+                                  height: 32.h,
+                                  fit: BoxFit.cover,
+                                ),
+                              )
+                            : Container(),
+                        onExcel != null
+                            ? GestureDetector(
+                                child: Image.asset(
+                                  "assets/icons/excel.png",
+                                  width: 32.w,
+                                  height: 32.h,
+                                  fit: BoxFit.cover,
+                                ),
+                              )
+                            : Container(),
+                      ],
+                    ),
+                  ],
+                )
+              : Container(),
+        ],
+      ),
     );
   }
 }

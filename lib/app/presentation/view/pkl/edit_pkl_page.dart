@@ -58,12 +58,11 @@ class EditPklPage extends GetView<EditPklController> {
                   );
                 },
               ),
-              SizedBox(height: 32.h),
+              SizedBox(height: 20.h),
               LaporanAction(
                 onPdf: () {},
                 collection: "pkl",
               ),
-              SizedBox(height: 20.h),
               AppButton(
                 width: 1.sw,
                 onPressed: controller.submit,

@@ -13,6 +13,7 @@ class InputPersonil extends StatelessWidget {
   final RxList<PersonilModel> personils;
   final String id;
   String docId;
+  final String collectionId;
   PersonilVariant variant;
   InputPersonil({
     super.key,
@@ -20,6 +21,7 @@ class InputPersonil extends StatelessWidget {
     required this.id,
     this.variant = PersonilVariant.create,
     this.docId = "",
+    this.collectionId = "",
   });
 
   @override
@@ -103,7 +105,7 @@ class InputPersonil extends StatelessWidget {
                     }
                     if (variant == PersonilVariant.edit) {
                       Get.toNamed(
-                        AppRoute.laporanPersonil("pkl"),
+                        AppRoute.laporanPersonil(id),
                         parameters: {"doc": docId},
                       );
                       return;

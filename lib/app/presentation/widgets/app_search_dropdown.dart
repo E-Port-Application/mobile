@@ -195,7 +195,7 @@ class _SearchDropdownState extends State<SearchDropdown> {
       child: AppInput(
         key: ref,
         controller: searchInput,
-        placeholder: "Cari Nama PersonilModel",
+        placeholder: "Cari Nama Personil",
         suffixIcon: Icon(Icons.search),
         onChange: (e) {
           final debouncer = Debouncer(duration: Duration(milliseconds: 200));
