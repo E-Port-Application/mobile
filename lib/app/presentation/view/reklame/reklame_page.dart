@@ -222,57 +222,71 @@ class ReklamePage extends GetView<ReklameController> {
                     : null,
               ),
               SizedBox(height: 12.h),
-              AppSearchSelect(
-                options: controller.jenis,
-                show: controller.showJenis.value,
-                onTogle: (e) {
-                  controller.showJenis.value = e;
-                },
-                label: "Jenis Reklame",
-                placeholder: "Jenis Reklame",
-                controller: controller.form['jenis']!,
-                value: controller.selectedJenis.value,
-                onSave: (data) {
-                  controller.handleSaveMenu(
-                    data,
-                    controller.selectedJenis,
-                    controller.showJenis,
-                    controller.jenis,
-                    "jenis",
-                  );
-                },
-                validator: type == LaporanType.update
-                    ? (e) {
-                        return inputValidator(e, "Jenis reklame");
-                      }
-                    : null,
-              ),
+              type == LaporanType.history
+                  ? AppInput(
+                      controller: controller.form['jenis']!,
+                      label: "Jenis Reklame",
+                      placeholder: "Jenis Reklame",
+                      readOnly: true,
+                    )
+                  : AppSearchSelect(
+                      options: controller.jenis,
+                      show: controller.showJenis.value,
+                      onTogle: (e) {
+                        controller.showJenis.value = e;
+                      },
+                      label: "Jenis Reklame",
+                      placeholder: "Jenis Reklame",
+                      controller: controller.form['jenis']!,
+                      value: controller.selectedJenis.value,
+                      onSave: (data) {
+                        controller.handleSaveMenu(
+                          data,
+                          controller.selectedJenis,
+                          controller.showJenis,
+                          controller.jenis,
+                          "jenis",
+                        );
+                      },
+                      validator: type == LaporanType.update
+                          ? (e) {
+                              return inputValidator(e, "Jenis reklame");
+                            }
+                          : null,
+                    ),
               SizedBox(height: 12.h),
-              AppSearchSelect(
-                options: controller.pelanggaran,
-                show: controller.showPelanggaran.value,
-                onTogle: (e) {
-                  controller.showPelanggaran.value = e;
-                },
-                label: "Pelanggaran Reklame",
-                placeholder: "Pelanggaran Reklame",
-                controller: controller.form['pelanggaran']!,
-                value: controller.selectedPelanggaran.value,
-                onSave: (data) {
-                  controller.handleSaveMenu(
-                    data,
-                    controller.selectedPelanggaran,
-                    controller.showPelanggaran,
-                    controller.pelanggaran,
-                    "pelanggaran",
-                  );
-                },
-                validator: type == LaporanType.update
-                    ? (e) {
-                        return inputValidator(e, "Pelanggaran reklame");
-                      }
-                    : null,
-              ),
+              type == LaporanType.history
+                  ? AppInput(
+                      label: "Pelanggaran Reklame",
+                      placeholder: "Pelanggaran Reklame",
+                      controller: controller.form['pelanggaran']!,
+                      readOnly: true,
+                    )
+                  : AppSearchSelect(
+                      options: controller.pelanggaran,
+                      show: controller.showPelanggaran.value,
+                      onTogle: (e) {
+                        controller.showPelanggaran.value = e;
+                      },
+                      label: "Pelanggaran Reklame",
+                      placeholder: "Pelanggaran Reklame",
+                      controller: controller.form['pelanggaran']!,
+                      value: controller.selectedPelanggaran.value,
+                      onSave: (data) {
+                        controller.handleSaveMenu(
+                          data,
+                          controller.selectedPelanggaran,
+                          controller.showPelanggaran,
+                          controller.pelanggaran,
+                          "pelanggaran",
+                        );
+                      },
+                      validator: type == LaporanType.update
+                          ? (e) {
+                              return inputValidator(e, "Pelanggaran reklame");
+                            }
+                          : null,
+                    ),
               SizedBox(height: 12.h),
               AppInput(
                 controller: controller.form['jumlah']!,
