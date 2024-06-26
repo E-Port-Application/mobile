@@ -1,6 +1,7 @@
 import 'package:eport/app/models/db/laporan/laporan_base.dart';
 import 'package:eport/app/models/db/laporan/laporan_model.dart';
 import 'package:eport/app/models/db/pkl/pkl_model.dart';
+import 'package:eport/app/models/db/reklame/reklame_model.dart';
 import 'package:eport/app/presentation/widgets/app_button.dart';
 import 'package:eport/app/presentation/widgets/app_shimmer.dart';
 import 'package:eport/routes/app_route.dart';
@@ -71,7 +72,7 @@ class _CardLaporanState extends State<CardLaporan> {
     if (laporanModel == null) {
       return _loadingWidget();
     }
-    var data = laporanModel as PklModel;
+    var data = laporanModel as LaporanBase;
 
     return widget.data.progress ? _progressWidget(data) : _riwayatWidget(data);
   }
@@ -157,6 +158,16 @@ class _CardLaporanState extends State<CardLaporan> {
   }
 
   Widget _progressWidget(LaporanBase data) {
+    String title = "";
+    switch (widget.data.type) {
+      case "pkl":
+        title = "Laporan PKL";
+        break;
+      case "reklame":
+        data as ReklameModel;
+        title = "Laporan Reklame";
+    }
+
     return Container(
       margin: EdgeInsets.only(bottom: 16.h),
       decoration: BoxDecoration(
@@ -194,7 +205,7 @@ class _CardLaporanState extends State<CardLaporan> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(
-                        "Laporan PKL",
+                        title,
                         style: body3BTextStyle(
                           color: ColorConstants.slate[900],
                         ),
@@ -237,7 +248,14 @@ class _CardLaporanState extends State<CardLaporan> {
                 alignment: Alignment.topRight,
                 child: AppButton(
                   onPressed: () {
-                    Get.toNamed(AppRoute.laporanPkl(widget.data.id));
+                    switch (widget.data.type) {
+                      case "pkl":
+                        Get.toNamed(AppRoute.laporanPkl(widget.data.id));
+                        return;
+                      case "reklame":
+                        Get.toNamed(AppRoute.laporanReklame(widget.data.id));
+                        return;
+                    }
                   },
                   text: "Buat Laporan Kegiatan",
                   padding: EdgeInsets.symmetric(horizontal: 12.w),

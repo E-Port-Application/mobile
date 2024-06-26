@@ -1,6 +1,7 @@
 import 'package:eport/app/models/db/laporan/laporan_model.dart';
 import 'package:eport/app/models/db/laporan_type/laporan_type_model.dart';
 import 'package:eport/app/models/db/pkl/pkl_model.dart';
+import 'package:eport/app/models/db/reklame/reklame_model.dart';
 import 'package:eport/firebase_options.dart';
 import 'package:eport/utils/show_alert.dart';
 
@@ -39,7 +40,11 @@ class LaporanRepository {
             var temp = LaporanModel.fromJson(e.data());
             final dataRef = store.collection(temp.type).doc(temp.id);
             var data = await dataRef.get();
-            temp.data = PklModel.fromJson(data.data()!);
+            if (temp.type == "pkl") {
+              temp.data = PklModel.fromJson(data.data()!);
+            } else if (temp.type == "reklame") {
+              temp.data = ReklameModel.fromJson(data.data()!);
+            }
             return temp;
           },
         ),
@@ -57,6 +62,17 @@ class LaporanRepository {
       final pklRef = store.collection("pkl");
       var data = await pklRef.doc(id).get();
       return PklModel.fromJson(data.data()!);
+    } catch (err) {
+      showAlert(err.toString());
+      rethrow;
+    }
+  }
+
+  static Future<ReklameModel> getReklameDetail(String id) async {
+    try {
+      final pklRef = store.collection("reklame");
+      var data = await pklRef.doc(id).get();
+      return ReklameModel.fromJson(data.data()!);
     } catch (err) {
       showAlert(err.toString());
       rethrow;

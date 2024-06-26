@@ -14,8 +14,6 @@ class PklModel extends LaporanBase implements ModelFactory {
   @JsonKey(name: "jumlah-pelanggar")
   int? jumlahPelanggar;
 
-  String? keterangan;
-
   @JsonKey(name: "nama-pelanggar")
   String? namaPelanggar;
 
@@ -42,12 +40,12 @@ class PklModel extends LaporanBase implements ModelFactory {
     required this.createdAt,
     required this.updatedAt,
     super.personils,
+    super.image,
+    super.keterangan,
     this.jenis,
     this.pelanggaran,
     this.tindakan,
     this.jumlahPelanggar,
-    this.keterangan,
-    super.image,
     this.alamatPelanggar,
     this.jenisKelamin,
     this.namaPelanggar,

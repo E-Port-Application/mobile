@@ -1,16 +1,16 @@
 import 'package:eport/app/presentation/partials/laporan/laporan_scaffold.dart';
+import 'package:eport/app/presentation/partials/laporan/upload_photo.dart';
 import 'package:eport/app/presentation/partials/personil/input_personil.dart';
 import 'package:eport/app/presentation/widgets/app_button.dart';
 import 'package:eport/app/presentation/widgets/app_input.dart';
 import 'package:eport/app/presentation/widgets/app_location.dart';
 import 'package:eport/app/presentation/widgets/app_search_select.dart';
-import 'package:eport/styles/color_constants.dart';
-import 'package:eport/styles/text_styles.dart';
 import 'package:eport/utils/datepicker.dart';
+import 'package:eport/utils/input_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:eport/app/controller/reklame_controller.dart';
+import 'package:eport/app/controller/reklame/reklame_controller.dart';
 
 class ReklamePage extends GetView<ReklameController> {
   const ReklamePage({super.key});
@@ -26,6 +26,43 @@ class ReklamePage extends GetView<ReklameController> {
             children: [
               AppLocation(),
               SizedBox(height: 12.h),
+              controller.image.value != null
+                  ? Container(
+                      margin: EdgeInsets.only(bottom: 16.h),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12.w),
+                      ),
+                      clipBehavior: Clip.antiAlias,
+                      constraints: BoxConstraints(maxHeight: 240.h),
+                      child: Stack(
+                        children: [
+                          Image.file(
+                            controller.image.value!,
+                            width: 1.sw,
+                            fit: BoxFit.cover,
+                          ),
+                          Positioned(
+                            top: 10.h,
+                            right: 12.w,
+                            child: GestureDetector(
+                              onTap: controller.removePhoto,
+                              child: Container(
+                                padding: EdgeInsets.all(2.w),
+                                decoration: BoxDecoration(
+                                  color: Colors.white.withOpacity(.3),
+                                  borderRadius: BorderRadius.circular(20.w),
+                                ),
+                                child: Icon(
+                                  Icons.close,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : Container(),
               AppInput(
                 controller: controller.form['tanggal']!,
                 label: "Tanggal",
@@ -37,6 +74,9 @@ class ReklamePage extends GetView<ReklameController> {
                   datePicker(controller.form['tanggal']!);
                 },
                 placeholder: "DD/MM/YYYY",
+                validator: (e) {
+                  return inputValidator(e, "Tanggal");
+                },
               ),
               SizedBox(height: 12.h),
               Row(
@@ -47,6 +87,13 @@ class ReklamePage extends GetView<ReklameController> {
                       label: "Waktu Mulai",
                       placeholder: "Waktu ",
                       prefixIcon: Icon(Icons.access_time_outlined),
+                      onTap: () {
+                        timePicker(controller.form['waktu-mulai']!);
+                      },
+                      readOnly: true,
+                      validator: (e) {
+                        return inputValidator(e, "Waktu mulai");
+                      },
                     ),
                   ),
                   SizedBox(width: 8.w),
@@ -56,6 +103,13 @@ class ReklamePage extends GetView<ReklameController> {
                       label: "Waktu Selesai",
                       placeholder: "Waktu ",
                       prefixIcon: Icon(Icons.access_time_outlined),
+                      onTap: () {
+                        timePicker(controller.form['waktu-selesai']!);
+                      },
+                      readOnly: true,
+                      validator: (e) {
+                        return inputValidator(e, "Waktu selesai");
+                      },
                     ),
                   ),
                 ],
@@ -113,6 +167,7 @@ class ReklamePage extends GetView<ReklameController> {
                 controller: controller.form['jumlah']!,
                 label: "Jumlah",
                 placeholder: "Masukkan Jumlah",
+                keyboardType: TextInputType.number,
               ),
               SizedBox(height: 12.h),
               InputPersonil(personils: controller.personils, id: "reklame"),
@@ -120,84 +175,30 @@ class ReklamePage extends GetView<ReklameController> {
               AppInput(
                 controller: controller.form['tindakan']!,
                 label: "Tindakan",
-                maxLines: 8,
+                maxLines: 4,
                 placeholder: "Masukkan Tindakan",
                 hint: "Tulis tindakan dengan baik dan benar!",
               ),
-              SizedBox(height: 40.h),
-              Text(
-                "Pilih salah satu opsi",
-                style: body6TextStyle(color: ColorConstants.slate[500]),
+              SizedBox(height: 12.h),
+              AppInput(
+                controller: controller.form['keterangan']!,
+                label: "Keterangan",
+                maxLines: 8,
+                placeholder: "Masukkan keterangan",
+                hint: "Tulis keterangan dengan baik dan benar!",
               ),
-              SizedBox(height: 16.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(
-                    children: [
-                      SizedBox(
-                        height: 60.h,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                            padding: EdgeInsets.zero,
-                            visualDensity: VisualDensity.compact,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.w),
-                            ),
-                          ),
-                          child: Center(
-                            child: Icon(
-                              Icons.camera_alt,
-                              size: 28.w,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 8.h),
-                      Text(
-                        "Kamera",
-                        style: body5BTextStyle(),
-                      ),
-                    ],
-                  ),
-                  SizedBox(width: 12.w),
-                  Column(
-                    children: [
-                      SizedBox(
-                        height: 60.h,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                            padding: EdgeInsets.zero,
-                            visualDensity: VisualDensity.compact,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.w),
-                            ),
-                          ),
-                          child: Center(
-                            child: Icon(
-                              Icons.photo_library_outlined,
-                              size: 28.w,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 8.h),
-                      Text(
-                        "Galeri",
-                        style: body5BTextStyle(),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+              controller.image.value == null
+                  ? UploadPhoto(
+                      uploadCamera: () {
+                        controller.uploadPhoto(isCamera: true);
+                      },
+                      uploadGallery: controller.uploadPhoto,
+                    )
+                  : Container(),
               SizedBox(height: 40.h),
               AppButton(
                 width: 1.sw,
-                onPressed: () {},
+                onPressed: controller.submit,
                 text: "Buat Rencana Kegiatan",
               ),
               SizedBox(height: 8.h),

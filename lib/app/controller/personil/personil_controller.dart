@@ -3,7 +3,7 @@ import 'package:eport/app/controller/pengamanan_controller.dart';
 import 'package:eport/app/controller/perizinan_controller.dart';
 import 'package:eport/app/controller/piket_controller.dart';
 import 'package:eport/app/controller/pkl/pkl_controller.dart';
-import 'package:eport/app/controller/reklame_controller.dart';
+import 'package:eport/app/controller/reklame/reklame_controller.dart';
 import 'package:eport/app/models/db/personil/personil_model.dart';
 import 'package:eport/app/repository/personil_repository.dart';
 import 'package:flutter/material.dart';

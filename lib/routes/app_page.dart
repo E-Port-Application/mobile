@@ -13,7 +13,8 @@ import 'package:eport/app/presentation/view/perizinan_page.dart';
 import 'package:eport/app/presentation/view/personil/personil_page.dart';
 import 'package:eport/app/presentation/view/pkl/pkl_page.dart';
 import 'package:eport/app/presentation/view/pkl/riwayat_pkl_page.dart';
-import 'package:eport/app/presentation/view/reklame_page.dart';
+import 'package:eport/app/presentation/view/reklame/edit_reklame_page.dart';
+import 'package:eport/app/presentation/view/reklame/reklame_page.dart';
 import 'package:eport/app/presentation/view/rencana_page.dart';
 import 'package:eport/app/presentation/view/profile_page.dart';
 import 'package:eport/app/presentation/view/proses_page.dart';
@@ -141,14 +142,20 @@ List<GetPage<dynamic>> appPage() {
       transition: Transition.rightToLeftWithFade,
     ),
     GetPage(
-        name: AppRoute.laporanPersonil(":id"),
-        page: () => Portal(
-              child: EditPersonilPage(),
-            ),
-        binding: LaporanBinding()),
+      name: AppRoute.laporanPersonil(":id"),
+      page: () => Portal(
+        child: EditPersonilPage(),
+      ),
+      binding: LaporanBinding(),
+    ),
     GetPage(
       name: AppRoute.laporanPkl(":id"),
       page: () => Portal(child: EditPklPage()),
+      binding: LaporanBinding(),
+    ),
+    GetPage(
+      name: AppRoute.laporanReklame(":id"),
+      page: () => Portal(child: EditReklamePage()),
       binding: LaporanBinding(),
     ),
     GetPage(
