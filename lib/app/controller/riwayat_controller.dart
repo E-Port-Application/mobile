@@ -8,6 +8,7 @@ class RiwayatController extends GetxController {
   RxList<ActivityModel> activities = RxList([]);
   Rxn<ActivityModel> selectedActivity = Rxn<ActivityModel>();
   RxList<LaporanModel> datas = RxList<LaporanModel>();
+  RxBool isLoading = true.obs;
 
   void getData() async {
     try {
@@ -15,6 +16,10 @@ class RiwayatController extends GetxController {
       LaporanController.i.riwayatData.listen((p0) {
         datas.value = p0;
         datas.refresh();
+      });
+      isLoading.value = LaporanController.i.loadingRiwayatData.value;
+      LaporanController.i.loadingRiwayatData.listen((p0) {
+        isLoading.value = p0;
       });
     } catch (_) {}
   }

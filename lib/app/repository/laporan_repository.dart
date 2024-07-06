@@ -7,6 +7,7 @@ import 'package:eport/app/models/db/kransos/kransos_model.dart';
 import 'package:eport/app/models/db/laporan/laporan_model.dart';
 import 'package:eport/app/models/db/laporan_type/laporan_type_model.dart';
 import 'package:eport/app/models/db/pamwal/pamwal_model.dart';
+import 'package:eport/app/models/db/pelanggar/pelanggar_model.dart';
 import 'package:eport/app/models/db/pengamanan/pengamanan_model.dart';
 import 'package:eport/app/models/db/perizinan/perizinan_model.dart';
 import 'package:eport/app/models/db/personil/personil_model.dart';
@@ -14,6 +15,7 @@ import 'package:eport/app/models/db/piket/piket_model.dart';
 import 'package:eport/app/models/db/pkl/pkl_model.dart';
 import 'package:eport/app/models/db/reklame/reklame_model.dart';
 import 'package:eport/app/presentation/widgets/app_loading.dart';
+import 'package:eport/app/repository/pelanggar_repository.dart';
 import 'package:eport/firebase_options.dart';
 import 'package:eport/utils/form_converter.dart';
 import 'package:eport/utils/show_alert.dart';
@@ -110,8 +112,13 @@ class LaporanRepository {
     try {
       var a = storage.child("laporan/$collection/$id.jpg");
       a.delete().then((_) {}).catchError((_) {});
-      await store.collection(collection).doc(id).delete();
-      await store.collection("laporan").doc(id).delete();
+      await store.runTransaction((transaction) async {
+        transaction.delete(store.collection(collection).doc(id));
+        transaction.delete(store.collection("laporan").doc(id));
+        if (Get.currentRoute.contains("pkl")) {
+          transaction.delete(store.collection("pelanggar").doc(id));
+        }
+      });
     } catch (err) {
       showAlert(err.toString());
       rethrow;
@@ -139,12 +146,20 @@ class LaporanRepository {
         for (var personil in personilData) {
           personils.add(personil);
         }
+
         formJson['personils'] = personils.map((e) => e.toJson()).toList();
         formJson['id'] = "dummy-id";
         formJson['location'] = location;
 
         dynamic data;
         String title = "";
+
+        if (cast != null) {
+          for (String key in cast) {
+            formJson[key] = formJson[key]?.toString();
+          }
+        }
+
         switch (type) {
           case "pkl":
             data = PklModel.fromJson(formJson);
@@ -176,46 +191,54 @@ class LaporanRepository {
             break;
         }
 
-        if (cast != null) {
-          for (String key in cast) {
-            formJson[key] = formJson[key]?.toString();
+        await FirebaseFirestore.instance.runTransaction((transaction) async {
+          final dataRef = FirebaseFirestore.instance.collection(type);
+          final laporanRef = FirebaseFirestore.instance.collection("laporan");
+
+          DocumentReference storedDataRef = dataRef.doc();
+          transaction.set(storedDataRef, data.toJson());
+
+          if (image != null) {
+            var splittedFile = image.path.split(".");
+            final dataStorage =
+                FirebaseStorage.instance.ref().child("laporan/$type");
+            String fileName = "${storedDataRef.id}.${splittedFile.last}";
+            final photo = dataStorage.child(fileName);
+            await photo.putFile(
+              image,
+              SettableMetadata(
+                contentType: "image/${splittedFile.last}",
+              ),
+            );
+            final imageUrl = {"image": await photo.getDownloadURL()};
+            transaction.update(storedDataRef, imageUrl);
           }
-        }
 
-        final dataRef = store.collection(type);
-        final laporanRef = store.collection("laporan");
-        DocumentReference storedData = await dataRef.add(data.toJson());
+          var updateId = {"id": storedDataRef.id};
+          transaction.update(storedDataRef, updateId);
 
-        if (image != null) {
-          var splittedFile = image.path.split(".");
-          final dataStorage = storage.child("laporan/$type");
-          String fileName = "${storedData.id}.${splittedFile.last}";
-          final photo = dataStorage.child(fileName);
-          await photo.putFile(
-            image,
-            SettableMetadata(
-              contentType: "image/${splittedFile.last}",
-            ),
-          );
-          final imageUrl = {"image": await photo.getDownloadURL()};
-          await storedData.update(imageUrl);
-        }
+          final laporanData = LaporanModel(
+            id: storedDataRef.id,
+            type: type,
+            progress: true,
+            data: null,
+            date: data.tanggal,
+            createdAt: DateTime.now(),
+            updatedAt: DateTime.now(),
+            location: location,
+          ).toJson();
 
-        var updateId = {"id": storedData.id};
-        await storedData.update(updateId);
+          if (type == "pkl") {
+            final formPelanggar = PelanggarModel(
+              name: formJson['nama-pelanggar'] ?? "",
+              nik: formJson['nik-pelanggar'] ?? "",
+              id: storedDataRef.id,
+            );
+            await PelanggarRepository.set(formPelanggar);
+          }
 
-        final laporanData = LaporanModel(
-          id: storedData.id,
-          type: type,
-          progress: true,
-          data: null,
-          date: data.tanggal,
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now(),
-          location: location,
-        ).toJson();
-
-        await laporanRef.doc(storedData.id).set(laporanData);
+          transaction.set(laporanRef.doc(storedDataRef.id), laporanData);
+        });
 
         await closeLoading(isLoading);
         showAlert("Berhasil membuat rencana kegiatan patroli $title",
@@ -244,10 +267,10 @@ class LaporanRepository {
       if (formKey.currentState!.validate()) {
         showLoadingDialog(Get.context!, isLoading);
         final formJson = formConverter(form);
-        List<PersonilModel> personils = <PersonilModel>[];
+        List<PersonilModel> personilList = <PersonilModel>[];
 
         for (var personil in personils) {
-          personils.add(personil);
+          personilList.add(personil);
         }
 
         String title = "";
@@ -281,30 +304,41 @@ class LaporanRepository {
           }
         }
 
-        final dataRef = store.collection(type);
-        final laporanRef = store.collection("laporan");
-        DocumentReference storedData;
-        storedData = dataRef.doc(id);
+        await FirebaseFirestore.instance.runTransaction((transaction) async {
+          final dataRef = FirebaseFirestore.instance.collection(type);
+          final laporanRef = FirebaseFirestore.instance.collection("laporan");
+          DocumentReference storedData = dataRef.doc(id);
 
-        if (image != null) {
-          var splittedFile = image.path.split(".");
-          final dataStorage = storage.child("laporan/$type");
-          String fileName = "${storedData.id}.${splittedFile.last}";
-          final photo = dataStorage.child(fileName);
-          await photo.putFile(
-            image,
-            SettableMetadata(
-              contentType: "image/${splittedFile.last}",
-            ),
-          );
-          final imageUrl = {"image": await photo.getDownloadURL()};
-          await storedData.update(imageUrl);
-        }
+          if (image != null) {
+            var splittedFile = image.path.split(".");
+            final dataStorage =
+                FirebaseStorage.instance.ref().child("laporan/$type");
+            String fileName = "${storedData.id}.${splittedFile.last}";
+            final photo = dataStorage.child(fileName);
+            await photo.putFile(
+              image,
+              SettableMetadata(
+                contentType: "image/${splittedFile.last}",
+              ),
+            );
+            final imageUrl = {"image": await photo.getDownloadURL()};
+            transaction.update(storedData, imageUrl);
+          }
 
-        await laporanRef.doc(id).update({"progress": false});
-        await storedData.update(formJson);
-        final laporanData = await storedData.get();
-        await laporanRef.doc(id).update({"data": laporanData.data()});
+          transaction.update(laporanRef.doc(id), {"progress": false});
+          transaction.update(storedData, formJson);
+          final laporanData = await storedData.get();
+          transaction.update(laporanRef.doc(id), {"data": laporanData.data()});
+
+          if (type == "pkl") {
+            final formPelanggar = PelanggarModel(
+              name: formJson['nama-pelanggar'] ?? "",
+              nik: formJson['nik-pelanggar'] ?? "",
+              id: storedData.id,
+            );
+            await PelanggarRepository.set(formPelanggar);
+          }
+        });
 
         await closeLoading(isLoading);
         showAlert("Berhasil membuat laporan kegiatan patroli $title",

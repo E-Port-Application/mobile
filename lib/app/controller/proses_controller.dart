@@ -16,12 +16,18 @@ class ProsesController extends GetxController {
     openFilter.value = val;
   }
 
+  RxBool isLoading = true.obs;
+
   void getData() async {
     try {
       LaporanController.i.getData();
       LaporanController.i.prosesData.listen((p0) {
         datas.value = p0;
         datas.refresh();
+      });
+      isLoading.value = LaporanController.i.loadingProsesData.value;
+      LaporanController.i.loadingProsesData.listen((p0) {
+        isLoading.value = p0;
       });
     } catch (_) {}
   }

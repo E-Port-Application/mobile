@@ -181,7 +181,7 @@ class PengamananPage extends GetView<PengamananController> {
               type != LaporanType.create
                   ? LaporanAction(
                       onPdf: () {},
-                      collection: "kransos",
+                      collection: "pengamanan",
                     )
                   : Container(),
               AppButton(

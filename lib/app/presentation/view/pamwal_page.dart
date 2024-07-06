@@ -178,7 +178,7 @@ class PamwalPage extends GetView<PamwalController> {
               type != LaporanType.create
                   ? LaporanAction(
                       onPdf: () {},
-                      collection: "kransos",
+                      collection: "pamwal",
                     )
                   : Container(),
               AppButton(

@@ -202,7 +202,7 @@ class PerizinanPage extends GetView<PerizinanController> {
               type != LaporanType.create
                   ? LaporanAction(
                       onPdf: () {},
-                      collection: "kransos",
+                      collection: "perizinan",
                     )
                   : Container(),
               AppButton(

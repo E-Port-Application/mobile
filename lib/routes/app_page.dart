@@ -5,7 +5,6 @@ import 'package:eport/app/controller/piket_page.dart';
 import 'package:eport/app/presentation/view/pamwal_page.dart';
 import 'package:eport/app/presentation/view/personil/edit_personil_page.dart';
 import 'package:eport/app/presentation/view/personil/riwayat_personil_page.dart';
-import 'package:eport/app/presentation/view/pkl/edit_pkl_page.dart';
 import 'package:eport/app/presentation/view/kransos_page.dart';
 import 'package:eport/app/presentation/view/laporan_page.dart';
 import 'package:eport/app/presentation/view/notification_page.dart';
@@ -13,7 +12,6 @@ import 'package:eport/app/presentation/view/pengamanan_page.dart';
 import 'package:eport/app/presentation/view/perizinan_page.dart';
 import 'package:eport/app/presentation/view/personil/personil_page.dart';
 import 'package:eport/app/presentation/view/pkl/pkl_page.dart';
-import 'package:eport/app/presentation/view/pkl/riwayat_pkl_page.dart';
 import 'package:eport/app/presentation/view/reklame/reklame_page.dart';
 import 'package:eport/app/presentation/view/rencana_page.dart';
 import 'package:eport/app/presentation/view/profile_page.dart';
@@ -103,7 +101,7 @@ List<GetPage<dynamic>> appPage() {
     ),
     GetPage(
       name: AppRoute.rencanaPatroliPkl,
-      page: () => Portal(child: PklPage()),
+      page: () => Portal(child: PklPage(type: LaporanType.create)),
       binding: LaporanBinding(),
     ),
     GetPage(
@@ -174,7 +172,7 @@ List<GetPage<dynamic>> appPage() {
     ),
     GetPage(
       name: AppRoute.laporanPkl(":id"),
-      page: () => Portal(child: EditPklPage()),
+      page: () => Portal(child: PklPage(type: LaporanType.update)),
       binding: LaporanBinding(),
     ),
     GetPage(
@@ -234,7 +232,7 @@ List<GetPage<dynamic>> appPage() {
     GetPage(
       name: AppRoute.riwayatPkl(":id"),
       page: () => Portal(
-        child: RiwayatPklPage(),
+        child: PklPage(type: LaporanType.history),
       ),
       binding: LaporanBinding(),
     ),

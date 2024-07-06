@@ -229,11 +229,11 @@ class PiketPage extends GetView<PiketController> {
                       },
                     )
                   : Container(),
-              SizedBox(height: 32.h),
+              SizedBox(height: type == LaporanType.create ? 32.h : 10.h),
               type != LaporanType.create
                   ? LaporanAction(
                       onPdf: () {},
-                      collection: "kransos",
+                      collection: "piket",
                     )
                   : Container(),
               AppButton(
