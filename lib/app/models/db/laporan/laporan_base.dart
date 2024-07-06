@@ -15,6 +15,7 @@ class LaporanBase extends BaseModel {
 
   List<PersonilModel>? personils;
   String? keterangan;
+  String location;
 
   LaporanBase({
     required this.waktuMulai,
@@ -23,6 +24,7 @@ class LaporanBase extends BaseModel {
     required super.createdAt,
     required super.updatedAt,
     required this.tanggal,
+    required this.location,
     this.personils,
     this.keterangan,
     this.image,

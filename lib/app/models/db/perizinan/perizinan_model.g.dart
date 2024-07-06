@@ -14,6 +14,7 @@ PerizinanModel _$PerizinanModelFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       createdAt: DateTime.parse(json['created-at'] as String),
       updatedAt: DateTime.parse(json['updated-at'] as String),
+      location: json['location'] as String,
       personils: (json['personils'] as List<dynamic>?)
           ?.map((e) => PersonilModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -21,6 +22,7 @@ PerizinanModel _$PerizinanModelFromJson(Map<String, dynamic> json) =>
       nama: json['nama'] as String?,
       pelanggaran: json['pelanggaran'] as String?,
       tindakan: json['tindakan'] as String?,
+      jumlah: json['jumlah'] as int?,
     )
       ..image = json['image'] as String?
       ..keterangan = json['keterangan'] as String?;
@@ -36,8 +38,10 @@ Map<String, dynamic> _$PerizinanModelToJson(PerizinanModel instance) =>
       'image': instance.image,
       'personils': instance.personils?.map((e) => e.toJson()).toList(),
       'keterangan': instance.keterangan,
+      'location': instance.location,
       'nama': instance.nama,
       'jenis': instance.jenis,
       'pelanggaran': instance.pelanggaran,
       'tindakan': instance.tindakan,
+      'jumlah': instance.jumlah,
     };

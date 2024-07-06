@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:eport/app/controller/pkl/riwayat_pkl_controller.dart';
 import 'package:eport/app/presentation/partials/edit_laporan/laporan_action.dart';
 import 'package:eport/app/presentation/partials/laporan/laporan_scaffold.dart';
@@ -6,10 +9,15 @@ import 'package:eport/app/presentation/widgets/app_button.dart';
 import 'package:eport/app/presentation/widgets/app_input.dart';
 import 'package:eport/app/presentation/widgets/app_location.dart';
 import 'package:eport/app/types/laporan_type.dart';
+import 'package:eport/services/api/sources/api.dart';
 import 'package:eport/styles/color_constants.dart';
+import 'package:eport/utils/open_link.dart';
+import 'package:eport/utils/show_alert.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
 
 class RiwayatPklPage extends GetView<RiwayatPklController> {
   const RiwayatPklPage({super.key});
@@ -28,7 +36,15 @@ class RiwayatPklPage extends GetView<RiwayatPklController> {
               formTwo(),
               SizedBox(height: 32.h),
               LaporanAction(
-                onPdf: () {},
+                onPdf: () async {
+                  try {
+                    String id = controller.data.value!.id;
+                    openLink(
+                        Uri.parse("${dotenv.env['BASE_URL']!}api/pkl/$id/pdf"));
+                  } catch (err) {
+                    showAlert(err.toString());
+                  }
+                },
                 collection: "pkl",
               ),
               SizedBox(height: 20.h),

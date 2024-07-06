@@ -1,3 +1,4 @@
+import 'package:eport/app/controller/cache_controller.dart';
 import 'package:eport/app/controller/kransos_controller.dart';
 import 'package:eport/app/controller/pamwal_controller.dart';
 import 'package:eport/app/controller/pengamanan_controller.dart';
@@ -46,30 +47,52 @@ class PersonilController extends GetxController {
   RxList<Rx<PersonilState>> anggotas = RxList<Rx<PersonilState>>();
 
   Future initData() async {
-    try {
-      var data = await PersonilRepository.getPersonels();
+    if (CacheController.i.personils.isEmpty) {
+      try {
+        var data = await PersonilRepository.getPersonels();
 
-      personils.value = data[0]
-          .map((e) => Rx<PersonilState>(PersonilState(
-                personil: e,
-                isSelected: false,
-              )))
-          .toList();
-      personils.refresh();
+        personils.value = data[0]
+            .map((e) => Rx<PersonilState>(PersonilState(
+                  personil: e,
+                  isSelected: false,
+                )))
+            .toList();
+        personils.refresh();
 
-      komandos.value = data[1]
+        komandos.value = data[1]
+            .map((e) => Rx<PersonilState>(PersonilState(
+                  personil: e,
+                  isSelected: false,
+                )))
+            .toList();
+        anggotas.value = data[2]
+            .map((e) => Rx<PersonilState>(PersonilState(
+                  personil: e,
+                  isSelected: false,
+                )))
+            .toList();
+      } catch (_) {}
+    } else {
+      final cache = CacheController.i;
+      personils.value = cache.personils
           .map((e) => Rx<PersonilState>(PersonilState(
                 personil: e,
                 isSelected: false,
               )))
           .toList();
-      anggotas.value = data[2]
+      komandos.value = cache.komandos
           .map((e) => Rx<PersonilState>(PersonilState(
                 personil: e,
                 isSelected: false,
               )))
           .toList();
-    } catch (_) {}
+      anggotas.value = cache.anggotas
+          .map((e) => Rx<PersonilState>(PersonilState(
+                personil: e,
+                isSelected: false,
+              )))
+          .toList();
+    }
   }
 
   void getKomando() {

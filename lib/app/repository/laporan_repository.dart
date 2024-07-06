@@ -299,6 +299,8 @@ class LaporanRepository {
 
         await laporanRef.doc(id).update({"progress": false});
         await storedData.update(formJson);
+        final laporanData = await storedData.get();
+        await laporanRef.doc(id).update({"data": laporanData.data()});
 
         await closeLoading(isLoading);
         showAlert("Berhasil membuat laporan kegiatan patroli $title",

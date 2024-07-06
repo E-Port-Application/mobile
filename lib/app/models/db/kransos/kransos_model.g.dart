@@ -13,6 +13,7 @@ KransosModel _$KransosModelFromJson(Map<String, dynamic> json) => KransosModel(
       id: json['id'] as String,
       createdAt: DateTime.parse(json['created-at'] as String),
       updatedAt: DateTime.parse(json['updated-at'] as String),
+      location: json['location'] as String,
       personils: (json['personils'] as List<dynamic>?)
           ?.map((e) => PersonilModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -34,6 +35,7 @@ Map<String, dynamic> _$KransosModelToJson(KransosModel instance) =>
       'image': instance.image,
       'personils': instance.personils?.map((e) => e.toJson()).toList(),
       'keterangan': instance.keterangan,
+      'location': instance.location,
       'jenis': instance.jenis,
       'deskripsi-pelanggaran': instance.deskripsi,
       'tindakan-pelanggaran': instance.tindakan,

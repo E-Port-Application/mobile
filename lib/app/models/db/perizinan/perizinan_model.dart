@@ -11,6 +11,7 @@ class PerizinanModel extends LaporanBase implements ModelFactory {
   final String? jenis;
   final String? pelanggaran;
   final String? tindakan;
+  final int? jumlah;
 
   PerizinanModel({
     required super.tanggal,
@@ -19,11 +20,13 @@ class PerizinanModel extends LaporanBase implements ModelFactory {
     required super.id,
     required super.createdAt,
     required super.updatedAt,
+    required super.location,
     super.personils,
     this.jenis,
     this.nama,
     this.pelanggaran,
     this.tindakan,
+    this.jumlah,
   });
 
   factory PerizinanModel.fromJson(Map<String, dynamic> json) =>

@@ -10,11 +10,13 @@ class PiketModel extends LaporanBase implements ModelFactory {
   final String? shift;
   final String? lokasi;
   final String? tindakan;
+  final String? kejadian;
 
   PiketModel({
     required super.tanggal,
     required super.waktuMulai,
     required super.waktuSelesai,
+    required super.location,
     required super.id,
     required super.createdAt,
     required super.updatedAt,
@@ -22,6 +24,7 @@ class PiketModel extends LaporanBase implements ModelFactory {
     this.shift,
     this.lokasi,
     this.tindakan,
+    this.kejadian,
   });
 
   factory PiketModel.fromJson(Map<String, dynamic> json) =>

@@ -10,6 +10,7 @@ PiketModel _$PiketModelFromJson(Map<String, dynamic> json) => PiketModel(
       tanggal: DateTime.parse(json['tanggal'] as String),
       waktuMulai: DateTime.parse(json['waktu-mulai'] as String),
       waktuSelesai: DateTime.parse(json['waktu-selesai'] as String),
+      location: json['location'] as String,
       id: json['id'] as String,
       createdAt: DateTime.parse(json['created-at'] as String),
       updatedAt: DateTime.parse(json['updated-at'] as String),
@@ -19,6 +20,7 @@ PiketModel _$PiketModelFromJson(Map<String, dynamic> json) => PiketModel(
       shift: json['shift'] as String?,
       lokasi: json['lokasi'] as String?,
       tindakan: json['tindakan'] as String?,
+      kejadian: json['kejadian'] as String?,
     )
       ..image = json['image'] as String?
       ..keterangan = json['keterangan'] as String?;
@@ -34,7 +36,9 @@ Map<String, dynamic> _$PiketModelToJson(PiketModel instance) =>
       'image': instance.image,
       'personils': instance.personils?.map((e) => e.toJson()).toList(),
       'keterangan': instance.keterangan,
+      'location': instance.location,
       'shift': instance.shift,
       'lokasi': instance.lokasi,
       'tindakan': instance.tindakan,
+      'kejadian': instance.kejadian,
     };

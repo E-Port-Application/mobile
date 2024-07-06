@@ -162,6 +162,7 @@ class KransosPage extends GetView<KransosController> {
               AppInput(
                 controller: controller.form['jumlah-pelanggar']!,
                 label: "Jumlah Pelanggar",
+                keyboardType: TextInputType.number,
                 placeholder: "Masukkan Jumlah Pelanggar",
                 readOnly: type == LaporanType.history,
                 validator: type == LaporanType.update
