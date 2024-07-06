@@ -112,11 +112,13 @@ class LaporanRepository {
     try {
       var a = storage.child("laporan/$collection/$id.jpg");
       a.delete().then((_) {}).catchError((_) {});
-      await store.collection(collection).doc(id).delete();
-      await store.collection("laporan").doc(id).delete();
-      if (Get.currentRoute.contains("pkl")) {
-        await store.collection("pelanggar").doc(id).delete();
-      }
+      await store.runTransaction((transaction) async {
+        transaction.delete(store.collection(collection).doc(id));
+        transaction.delete(store.collection("laporan").doc(id));
+        if (Get.currentRoute.contains("pkl")) {
+          transaction.delete(store.collection("pelanggar").doc(id));
+        }
+      });
     } catch (err) {
       showAlert(err.toString());
       rethrow;
