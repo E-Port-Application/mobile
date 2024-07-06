@@ -5,13 +5,13 @@ import 'package:eport/utils/show_alert.dart';
 class PelanggarRepository {
   static final ref = store.collection("pelanggar");
 
-  static Future<List<PelanggarModel>> name(String filter) async {
+  static Future<int> name(String filter) async {
     try {
-      var data = await ref.where("name", isEqualTo: filter.toLowerCase()).get();
-      if (data.docs.isEmpty) {
-        return <PelanggarModel>[];
-      }
-      return data.docs.map((e) => PelanggarModel.fromJson(e.data())).toList();
+      var data = await ref
+          .where("name", isEqualTo: filter.toLowerCase())
+          .count()
+          .get();
+      return data.count ?? 0;
     } catch (err) {
       showAlert(err.toString());
 
@@ -19,13 +19,11 @@ class PelanggarRepository {
     }
   }
 
-  static Future<List<PelanggarModel>> nik(String filter) async {
+  static Future<int> nik(String filter) async {
     try {
-      var data = await ref.where("nik", isEqualTo: filter.toLowerCase()).get();
-      if (data.docs.isEmpty) {
-        return <PelanggarModel>[];
-      }
-      return data.docs.map((e) => PelanggarModel.fromJson(e.data())).toList();
+      var data =
+          await ref.where("nik", isEqualTo: filter.toLowerCase()).count().get();
+      return data.count ?? 0;
     } catch (err) {
       showAlert(err.toString());
 

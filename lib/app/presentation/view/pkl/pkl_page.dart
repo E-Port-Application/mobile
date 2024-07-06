@@ -8,6 +8,7 @@ import 'package:eport/app/presentation/widgets/app_input.dart';
 import 'package:eport/app/presentation/widgets/app_location.dart';
 import 'package:eport/app/presentation/widgets/app_search_select.dart';
 import 'package:eport/styles/color_constants.dart';
+import 'package:eport/styles/text_styles.dart';
 import 'package:eport/utils/datepicker.dart';
 import 'package:eport/utils/input_validator.dart';
 import 'package:flutter/material.dart';
@@ -244,12 +245,52 @@ class PklPage extends GetView<PklController> {
           label: "Nama Pelanggar",
           placeholder: "Input Nama Pelanggar",
         ),
+        Obx(
+          () {
+            if (controller.jumlahNama.value != 0) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  SizedBox(height: 6.h),
+                  Text(
+                    "Nama ini telah tercatat melanggar ${controller.jumlahNama.value} kali",
+                    textAlign: TextAlign.end,
+                    style: body3TextStyle(
+                      color: ColorConstants.info[50],
+                    ),
+                  ),
+                ],
+              );
+            }
+            return Container();
+          },
+        ),
         SizedBox(height: 12.h),
         AppInput(
           controller: controller.form['nik-pelanggar']!,
           label: "NIK Pelanggar",
           placeholder: "Input NIK Pelanggar",
           keyboardType: TextInputType.number,
+        ),
+        Obx(
+          () {
+            if (controller.jumlahNik.value != 0) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  SizedBox(height: 6.h),
+                  Text(
+                    "NIK ini telah tercatat melanggar ${controller.jumlahNik.value} kali",
+                    textAlign: TextAlign.end,
+                    style: body3TextStyle(
+                      color: ColorConstants.info[50],
+                    ),
+                  ),
+                ],
+              );
+            }
+            return Container();
+          },
         ),
         SizedBox(height: 12.h),
         Obx(

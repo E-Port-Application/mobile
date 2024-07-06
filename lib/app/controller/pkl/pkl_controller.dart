@@ -4,6 +4,7 @@ import 'package:eport/app/models/db/laporan_type/laporan_type_model.dart';
 import 'package:eport/app/models/db/personil/personil_model.dart';
 import 'package:eport/app/presentation/widgets/app_radio.dart';
 import 'package:eport/app/repository/laporan_repository.dart';
+import 'package:eport/app/repository/pelanggar_repository.dart';
 import 'package:eport/utils/filepicker_handler.dart';
 import 'package:eport/utils/show_alert.dart';
 import 'package:flutter/material.dart';
@@ -51,6 +52,35 @@ class PklController extends GetxController {
     ),
   }.obs;
 
+  RxString namaPelanggar = "".obs;
+  RxString nikPelanggar = "".obs;
+
+  RxInt jumlahNama = 0.obs;
+  RxInt jumlahNik = 0.obs;
+
+  void addListenerPelanggar() async {
+    form["nama-pelanggar"]!.addListener(() {
+      final namaPelanggar = form["nama-pelanggar"]!.text;
+      if (namaPelanggar == "") {
+        jumlahNama.value = 0;
+      } else {
+        PelanggarRepository.name(namaPelanggar).then((value) {
+          jumlahNama.value = value;
+        });
+      }
+    });
+    form["nik-pelanggar"]!.addListener(() {
+      final nikPelanggar = form["nik-pelanggar"]!.text;
+      if (nikPelanggar == "") {
+        jumlahNik.value = 0;
+      } else {
+        PelanggarRepository.nik(nikPelanggar).then((value) {
+          jumlahNik.value = value;
+        });
+      }
+    });
+  }
+
   RxnString jenisKelamin = RxnString();
 
   RxList<PersonilModel> personils = RxList<PersonilModel>();
@@ -89,6 +119,7 @@ class PklController extends GetxController {
     getJenisPkl();
     getTindakanPkl();
     getPelanggaranPkl();
+    addListenerPelanggar();
   }
 
   void getOffset(GlobalKey ref) {
