@@ -11,15 +11,17 @@ class LaporanModel extends BaseModel implements ModelFactory {
 
   final DateTime date;
   Object? data;
+  String? location;
 
   LaporanModel({
     required super.id,
     required this.type,
     required this.progress,
     required this.date,
-    this.data,
     required super.createdAt,
     required super.updatedAt,
+    this.data,
+    this.location,
   });
 
   factory LaporanModel.fromJson(Map<String, dynamic> json) =>

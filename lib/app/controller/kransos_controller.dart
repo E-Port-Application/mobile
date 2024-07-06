@@ -29,6 +29,7 @@ class KransosController extends GetxController {
     "tindakan-pelanggaran": TextEditingController(),
     "jumlah-pelanggar": TextEditingController(),
     "keterangan": TextEditingController(),
+    "location": TextEditingController(),
     "created-at": TextEditingController(
       text: DateTime.now().toString(),
     ),
@@ -80,6 +81,7 @@ class KransosController extends GetxController {
       form['keterangan']!.text = tempData.keterangan ?? "";
       form['jumlah-pelanggar']!.text = (tempData.jumlah ?? "").toString();
       form['updated-at']!.text = DateTime.now().toString();
+      form['location']!.text = tempData.location;
       imageUrl.value = tempData.image;
       personils.value = tempData.personils ?? [];
     } catch (_) {}

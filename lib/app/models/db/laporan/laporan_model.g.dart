@@ -12,6 +12,7 @@ LaporanModel _$LaporanModelFromJson(Map<String, dynamic> json) => LaporanModel(
       progress: json['progress'] as bool,
       date: DateTime.parse(json['date'] as String),
       data: json['data'],
+      location: json['location'] as String?,
       createdAt: DateTime.parse(json['created-at'] as String),
       updatedAt: DateTime.parse(json['updated-at'] as String),
     );
@@ -23,6 +24,7 @@ Map<String, dynamic> _$LaporanModelToJson(LaporanModel instance) =>
       'updated-at': instance.updatedAt.toIso8601String(),
       'type': instance.type,
       'progress': instance.progress,
+      'location': instance.location,
       'date': instance.date.toIso8601String(),
       'data': instance.data,
     };

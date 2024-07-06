@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eport/app/controller/cache_controller.dart';
 import 'package:eport/app/controller/laporan_controller.dart';
 import 'package:eport/app/models/db/kransos/kransos_model.dart';
 import 'package:eport/app/models/db/laporan/laporan_model.dart';
@@ -130,6 +131,7 @@ class LaporanRepository {
 
     try {
       if (formKey.currentState!.validate()) {
+        String location = CacheController.i.address.value;
         showLoadingDialog(Get.context!, isLoading);
         final formJson = formConverter(form);
         List<PersonilModel> personils = <PersonilModel>[];
@@ -139,6 +141,7 @@ class LaporanRepository {
         }
         formJson['personils'] = personils.map((e) => e.toJson()).toList();
         formJson['id'] = "dummy-id";
+        formJson['location'] = location;
 
         dynamic data;
         String title = "";
@@ -209,6 +212,7 @@ class LaporanRepository {
           date: data.tanggal,
           createdAt: DateTime.now(),
           updatedAt: DateTime.now(),
+          location: location,
         ).toJson();
 
         await laporanRef.doc(storedData.id).set(laporanData);

@@ -28,6 +28,7 @@ class PiketController extends GetxController {
     "lokasi": TextEditingController(),
     "tindakan": TextEditingController(),
     "keterangan": TextEditingController(),
+    "location": TextEditingController(),
     "created-at": TextEditingController(
       text: DateTime.now().toString(),
     ),
@@ -72,6 +73,7 @@ class PiketController extends GetxController {
       form['shift']!.text = tempData.shift ?? "";
       form['lokasi']!.text = tempData.lokasi ?? "";
       form['tindakan']!.text = tempData.tindakan ?? "";
+      form['location']!.text = tempData.location;
       form['updated-at']!.text = DateTime.now().toString();
 
       imageUrl.value = tempData.image;

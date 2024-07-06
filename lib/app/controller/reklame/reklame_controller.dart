@@ -29,6 +29,7 @@ class ReklameController extends GetxController {
     "jumlah": TextEditingController(),
     "tindakan": TextEditingController(),
     "keterangan": TextEditingController(),
+    "location": TextEditingController(),
     "created-at": TextEditingController(
       text: DateTime.now().toString(),
     ),
@@ -94,6 +95,7 @@ class ReklameController extends GetxController {
       form['tindakan']!.text = reklameData.tindakan ?? "";
       form['keterangan']!.text = reklameData.keterangan ?? "";
       form['updated-at']!.text = DateTime.now().toString();
+      form['location']!.text = reklameData.location;
       imageUrl.value = reklameData.image;
       personils.value = reklameData.personils ?? [];
     } catch (_) {}

@@ -3,9 +3,14 @@ import 'package:eport/styles/color_constants.dart';
 import 'package:eport/styles/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class AppLocation extends StatefulWidget {
-  const AppLocation({super.key});
+  final String address;
+  const AppLocation({
+    super.key,
+    this.address = "",
+  });
 
   @override
   State<AppLocation> createState() => _AppLocationState();
@@ -13,19 +18,41 @@ class AppLocation extends StatefulWidget {
 
 class _AppLocationState extends State<AppLocation> {
   String address = "";
+  bool isFetch = false;
+
+  void _setAddressFromCache() {
+    setState(() {
+      address = CacheController.i.address.value;
+    });
+  }
 
   @override
   void initState() {
     super.initState();
-    if (CacheController.i.address.value == "") {
-      CacheController.i.getCurrentPosition().then((_) {
-        setState(() {
-          address = CacheController.i.address.value;
+    setState(() {
+      if (Get.currentRoute.contains("rencana")) {
+        isFetch = true;
+      }
+      address = widget.address;
+    });
+    if (isFetch) {
+      if (CacheController.i.address.value == "") {
+        CacheController.i.getCurrentPosition().then((_) {
+          _setAddressFromCache();
         });
-      });
-    } else {
+      } else {
+        _setAddressFromCache();
+      }
+      CacheController.i.getCurrentPosition();
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant AppLocation oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (!isFetch) {
       setState(() {
-        address = CacheController.i.address.value;
+        address = widget.address;
       });
     }
   }
@@ -51,7 +78,7 @@ class _AppLocationState extends State<AppLocation> {
             ),
             SizedBox(width: 8.w),
             Text(
-              "Lokasi Anda",
+              "Lokasi ${isFetch ? "Anda" : ""}",
               style: body3BTextStyle(
                 color: ColorConstants.primary[70],
               ),

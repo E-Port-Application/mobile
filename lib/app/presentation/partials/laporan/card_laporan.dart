@@ -1,6 +1,5 @@
 import 'package:eport/app/models/db/laporan/laporan_base.dart';
 import 'package:eport/app/models/db/laporan/laporan_model.dart';
-import 'package:eport/app/models/db/pkl/pkl_model.dart';
 import 'package:eport/app/presentation/widgets/app_button.dart';
 import 'package:eport/app/presentation/widgets/app_shimmer.dart';
 import 'package:eport/routes/app_route.dart';
@@ -44,7 +43,6 @@ class CardLaporan extends StatefulWidget {
 
 class _CardLaporanState extends State<CardLaporan> {
   dynamic laporanModel;
-  Map<String, Object> dataType = {"pkl": PklModel};
   final DateFormat dateFormat = DateFormat("dd MMMM yyyy");
   final DateFormat timeFormat = DateFormat.Hm();
   bool progress = false;
@@ -251,10 +249,12 @@ class _CardLaporanState extends State<CardLaporan> {
                       ),
                       SizedBox(height: 3.h),
                       Text(
-                        "Lokasi",
+                        widget.data.location ?? "Lokasi",
                         style: body6BTextStyle(
                           color: ColorConstants.primary[70],
                         ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
                       ),
                       SizedBox(height: 4.h),
                       Text(
@@ -394,10 +394,12 @@ class _CardLaporanState extends State<CardLaporan> {
                         ),
                         SizedBox(height: 3.h),
                         Text(
-                          "Lokasi",
+                          widget.data.location ?? "Lokasi",
                           style: body6BTextStyle(
                             color: ColorConstants.primary[70],
                           ),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
                         ),
                         SizedBox(height: 4.h),
                         Text(

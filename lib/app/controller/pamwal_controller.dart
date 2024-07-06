@@ -26,6 +26,7 @@ class PamwalController extends GetxController {
     "kejadian": TextEditingController(),
     "tindakan": TextEditingController(),
     "keterangan": TextEditingController(),
+    "location": TextEditingController(),
     "created-at": TextEditingController(
       text: DateTime.now().toString(),
     ),
@@ -52,6 +53,7 @@ class PamwalController extends GetxController {
       form['tindakan']!.text = tempData.tindakan ?? "";
       form['keterangan']!.text = tempData.keterangan ?? "";
       form['updated-at']!.text = DateTime.now().toString();
+      form['location']!.text = tempData.location;
 
       imageUrl.value = tempData.image;
       personils.value = tempData.personils ?? [];

@@ -42,6 +42,7 @@ class EditPklController extends GetxController {
     "nik-pelanggar": TextEditingController(),
     "jenis-kelamin": TextEditingController(),
     "alamat-pelanggar": TextEditingController(),
+    "location": TextEditingController(),
     "updated-at": TextEditingController(
       text: DateTime.now().toString(),
     ),
@@ -107,6 +108,7 @@ class EditPklController extends GetxController {
       form['nik-pelanggar']!.text = pklData.nikPelanggar ?? "";
       form['jenis-kelamin']!.text = pklData.jenisKelamin ?? "";
       form['alamat-pelanggar']!.text = pklData.alamatPelanggar ?? "";
+      form['location']!.text = pklData.location;
       imageUrl.value = pklData.image;
       jenisKelamin.value = pklData.jenisKelamin;
       personils.value = pklData.personils ?? [];

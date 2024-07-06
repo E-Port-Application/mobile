@@ -87,7 +87,9 @@ class EditPklPage extends GetView<EditPklController> {
     return Obx(
       () => Column(
         children: [
-          AppLocation(),
+          AppLocation(
+            address: controller.form['location']!.text,
+          ),
           SizedBox(height: 12.h),
           Obx(() {
             if (controller.imageUrl.value != null) {

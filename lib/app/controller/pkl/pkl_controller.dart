@@ -42,6 +42,7 @@ class PklController extends GetxController {
     "nik-pelanggar": TextEditingController(),
     "jenis-kelamin": TextEditingController(),
     "alamat-pelanggar": TextEditingController(),
+    "location": TextEditingController(),
     "created-at": TextEditingController(
       text: DateTime.now().toString(),
     ),

@@ -36,7 +36,9 @@ class PengamananPage extends GetView<PengamananController> {
         child: Obx(
           () => Column(
             children: [
-              AppLocation(),
+              AppLocation(
+                address: controller.form['location']!.text,
+              ),
               SizedBox(height: 12.h),
               LaporanImage(
                 image: controller.image.value,

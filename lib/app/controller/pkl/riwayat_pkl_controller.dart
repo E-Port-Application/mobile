@@ -23,6 +23,7 @@ class RiwayatPklController extends GetxController {
     "nik-pelanggar": TextEditingController(),
     "jenis-kelamin": TextEditingController(),
     "alamat-pelanggar": TextEditingController(),
+    "location": TextEditingController(),
     "updated-at": TextEditingController(
       text: DateTime.now().toString(),
     ),
@@ -50,6 +51,7 @@ class RiwayatPklController extends GetxController {
       form['nama-pelanggar']!.text = pklData.namaPelanggar ?? "";
       form['nik-pelanggar']!.text = pklData.nikPelanggar ?? "";
       form['jenis-kelamin']!.text = pklData.jenisKelamin ?? "";
+      form['location']!.text = pklData.location;
       form['alamat-pelanggar']!.text = pklData.alamatPelanggar ?? "";
       imageUrl.value = pklData.image;
       personils.value = pklData.personils ?? [];
