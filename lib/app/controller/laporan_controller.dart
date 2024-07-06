@@ -54,7 +54,9 @@ class LaporanController extends GetxController {
   }
 
   RxList<LaporanModel> prosesData = RxList<LaporanModel>();
+  RxBool loadingProsesData = true.obs;
   RxList<LaporanModel> riwayatData = RxList<LaporanModel>();
+  RxBool loadingRiwayatData = true.obs;
 
   void getMenu() async {
     menu.value =
@@ -63,12 +65,14 @@ class LaporanController extends GetxController {
 
   void getData() async {
     try {
-      prosesData.value = await LaporanRepository.getReportData(
-        isProgress: true,
-      );
-      riwayatData.value = await LaporanRepository.getReportData(
-        isProgress: false,
-      );
+      LaporanRepository.getReportData(isProgress: true).then((value) {
+        prosesData.value = value;
+        loadingProsesData.value = false;
+      });
+      LaporanRepository.getReportData(isProgress: false).then((value) {
+        riwayatData.value = value;
+        loadingRiwayatData.value = false;
+      });
     } catch (_) {}
   }
 

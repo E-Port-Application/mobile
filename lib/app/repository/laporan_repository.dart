@@ -7,6 +7,7 @@ import 'package:eport/app/models/db/kransos/kransos_model.dart';
 import 'package:eport/app/models/db/laporan/laporan_model.dart';
 import 'package:eport/app/models/db/laporan_type/laporan_type_model.dart';
 import 'package:eport/app/models/db/pamwal/pamwal_model.dart';
+import 'package:eport/app/models/db/pelanggar/pelanggar_model.dart';
 import 'package:eport/app/models/db/pengamanan/pengamanan_model.dart';
 import 'package:eport/app/models/db/perizinan/perizinan_model.dart';
 import 'package:eport/app/models/db/personil/personil_model.dart';
@@ -14,6 +15,7 @@ import 'package:eport/app/models/db/piket/piket_model.dart';
 import 'package:eport/app/models/db/pkl/pkl_model.dart';
 import 'package:eport/app/models/db/reklame/reklame_model.dart';
 import 'package:eport/app/presentation/widgets/app_loading.dart';
+import 'package:eport/app/repository/pelanggar_repository.dart';
 import 'package:eport/firebase_options.dart';
 import 'package:eport/utils/form_converter.dart';
 import 'package:eport/utils/show_alert.dart';
@@ -115,6 +117,9 @@ class LaporanRepository {
       a.delete().then((_) {}).catchError((_) {});
       await store.collection(collection).doc(id).delete();
       await store.collection("laporan").doc(id).delete();
+      if (Get.currentRoute.contains("pkl")) {
+        await store.collection("pelanggar").doc(id).delete();
+      }
     } catch (err) {
       showAlert(err.toString());
       rethrow;
@@ -153,7 +158,6 @@ class LaporanRepository {
         if (cast != null) {
           for (String key in cast) {
             formJson[key] = formJson[key]?.toString();
-            print(key);
           }
         }
 
@@ -220,6 +224,15 @@ class LaporanRepository {
           updatedAt: DateTime.now(),
           location: location,
         ).toJson();
+
+        if (type == "pkl") {
+          final formPelanggar = PelanggarModel(
+            name: formJson['nama-pelanggar'],
+            nik: formJson['nik-pelanggar'],
+            id: storedData.id,
+          );
+          await PelanggarRepository.set(formPelanggar);
+        }
 
         await laporanRef.doc(storedData.id).set(laporanData);
 
@@ -311,6 +324,15 @@ class LaporanRepository {
         await storedData.update(formJson);
         final laporanData = await storedData.get();
         await laporanRef.doc(id).update({"data": laporanData.data()});
+
+        if (type == "pkl") {
+          final formPelanggar = PelanggarModel(
+            name: formJson['nama-pelanggar'],
+            nik: formJson['nik-pelanggar'],
+            id: storedData.id,
+          );
+          await PelanggarRepository.set(formPelanggar);
+        }
 
         await closeLoading(isLoading);
         showAlert("Berhasil membuat laporan kegiatan patroli $title",
