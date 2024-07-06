@@ -17,6 +17,7 @@ import 'package:eport/app/models/db/reklame/reklame_model.dart';
 import 'package:eport/app/presentation/widgets/app_loading.dart';
 import 'package:eport/app/repository/pelanggar_repository.dart';
 import 'package:eport/firebase_options.dart';
+import 'package:eport/utils/convert_timestamp.dart';
 import 'package:eport/utils/form_converter.dart';
 import 'package:eport/utils/show_alert.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -132,8 +133,9 @@ class LaporanRepository {
     List<PersonilModel> personilData,
     File? image,
     String type,
-    List<String>? cast,
-  ) async {
+    List<String>? cast, {
+    List<String>? timestampCast,
+  }) async {
     isLoading.value = true;
 
     try {
@@ -159,6 +161,14 @@ class LaporanRepository {
             formJson[key] = formJson[key]?.toString();
           }
         }
+
+        convertTimestamp(formJson, [
+          "tanggal",
+          "waktu-mulai",
+          "waktu-selesai",
+          "created-at",
+          "updated-at"
+        ]);
 
         switch (type) {
           case "pkl":
@@ -195,8 +205,17 @@ class LaporanRepository {
           final dataRef = FirebaseFirestore.instance.collection(type);
           final laporanRef = FirebaseFirestore.instance.collection("laporan");
 
+          final Map<String, dynamic> jsonData = data.toJson();
+          convertTimestamp(jsonData, [
+            "tanggal",
+            "waktu-mulai",
+            "waktu-selesai",
+            "created-at",
+            "updated-at"
+          ]);
+
           DocumentReference storedDataRef = dataRef.doc();
-          transaction.set(storedDataRef, data.toJson());
+          transaction.set(storedDataRef, jsonData);
 
           if (image != null) {
             var splittedFile = image.path.split(".");
@@ -237,6 +256,8 @@ class LaporanRepository {
             await PelanggarRepository.set(formPelanggar);
           }
 
+          convertTimestamp(laporanData, ["created-at", "updated-at"]);
+
           transaction.set(laporanRef.doc(storedDataRef.id), laporanData);
         });
 
@@ -272,6 +293,14 @@ class LaporanRepository {
         for (var personil in personils) {
           personilList.add(personil);
         }
+
+        convertTimestamp(formJson, [
+          "tanggal",
+          "waktu-mulai",
+          "waktu-selesai",
+          "created-at",
+          "updated-at"
+        ]);
 
         String title = "";
         switch (type) {
@@ -325,10 +354,13 @@ class LaporanRepository {
             transaction.update(storedData, imageUrl);
           }
 
-          transaction.update(laporanRef.doc(id), {"progress": false});
           transaction.update(storedData, formJson);
           final laporanData = await storedData.get();
-          transaction.update(laporanRef.doc(id), {"data": laporanData.data()});
+          transaction.update(laporanRef.doc(id), {
+            "progress": false,
+            "data": laporanData.data(),
+            "updated-at": Timestamp.fromDate(DateTime.now()),
+          });
 
           if (type == "pkl") {
             final formPelanggar = PelanggarModel(

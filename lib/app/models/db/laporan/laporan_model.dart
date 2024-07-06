@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eport/app/models/db/base/base_model.dart';
 import 'package:eport/services/api/sources/model_factory.dart';
 import 'package:json_annotation/json_annotation.dart';

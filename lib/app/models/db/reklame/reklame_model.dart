@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eport/app/models/db/laporan/laporan_base.dart';
 import 'package:eport/services/api/sources/model_factory.dart';
 import 'package:eport/app/models/db/personil/personil_model.dart';

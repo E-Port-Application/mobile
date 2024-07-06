@@ -7,12 +7,22 @@ part of 'pamwal_model.dart';
 // **************************************************************************
 
 PamwalModel _$PamwalModelFromJson(Map<String, dynamic> json) => PamwalModel(
-      tanggal: DateTime.parse(json['tanggal'] as String),
-      waktuMulai: DateTime.parse(json['waktu-mulai'] as String),
-      waktuSelesai: DateTime.parse(json['waktu-selesai'] as String),
+      tanggal: DateTime.parse(
+        (json['tanggal'] as Timestamp).toDate().toIso8601String(),
+      ),
+      waktuMulai: DateTime.parse(
+        (json['waktu-mulai'] as Timestamp).toDate().toIso8601String(),
+      ),
+      waktuSelesai: DateTime.parse(
+        (json['waktu-selesai'] as Timestamp).toDate().toIso8601String(),
+      ),
       id: json['id'] as String,
-      createdAt: DateTime.parse(json['created-at'] as String),
-      updatedAt: DateTime.parse(json['updated-at'] as String),
+      createdAt: DateTime.parse(
+        (json['created-at'] as Timestamp).toDate().toIso8601String(),
+      ),
+      updatedAt: DateTime.parse(
+        (json['updated-at'] as Timestamp).toDate().toIso8601String(),
+      ),
       location: json['location'] as String,
       personils: (json['personils'] as List<dynamic>?)
           ?.map((e) => PersonilModel.fromJson(e as Map<String, dynamic>))

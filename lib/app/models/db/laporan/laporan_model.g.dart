@@ -13,8 +13,12 @@ LaporanModel _$LaporanModelFromJson(Map<String, dynamic> json) => LaporanModel(
       date: DateTime.parse(json['date'] as String),
       data: json['data'],
       location: json['location'] as String?,
-      createdAt: DateTime.parse(json['created-at'] as String),
-      updatedAt: DateTime.parse(json['updated-at'] as String),
+      createdAt: DateTime.parse(
+        (json['created-at'] as Timestamp).toDate().toIso8601String(),
+      ),
+      updatedAt: DateTime.parse(
+        (json['updated-at'] as Timestamp).toDate().toIso8601String(),
+      ),
     );
 
 Map<String, dynamic> _$LaporanModelToJson(LaporanModel instance) =>

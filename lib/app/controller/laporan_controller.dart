@@ -68,11 +68,11 @@ class LaporanController extends GetxController {
       LaporanRepository.getReportData(isProgress: true).then((value) {
         prosesData.value = value;
         loadingProsesData.value = false;
-      });
+      }).catchError((_) {});
       LaporanRepository.getReportData(isProgress: false).then((value) {
         riwayatData.value = value;
         loadingRiwayatData.value = false;
-      });
+      }).catchError((_) {});
     } catch (_) {}
   }
 
