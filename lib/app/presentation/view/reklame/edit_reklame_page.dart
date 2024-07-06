@@ -278,7 +278,7 @@ class EditReklamePage extends GetView<EditReklameController> {
               SizedBox(height: 20.h),
               LaporanAction(
                 onPdf: () {},
-                collection: "pkl",
+                collection: "reklame",
               ),
               SizedBox(height: 12.h),
               AppButton(

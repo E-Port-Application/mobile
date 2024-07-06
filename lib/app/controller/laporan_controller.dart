@@ -31,7 +31,7 @@ class LaporanController extends GetxController {
     ),
   ]);
 
-  String buttonText(LaporanType type) {
+  String buttonText(LaporanType type, {bool isPkl = false}) {
     switch (type) {
       case LaporanType.create:
         return "Buat Rencana Kegiatan";

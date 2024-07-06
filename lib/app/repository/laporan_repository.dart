@@ -44,6 +44,7 @@ class LaporanRepository {
 
   static Future<List<LaporanModel>> getReportData(
       {required bool isProgress}) async {
+    String id = "";
     try {
       final laporanRef = store
           .collection("laporan")
@@ -57,6 +58,7 @@ class LaporanRepository {
             var temp = LaporanModel.fromJson(e.data());
             final dataRef = store.collection(temp.type).doc(temp.id);
             var data = await dataRef.get();
+            id = data.id;
             if (temp.type == "pkl") {
               temp.data = PklModel.fromJson(data.data()!);
             } else if (temp.type == "reklame") {
@@ -79,6 +81,7 @@ class LaporanRepository {
       ))
           .toList();
     } catch (err) {
+      print(id);
       showAlert(err.toString());
       rethrow;
     }
@@ -139,12 +142,21 @@ class LaporanRepository {
         for (var personil in personilData) {
           personils.add(personil);
         }
+
         formJson['personils'] = personils.map((e) => e.toJson()).toList();
         formJson['id'] = "dummy-id";
         formJson['location'] = location;
 
         dynamic data;
         String title = "";
+
+        if (cast != null) {
+          for (String key in cast) {
+            formJson[key] = formJson[key]?.toString();
+            print(key);
+          }
+        }
+
         switch (type) {
           case "pkl":
             data = PklModel.fromJson(formJson);
@@ -174,12 +186,6 @@ class LaporanRepository {
             data = PerizinanModel.fromJson(formJson);
             title = "Perizinan";
             break;
-        }
-
-        if (cast != null) {
-          for (String key in cast) {
-            formJson[key] = formJson[key]?.toString();
-          }
         }
 
         final dataRef = store.collection(type);

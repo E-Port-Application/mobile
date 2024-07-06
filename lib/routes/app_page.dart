@@ -103,7 +103,7 @@ List<GetPage<dynamic>> appPage() {
     ),
     GetPage(
       name: AppRoute.rencanaPatroliPkl,
-      page: () => Portal(child: PklPage()),
+      page: () => Portal(child: PklPage(type: LaporanType.create)),
       binding: LaporanBinding(),
     ),
     GetPage(
@@ -174,7 +174,7 @@ List<GetPage<dynamic>> appPage() {
     ),
     GetPage(
       name: AppRoute.laporanPkl(":id"),
-      page: () => Portal(child: EditPklPage()),
+      page: () => Portal(child: PklPage(type: LaporanType.update)),
       binding: LaporanBinding(),
     ),
     GetPage(
@@ -234,7 +234,7 @@ List<GetPage<dynamic>> appPage() {
     GetPage(
       name: AppRoute.riwayatPkl(":id"),
       page: () => Portal(
-        child: RiwayatPklPage(),
+        child: PklPage(type: LaporanType.history),
       ),
       binding: LaporanBinding(),
     ),
