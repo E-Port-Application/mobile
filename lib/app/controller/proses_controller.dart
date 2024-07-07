@@ -19,7 +19,7 @@ class ProsesController extends GetxController {
 
   void getData() async {
     try {
-      LaporanController.i.getData();
+      LaporanController.i.getProsesData();
       LaporanController.i.prosesData.listen((p0) {
         datas.value = p0;
         datas.refresh();

@@ -58,7 +58,6 @@ class _LaporanFilterState extends State<LaporanFilter> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    print('anjir');
   }
 
   void initDate() {
@@ -264,6 +263,7 @@ class _LaporanFilterState extends State<LaporanFilter> {
                                           .format(endDate!)
                                       : "";
                                   endDateInput.text = formattedEndDate;
+                                  visible = false;
                                 });
                                 widget.onDate([startDate, endDate]);
                               },

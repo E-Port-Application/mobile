@@ -12,7 +12,7 @@ class RiwayatController extends GetxController {
 
   void getData() async {
     try {
-      LaporanController.i.getData();
+      LaporanController.i.getRiwayatData();
       LaporanController.i.riwayatData.listen((p0) {
         datas.value = p0;
         datas.refresh();

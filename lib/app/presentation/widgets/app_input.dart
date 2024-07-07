@@ -125,10 +125,6 @@ class _AppInputState extends State<AppInput> {
     });
   }
 
-  void cok() {
-    print("anjir");
-  }
-
   @override
   Widget build(BuildContext context) {
     return FormField<String>(

@@ -80,16 +80,42 @@ class LaporanController extends GetxController {
         await convertJson<LaporanMenuModel>("assets/data/menu_laporan.json");
   }
 
+  void getProsesData() {
+    loadingProsesData.value = true;
+    LaporanRepository.getReportData(
+      isProgress: true,
+      startDate: startDateProses.value,
+      endDate: endDateProses.value,
+      type: selectedProses.value?.id,
+    ).then((value) {
+      prosesData.value = value;
+      loadingProsesData.value = false;
+    }).catchError((_) {});
+  }
+
+  void getRiwayatData() {
+    loadingRiwayatData.value = true;
+    LaporanRepository.getReportData(
+      isProgress: false,
+      startDate: startDateRiwayat.value,
+      endDate: endDateRiwayat.value,
+      type: selectedRiwayat.value?.id,
+    ).then((value) {
+      riwayatData.value = value;
+      loadingRiwayatData.value = false;
+    }).catchError((_) {});
+  }
+
   void getData() async {
     try {
-      LaporanRepository.getReportData(isProgress: true).then((value) {
-        prosesData.value = value;
-        loadingProsesData.value = false;
-      }).catchError((_) {});
-      LaporanRepository.getReportData(isProgress: false).then((value) {
-        riwayatData.value = value;
-        loadingRiwayatData.value = false;
-      }).catchError((_) {});
+      everAll([startDateProses, endDateProses], (_) {
+        getProsesData();
+      });
+      getProsesData();
+      everAll([startDateRiwayat, endDateRiwayat], (_) {
+        getRiwayatData();
+      });
+      getRiwayatData();
     } catch (_) {}
   }
 
