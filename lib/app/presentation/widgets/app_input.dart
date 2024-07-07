@@ -3,10 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:eport/styles/color_constants.dart';
 import 'package:eport/styles/text_styles.dart';
 
+typedef ValidatorCallback = String? Function(String?)?;
+
 class AppInput extends StatefulWidget {
   final String? label;
   final TextEditingController controller;
-  final String? Function(String?)? validator;
+  final ValidatorCallback validator;
   final String placeholder;
   final void Function(String)? onChange;
   final TextInputType? keyboardType;
@@ -65,13 +67,16 @@ class _AppInputState extends State<AppInput> {
   bool isVisible = false;
   bool isInit = true;
   final FocusNode _focus = FocusNode();
-  GlobalKey inputKey = GlobalKey();
+  GlobalKey<FormFieldState> inputKey = GlobalKey();
+  ValidatorCallback? validator;
 
   void initInput() {
     setState(() {
       isInit = false;
     });
   }
+
+  AutovalidateMode autovalidateMode = AutovalidateMode.onUserInteraction;
 
   @override
   void initState() {
@@ -90,11 +95,15 @@ class _AppInputState extends State<AppInput> {
     });
     setState(() {
       isVisible = widget.obscureText;
+      if (widget.validator != null) {
+        validator = (e) {
+          if (e != null) {
+            return widget.validator!(e);
+          }
+          return widget.validator!(e);
+        };
+      }
     });
-
-    if (widget.validator != null) {
-      validator = widget.validator!;
-    }
   }
 
   @override
@@ -114,13 +123,16 @@ class _AppInputState extends State<AppInput> {
     });
   }
 
-  late FormFieldValidator<String> validator;
+  void cok() {
+    print("anjir");
+  }
 
   @override
   Widget build(BuildContext context) {
     return FormField<String>(
-      autovalidateMode: widget.autovalidateMode,
+      key: inputKey,
       enabled: true,
+      autovalidateMode: autovalidateMode,
       validator: (e) {
         if (widget.validator == null) {
           return null;
@@ -154,7 +166,6 @@ class _AppInputState extends State<AppInput> {
                     onTap: widget.onTap,
                     maxLines: widget.maxLines,
                     readOnly: widget.readOnly,
-                    key: inputKey,
                     focusNode: _focus,
                     onChanged: (e) {
                       if (widget.onChange != null) {
@@ -163,6 +174,7 @@ class _AppInputState extends State<AppInput> {
                       setState(() {
                         isEmpty = e.isEmpty ? true : false;
                       });
+                      inputKey.currentState!.validate();
                     },
                     textAlignVertical: widget.prefixIcon != null
                         ? TextAlignVertical.center
