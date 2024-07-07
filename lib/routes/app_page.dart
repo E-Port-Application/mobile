@@ -91,7 +91,7 @@ List<GetPage<dynamic>> appPage() {
     ),
     GetPage(
       name: AppRoute.report,
-      page: () => LaporanPage(),
+      page: () => Portal(child: LaporanPage()),
       binding: LaporanBinding(),
     ),
     GetPage(

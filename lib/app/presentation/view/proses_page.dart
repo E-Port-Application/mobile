@@ -1,3 +1,4 @@
+import 'package:eport/app/controller/laporan_controller.dart';
 import 'package:eport/app/presentation/partials/laporan/card_laporan.dart';
 import 'package:eport/app/presentation/partials/laporan/laporan_filter.dart';
 import 'package:eport/styles/text_styles.dart';
@@ -16,11 +17,16 @@ class ProsesPage extends GetView<ProsesController> {
       () => Column(
         children: [
           LaporanFilter(
-            activities: controller.activities,
+            activities: LaporanController.i.activities,
+            value: LaporanController.i.selectedProses.value,
             onReset: controller.onReset,
             onActivity: controller.onActivity,
-            value: controller.selectedActivity.value,
             data: controller.datas,
+            filterDate: [
+              LaporanController.i.startDateProses.value,
+              LaporanController.i.endDateProses.value,
+            ],
+            onDate: controller.onDate,
           ),
           !controller.isLoading.value && controller.datas.isEmpty
               ? Column(

@@ -32,10 +32,17 @@ class RiwayatController extends GetxController {
   }
 
   void onReset() {
-    selectedActivity.value = null;
+    LaporanController.i.selectedRiwayat.value = null;
+    LaporanController.i.startDateRiwayat.value = null;
+    LaporanController.i.endDateRiwayat.value = null;
   }
 
   void onActivity(ActivityModel data) {
-    selectedActivity.value = data;
+    LaporanController.i.selectedRiwayat.value = data;
+  }
+
+  void onDate(List<DateTime?> data) {
+    LaporanController.i.startDateRiwayat.value = data[0];
+    LaporanController.i.endDateRiwayat.value = data[1];
   }
 }

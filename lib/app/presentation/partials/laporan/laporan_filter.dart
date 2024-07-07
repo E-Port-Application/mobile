@@ -1,5 +1,6 @@
 import 'package:eport/app/models/common/activity/activity_model.dart';
 import 'package:eport/app/models/db/laporan/laporan_model.dart';
+import 'package:eport/app/presentation/partials/laporan/calendar_filter.dart';
 import 'package:eport/app/presentation/widgets/app_input.dart';
 import 'package:eport/app/presentation/widgets/popover.dart';
 import 'package:eport/styles/color_constants.dart';
@@ -7,8 +8,10 @@ import 'package:eport/styles/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 typedef ActivityCallback = void Function(ActivityModel data);
+typedef HandleDateCallback = void Function(List<DateTime?> data);
 
 class LaporanFilter extends StatefulWidget {
   final VoidCallback onReset;
@@ -16,6 +19,8 @@ class LaporanFilter extends StatefulWidget {
   final List<ActivityModel> activities;
   final ActivityModel? value;
   final List<LaporanModel> data;
+  final List<DateTime?> filterDate;
+  final HandleDateCallback onDate;
 
   const LaporanFilter({
     super.key,
@@ -23,7 +28,9 @@ class LaporanFilter extends StatefulWidget {
     required this.onActivity,
     required this.activities,
     required this.data,
+    required this.onDate,
     this.value,
+    this.filterDate = const [null, null],
   });
 
   @override
@@ -32,15 +39,46 @@ class LaporanFilter extends StatefulWidget {
 
 class _LaporanFilterState extends State<LaporanFilter> {
   bool visible = false;
+  bool calendarVisible = false;
   GlobalKey buttonRef = GlobalKey();
   Offset offsetButton = Offset(0, 0);
+
+  DateTime? startDate;
+  DateTime? endDate;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       getOffset();
+      initDate();
     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    print('anjir');
+  }
+
+  void initDate() {
+    setState(() {
+      startDate = widget.filterDate[0];
+      endDate = widget.filterDate[1];
+      String formattedStartDate = startDate != null
+          ? DateFormat('dd MMMM yyyy').format(startDate!)
+          : "";
+      startDateInput.text = formattedStartDate;
+      String formattedEndDate =
+          endDate != null ? DateFormat('dd MMMM yyyy').format(endDate!) : "";
+      endDateInput.text = formattedEndDate;
+    });
+  }
+
+  @override
+  void didUpdateWidget(covariant LaporanFilter oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    initDate();
   }
 
   void getOffset() {
@@ -50,6 +88,25 @@ class _LaporanFilterState extends State<LaporanFilter> {
       offsetButton = offsetTemp;
     });
   }
+
+  bool showCalendar = false;
+  ScrollController scrollController = ScrollController();
+
+  void toggleCalendar(bool condition) {
+    setState(() {
+      showCalendar = condition;
+    });
+    if (showCalendar) {
+      scrollController.animateTo(
+        200,
+        duration: Duration(milliseconds: 500),
+        curve: Curves.easeInOutCubic,
+      );
+    }
+  }
+
+  TextEditingController startDateInput = TextEditingController();
+  TextEditingController endDateInput = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -68,12 +125,15 @@ class _LaporanFilterState extends State<LaporanFilter> {
             Popover(
               overlay: Container(
                 padding: EdgeInsets.all(16.w),
-                constraints: BoxConstraints(maxHeight: 420.h),
+                constraints: BoxConstraints(
+                  maxHeight: showCalendar ? 600.h : 420.h,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(12.h),
                 ),
                 child: SingleChildScrollView(
+                  controller: scrollController,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -81,8 +141,8 @@ class _LaporanFilterState extends State<LaporanFilter> {
                         children: [
                           Expanded(
                             child: Text(
-                              "Jenis Kegiatan",
-                              style: body4BTextStyle(),
+                              "Jenis Laporan",
+                              style: body3BTextStyle(),
                             ),
                           ),
                           GestureDetector(
@@ -97,6 +157,7 @@ class _LaporanFilterState extends State<LaporanFilter> {
                           ),
                         ],
                       ),
+                      SizedBox(height: 8.h),
                       Obx(() => Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: widget.activities
@@ -122,6 +183,7 @@ class _LaporanFilterState extends State<LaporanFilter> {
                                       child: Text(
                                         data.label,
                                         style: body4TextStyle(
+                                          size: 13.sp,
                                           color: data.id == widget.value?.id
                                               ? ColorConstants.primary[70]
                                               : ColorConstants.slate[900],
@@ -137,37 +199,79 @@ class _LaporanFilterState extends State<LaporanFilter> {
                           )),
                       SizedBox(height: 16.h),
                       Text(
-                        "Jenis Kegiatan",
-                        style: body4BTextStyle(),
+                        "Tanggal Kegiatan",
+                        style: body3BTextStyle(),
                       ),
-                      ...[
-                        "Hari ini",
-                        "7 Hari Terakhir",
-                        "Pilih Bulan",
-                        "Pilih Tanggal"
-                      ]
-                          .map(
-                            (data) => GestureDetector(
-                              onTap: () {},
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                                  vertical: 10.h,
-                                ),
-                                decoration: BoxDecoration(
-                                  border: Border(
-                                    bottom: BorderSide(
-                                      color: ColorConstants.slate[200]!,
-                                    ),
-                                  ),
-                                ),
-                                child: Text(
-                                  data,
-                                  style: body4TextStyle(),
-                                ),
+                      SizedBox(height: 12.h),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: AppInput(
+                              controller: startDateInput,
+                              padding: EdgeInsets.symmetric(
+                                vertical: 10.h,
+                                horizontal: 14.w,
                               ),
+                              label: "Tanggal Mulai",
+                              labelStyle: body4TextStyle(
+                                weight: FontWeight.w500,
+                              ),
+                              onTap: () {
+                                toggleCalendar(true);
+                              },
+                              readOnly: true,
+                              placeholder: "01-01-2024",
+                              prefixIcon: Icon(Icons.calendar_month),
                             ),
-                          )
-                          .toList()
+                          ),
+                          SizedBox(width: 8.w),
+                          Expanded(
+                            child: AppInput(
+                              controller: endDateInput,
+                              padding: EdgeInsets.symmetric(
+                                vertical: 10.h,
+                                horizontal: 14.w,
+                              ),
+                              label: "Tanggal Selesai",
+                              labelStyle: body4TextStyle(
+                                weight: FontWeight.w500,
+                              ),
+                              onTap: () {
+                                toggleCalendar(true);
+                              },
+                              readOnly: true,
+                              placeholder: "31-12-2024",
+                              prefixIcon: Icon(Icons.calendar_month),
+                            ),
+                          ),
+                        ],
+                      ),
+                      showCalendar
+                          ? CalendarFilter(
+                              endDate: endDate,
+                              startDate: startDate,
+                              onSave: (e) {
+                                setState(() {
+                                  startDate = e[0];
+                                  String formattedStartDate = startDate != null
+                                      ? DateFormat('dd MMMM yyyy')
+                                          .format(startDate!)
+                                      : "";
+                                  startDateInput.text = formattedStartDate;
+                                  endDate = e[1];
+                                  String formattedEndDate = endDate != null
+                                      ? DateFormat('dd MMMM yyyy')
+                                          .format(endDate!)
+                                      : "";
+                                  endDateInput.text = formattedEndDate;
+                                });
+                                widget.onDate([startDate, endDate]);
+                              },
+                              onToggle: (e) {
+                                toggleCalendar(e);
+                              },
+                            )
+                          : Container()
                     ],
                   ),
                 ),
@@ -176,6 +280,7 @@ class _LaporanFilterState extends State<LaporanFilter> {
               onClose: () {
                 setState(() {
                   visible = false;
+                  calendarVisible = false;
                 });
               },
               top: offsetButton.dy + 52.h,

@@ -10,7 +10,9 @@ LaporanModel _$LaporanModelFromJson(Map<String, dynamic> json) => LaporanModel(
       id: json['id'] as String,
       type: json['type'] as String,
       progress: json['progress'] as bool,
-      date: DateTime.parse(json['date'] as String),
+      date: DateTime.parse(
+        (json['date'] as Timestamp).toDate().toIso8601String(),
+      ),
       data: json['data'],
       location: json['location'] as String?,
       createdAt: DateTime.parse(

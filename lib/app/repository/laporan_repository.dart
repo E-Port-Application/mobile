@@ -256,7 +256,7 @@ class LaporanRepository {
             await PelanggarRepository.set(formPelanggar);
           }
 
-          convertTimestamp(laporanData, ["created-at", "updated-at"]);
+          convertTimestamp(laporanData, ["created-at", "updated-at", "date"]);
 
           transaction.set(laporanRef.doc(storedDataRef.id), laporanData);
         });
@@ -337,6 +337,8 @@ class LaporanRepository {
           final dataRef = FirebaseFirestore.instance.collection(type);
           final laporanRef = FirebaseFirestore.instance.collection("laporan");
           DocumentReference storedData = dataRef.doc(id);
+          final laporanData = (await transaction.get(storedData)).data()
+              as Map<String, dynamic>?;
 
           if (image != null) {
             var splittedFile = image.path.split(".");
@@ -350,15 +352,20 @@ class LaporanRepository {
                 contentType: "image/${splittedFile.last}",
               ),
             );
-            final imageUrl = {"image": await photo.getDownloadURL()};
+            final downloadUrl = await photo.getDownloadURL();
+            formJson['image'] = downloadUrl;
+            final imageUrl = {"image": downloadUrl};
             transaction.update(storedData, imageUrl);
           }
 
           transaction.update(storedData, formJson);
-          final laporanData = await storedData.get();
+          for (final e in formJson.entries) {
+            laporanData![e.key] = e.value;
+          }
+
           transaction.update(laporanRef.doc(id), {
             "progress": false,
-            "data": laporanData.data(),
+            "data": laporanData,
             "updated-at": Timestamp.fromDate(DateTime.now()),
           });
 

@@ -9,7 +9,6 @@ class ProsesController extends GetxController {
   RxBool openFilter = false.obs;
   Rx<Offset> offsetFilter = Rx(Offset(0, 0));
   RxList<ActivityModel> activities = RxList([]);
-  Rxn<ActivityModel> selectedActivity = Rxn<ActivityModel>();
   RxList<LaporanModel> datas = RxList<LaporanModel>();
 
   void handleFilterTogle(bool val) {
@@ -46,10 +45,17 @@ class ProsesController extends GetxController {
   }
 
   void onReset() {
-    selectedActivity.value = null;
+    LaporanController.i.selectedProses.value = null;
+    LaporanController.i.startDateProses.value = null;
+    LaporanController.i.endDateProses.value = null;
   }
 
   void onActivity(ActivityModel data) {
-    selectedActivity.value = data;
+    LaporanController.i.selectedProses.value = data;
+  }
+
+  void onDate(List<DateTime?> data) {
+    LaporanController.i.startDateProses.value = data[0];
+    LaporanController.i.endDateProses.value = data[1];
   }
 }

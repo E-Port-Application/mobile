@@ -14,22 +14,39 @@ class LaporanController extends GetxController {
   PageController pageController = PageController(initialPage: 0);
   RxList<ActivityModel> activities = RxList<ActivityModel>([
     ActivityModel(
-      label: "Laporan Pamwal",
-      id: "perda-perkada",
+      label: "PKL",
+      id: "pkl",
     ),
     ActivityModel(
-      label: "Perda dan Perwali",
-      id: "perda-perwali",
+      label: "Reklame",
+      id: "reklame",
     ),
     ActivityModel(
-      label: "Laporan PTI",
-      id: "laporan-pti",
+      label: "Kransos",
+      id: "kransos",
     ),
     ActivityModel(
-      label: "Laporan Pam-In",
-      id: "pam-in",
+      label: "Pengamanan",
+      id: "pengamanan",
+    ),
+    ActivityModel(
+      label: "Pamwal",
+      id: "pamwal",
+    ),
+    ActivityModel(
+      label: "Perizinan",
+      id: "perizinan",
     ),
   ]);
+
+  // Filter
+  Rxn<ActivityModel> selectedProses = Rxn<ActivityModel>();
+  Rxn<DateTime> startDateProses = Rxn<DateTime>();
+  Rxn<DateTime> endDateProses = Rxn<DateTime>();
+
+  Rxn<ActivityModel> selectedRiwayat = Rxn<ActivityModel>();
+  Rxn<DateTime> startDateRiwayat = Rxn<DateTime>();
+  Rxn<DateTime> endDateRiwayat = Rxn<DateTime>();
 
   String buttonText(LaporanType type, {bool isPkl = false}) {
     switch (type) {

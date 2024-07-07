@@ -1,3 +1,4 @@
+import 'package:eport/app/controller/laporan_controller.dart';
 import 'package:eport/app/controller/riwayat_controller.dart';
 import 'package:eport/app/presentation/partials/laporan/card_laporan.dart';
 import 'package:eport/app/presentation/partials/laporan/laporan_filter.dart';
@@ -16,10 +17,16 @@ class RiwayatPage extends GetView<RiwayatController> {
       () => Column(
         children: [
           LaporanFilter(
+            activities: LaporanController.i.activities,
+            value: LaporanController.i.selectedRiwayat.value,
             onReset: controller.onReset,
             onActivity: controller.onActivity,
-            activities: controller.activities,
             data: controller.datas,
+            filterDate: [
+              LaporanController.i.startDateRiwayat.value,
+              LaporanController.i.endDateRiwayat.value,
+            ],
+            onDate: controller.onDate,
           ),
           !controller.isLoading.value && controller.datas.isEmpty
               ? Column(

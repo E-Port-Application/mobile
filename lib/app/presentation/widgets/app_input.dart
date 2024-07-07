@@ -27,6 +27,7 @@ class AppInput extends StatefulWidget {
   final Size? prefixConstraints;
   final TextStyle? hintStyle;
   final TextStyle? textStyle;
+  final TextStyle? labelStyle;
   final double? gap;
   final double? margin;
 
@@ -55,6 +56,7 @@ class AppInput extends StatefulWidget {
     this.textStyle,
     this.gap,
     this.margin,
+    this.labelStyle,
   });
 
   @override
@@ -151,7 +153,8 @@ class _AppInputState extends State<AppInput> {
                 ? Container()
                 : Text(
                     widget.label!,
-                    style: body3BTextStyle(color: ColorConstants.slate[700]),
+                    style: widget.labelStyle ??
+                        body3BTextStyle(color: ColorConstants.slate[700]),
                   ),
             widget.label == null
                 ? Container()
