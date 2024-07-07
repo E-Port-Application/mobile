@@ -60,6 +60,7 @@ class KransosPage extends GetView<KransosController> {
                 validator: (e) {
                   return inputValidator(e, "Tanggal");
                 },
+                textInputAction: TextInputAction.next,
               ),
               SizedBox(height: 12.h),
               Row(
@@ -79,6 +80,7 @@ class KransosPage extends GetView<KransosController> {
                       validator: (e) {
                         return inputValidator(e, "Waktu mulai");
                       },
+                      textInputAction: TextInputAction.next,
                     ),
                   ),
                   SizedBox(width: 8.w),
@@ -97,6 +99,7 @@ class KransosPage extends GetView<KransosController> {
                       validator: (e) {
                         return inputValidator(e, "Waktu selesai");
                       },
+                      textInputAction: TextInputAction.next,
                     ),
                   ),
                 ],
@@ -108,6 +111,7 @@ class KransosPage extends GetView<KransosController> {
                       placeholder: "Jenis Keransos",
                       controller: controller.form['jenis']!,
                       readOnly: true,
+                      textInputAction: TextInputAction.next,
                     )
                   : AppSearchSelect(
                       options: controller.jenis,
@@ -147,6 +151,7 @@ class KransosPage extends GetView<KransosController> {
                         return inputValidator(e, "Deskripsi pelanggaran");
                       }
                     : null,
+                textInputAction: TextInputAction.next,
               ),
               SizedBox(height: 12.h),
               AppInput(
@@ -159,6 +164,7 @@ class KransosPage extends GetView<KransosController> {
                         return inputValidator(e, "Tindakan pelanggaran");
                       }
                     : null,
+                textInputAction: TextInputAction.next,
               ),
               SizedBox(height: 12.h),
               AppInput(
@@ -172,6 +178,7 @@ class KransosPage extends GetView<KransosController> {
                         return inputValidator(e, "Jumlah pelanggar");
                       }
                     : null,
+                textInputAction: TextInputAction.next,
               ),
               SizedBox(height: 12.h),
               InputPersonil(
@@ -193,6 +200,7 @@ class KransosPage extends GetView<KransosController> {
                         return inputValidator(e, "Keterangan");
                       }
                     : null,
+                textInputAction: TextInputAction.done,
               ),
               controller.image.value == null &&
                       controller.imageUrl.value == null

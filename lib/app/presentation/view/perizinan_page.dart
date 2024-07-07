@@ -59,6 +59,7 @@ class PerizinanPage extends GetView<PerizinanController> {
                 validator: (e) {
                   return inputValidator(e, "Tanggal");
                 },
+                textInputAction: TextInputAction.next,
               ),
               SizedBox(height: 12.h),
               Row(
@@ -78,6 +79,7 @@ class PerizinanPage extends GetView<PerizinanController> {
                       validator: (e) {
                         return inputValidator(e, "Waktu mulai");
                       },
+                      textInputAction: TextInputAction.next,
                     ),
                   ),
                   SizedBox(width: 8.w),
@@ -96,6 +98,7 @@ class PerizinanPage extends GetView<PerizinanController> {
                       validator: (e) {
                         return inputValidator(e, "Waktu selesai");
                       },
+                      textInputAction: TextInputAction.next,
                     ),
                   ),
                 ],
@@ -111,6 +114,7 @@ class PerizinanPage extends GetView<PerizinanController> {
                         return inputValidator(e, "Nama");
                       }
                     : null,
+                textInputAction: TextInputAction.next,
               ),
               SizedBox(height: 12.h),
               AppInput(
@@ -123,6 +127,7 @@ class PerizinanPage extends GetView<PerizinanController> {
                         return inputValidator(e, "Jenis perizinan");
                       }
                     : null,
+                textInputAction: TextInputAction.next,
               ),
               SizedBox(height: 12.h),
               AppInput(
@@ -135,6 +140,7 @@ class PerizinanPage extends GetView<PerizinanController> {
                         return inputValidator(e, "Pelanggaran");
                       }
                     : null,
+                textInputAction: TextInputAction.next,
               ),
               SizedBox(height: 12.h),
               AppInput(
@@ -147,6 +153,7 @@ class PerizinanPage extends GetView<PerizinanController> {
                         return inputValidator(e, "Tindakan");
                       }
                     : null,
+                textInputAction: TextInputAction.next,
               ),
               SizedBox(height: 12.h),
               InputPersonil(
@@ -168,6 +175,7 @@ class PerizinanPage extends GetView<PerizinanController> {
                         return inputValidator(e, "Keterangan");
                       }
                     : null,
+                textInputAction: TextInputAction.done,
               ),
               controller.image.value == null &&
                       controller.imageUrl.value == null

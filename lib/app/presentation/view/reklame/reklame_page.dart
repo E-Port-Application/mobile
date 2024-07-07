@@ -60,6 +60,7 @@ class ReklamePage extends GetView<ReklameController> {
                 validator: (e) {
                   return inputValidator(e, "Tanggal");
                 },
+                textInputAction: TextInputAction.next,
               ),
               SizedBox(height: 12.h),
               Row(
@@ -79,6 +80,7 @@ class ReklamePage extends GetView<ReklameController> {
                       validator: (e) {
                         return inputValidator(e, "Waktu mulai");
                       },
+                      textInputAction: TextInputAction.next,
                     ),
                   ),
                   SizedBox(width: 8.w),
@@ -97,6 +99,7 @@ class ReklamePage extends GetView<ReklameController> {
                       validator: (e) {
                         return inputValidator(e, "Waktu selesai");
                       },
+                      textInputAction: TextInputAction.next,
                     ),
                   ),
                 ],
@@ -112,6 +115,7 @@ class ReklamePage extends GetView<ReklameController> {
                         return inputValidator(e, "Nama reklame");
                       }
                     : null,
+                textInputAction: TextInputAction.next,
               ),
               SizedBox(height: 12.h),
               type == LaporanType.history
@@ -120,6 +124,7 @@ class ReklamePage extends GetView<ReklameController> {
                       label: "Jenis Reklame",
                       placeholder: "Jenis Reklame",
                       readOnly: true,
+                      textInputAction: TextInputAction.next,
                     )
                   : AppSearchSelect(
                       options: controller.jenis,
@@ -153,6 +158,7 @@ class ReklamePage extends GetView<ReklameController> {
                       placeholder: "Pelanggaran Reklame",
                       controller: controller.form['pelanggaran']!,
                       readOnly: true,
+                      textInputAction: TextInputAction.next,
                     )
                   : AppSearchSelect(
                       options: controller.pelanggaran,
@@ -191,6 +197,7 @@ class ReklamePage extends GetView<ReklameController> {
                         return inputValidator(e, "Jumlah reklame");
                       }
                     : null,
+                textInputAction: TextInputAction.next,
               ),
               SizedBox(height: 12.h),
               InputPersonil(
@@ -212,6 +219,7 @@ class ReklamePage extends GetView<ReklameController> {
                         return inputValidator(e, "Tindakan");
                       }
                     : null,
+                textInputAction: TextInputAction.next,
               ),
               SizedBox(height: 12.h),
               AppInput(
@@ -226,6 +234,7 @@ class ReklamePage extends GetView<ReklameController> {
                         return inputValidator(e, "Keterangan");
                       }
                     : null,
+                textInputAction: TextInputAction.done,
               ),
               controller.image.value == null &&
                       controller.imageUrl.value == null

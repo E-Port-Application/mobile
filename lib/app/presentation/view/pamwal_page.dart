@@ -59,6 +59,7 @@ class PamwalPage extends GetView<PamwalController> {
                 validator: (e) {
                   return inputValidator(e, "Tanggal");
                 },
+                textInputAction: TextInputAction.next,
               ),
               SizedBox(height: 12.h),
               Row(
@@ -78,6 +79,7 @@ class PamwalPage extends GetView<PamwalController> {
                       validator: (e) {
                         return inputValidator(e, "Waktu mulai");
                       },
+                      textInputAction: TextInputAction.next,
                     ),
                   ),
                   SizedBox(width: 8.w),
@@ -96,6 +98,7 @@ class PamwalPage extends GetView<PamwalController> {
                       validator: (e) {
                         return inputValidator(e, "Waktu selesai");
                       },
+                      textInputAction: TextInputAction.next,
                     ),
                   ),
                 ],
@@ -111,6 +114,7 @@ class PamwalPage extends GetView<PamwalController> {
                         return inputValidator(e, "Kejadian");
                       }
                     : null,
+                textInputAction: TextInputAction.next,
               ),
               SizedBox(height: 12.h),
               AppInput(
@@ -123,6 +127,7 @@ class PamwalPage extends GetView<PamwalController> {
                         return inputValidator(e, "Tindakan");
                       }
                     : null,
+                textInputAction: TextInputAction.next,
               ),
               SizedBox(height: 12.h),
               InputPersonil(
@@ -144,6 +149,7 @@ class PamwalPage extends GetView<PamwalController> {
                         return inputValidator(e, "Keterangan");
                       }
                     : null,
+                textInputAction: TextInputAction.done,
               ),
               controller.image.value == null &&
                       controller.imageUrl.value == null

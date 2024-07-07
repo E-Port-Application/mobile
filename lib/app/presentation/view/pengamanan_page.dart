@@ -62,6 +62,7 @@ class PengamananPage extends GetView<PengamananController> {
                 validator: (e) {
                   return inputValidator(e, "Tanggal");
                 },
+                textInputAction: TextInputAction.next,
               ),
               SizedBox(height: 12.h),
               Row(
@@ -81,6 +82,7 @@ class PengamananPage extends GetView<PengamananController> {
                       validator: (e) {
                         return inputValidator(e, "Waktu mulai");
                       },
+                      textInputAction: TextInputAction.next,
                     ),
                   ),
                   SizedBox(width: 8.w),
@@ -99,6 +101,7 @@ class PengamananPage extends GetView<PengamananController> {
                       validator: (e) {
                         return inputValidator(e, "Waktu selesai");
                       },
+                      textInputAction: TextInputAction.next,
                     ),
                   ),
                 ],
@@ -114,6 +117,7 @@ class PengamananPage extends GetView<PengamananController> {
                         return inputValidator(e, "Kejadian");
                       }
                     : null,
+                textInputAction: TextInputAction.next,
               ),
               SizedBox(height: 12.h),
               AppInput(
@@ -126,6 +130,7 @@ class PengamananPage extends GetView<PengamananController> {
                         return inputValidator(e, "Tindakan");
                       }
                     : null,
+                textInputAction: TextInputAction.next,
               ),
               SizedBox(height: 12.h),
               InputPersonil(
@@ -147,6 +152,7 @@ class PengamananPage extends GetView<PengamananController> {
                         return inputValidator(e, "Keterangan");
                       }
                     : null,
+                textInputAction: TextInputAction.done,
               ),
               controller.image.value == null &&
                       controller.imageUrl.value == null

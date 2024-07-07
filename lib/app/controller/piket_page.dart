@@ -60,6 +60,7 @@ class PiketPage extends GetView<PiketController> {
                 validator: (e) {
                   return inputValidator(e, "Tanggal");
                 },
+                textInputAction: TextInputAction.next,
               ),
               SizedBox(height: 12.h),
               Row(
@@ -79,6 +80,7 @@ class PiketPage extends GetView<PiketController> {
                       validator: (e) {
                         return inputValidator(e, "Waktu mulai");
                       },
+                      textInputAction: TextInputAction.next,
                     ),
                   ),
                   SizedBox(width: 8.w),
@@ -97,6 +99,7 @@ class PiketPage extends GetView<PiketController> {
                       validator: (e) {
                         return inputValidator(e, "Waktu selesai");
                       },
+                      textInputAction: TextInputAction.next,
                     ),
                   ),
                 ],
@@ -108,6 +111,7 @@ class PiketPage extends GetView<PiketController> {
                       placeholder: "Pilih Shift",
                       controller: controller.form['shift']!,
                       readOnly: true,
+                      textInputAction: TextInputAction.next,
                     )
                   : AppSearchSelect(
                       options: controller.shift,
@@ -141,6 +145,7 @@ class PiketPage extends GetView<PiketController> {
                       placeholder: "Pilih Lokasi",
                       controller: controller.form['lokasi']!,
                       readOnly: true,
+                      textInputAction: TextInputAction.next,
                     )
                   : AppSearchSelect(
                       options: controller.lokasi,
@@ -178,6 +183,7 @@ class PiketPage extends GetView<PiketController> {
                         return inputValidator(e, "Tindakan");
                       }
                     : null,
+                textInputAction: TextInputAction.next,
               ),
               SizedBox(height: 12.h),
               InputPersonil(
@@ -199,6 +205,7 @@ class PiketPage extends GetView<PiketController> {
                         return inputValidator(e, "Keterangan");
                       }
                     : null,
+                textInputAction: TextInputAction.done,
               ),
               controller.image.value == null &&
                       controller.imageUrl.value == null

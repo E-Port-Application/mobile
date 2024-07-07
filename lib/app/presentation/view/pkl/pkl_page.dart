@@ -102,6 +102,7 @@ class PklPage extends GetView<PklController> {
                       )
                     : Container();
               }),
+              Expanded(child: Container()),
               AppButton(
                 width: 1.sw,
                 onPressed: controller.submit,
@@ -190,6 +191,7 @@ class PklPage extends GetView<PklController> {
             validator: (e) {
               return inputValidator(e, "Tanggal");
             },
+            textInputAction: TextInputAction.next,
           ),
           SizedBox(height: 12.h),
           Row(
@@ -209,6 +211,7 @@ class PklPage extends GetView<PklController> {
                   validator: (e) {
                     return inputValidator(e, "Waktu mulai");
                   },
+                  textInputAction: TextInputAction.next,
                 ),
               ),
               SizedBox(width: 8.w),
@@ -227,6 +230,7 @@ class PklPage extends GetView<PklController> {
                   validator: (e) {
                     return inputValidator(e, "Waktu selesai");
                   },
+                  textInputAction: TextInputAction.next,
                 ),
               ),
             ],
@@ -238,6 +242,7 @@ class PklPage extends GetView<PklController> {
                   label: "Jenis PKL",
                   placeholder: "Jenis PKL",
                   readOnly: true,
+                  textInputAction: TextInputAction.next,
                 )
               : AppSearchSelect(
                   options: controller.jenisPkl,
@@ -271,6 +276,7 @@ class PklPage extends GetView<PklController> {
                   label: "Jenis Pelanggaran",
                   placeholder: "Jenis Pelanggaran",
                   readOnly: true,
+                  textInputAction: TextInputAction.next,
                 )
               : AppSearchSelect(
                   options: controller.jenisPelanggaran,
@@ -304,6 +310,7 @@ class PklPage extends GetView<PklController> {
                   placeholder: "Jenis Tindakan",
                   controller: controller.form['tindakan']!,
                   readOnly: true,
+                  textInputAction: TextInputAction.next,
                 )
               : AppSearchSelect(
                   options: controller.jenisTindakan,
@@ -342,6 +349,7 @@ class PklPage extends GetView<PklController> {
                     return inputValidator(e, "Jumlah pelanggar");
                   }
                 : null,
+            textInputAction: TextInputAction.next,
           ),
           SizedBox(height: 12.h),
           InputPersonil(
@@ -363,6 +371,7 @@ class PklPage extends GetView<PklController> {
                     return inputValidator(e, "Keterangan");
                   }
                 : null,
+            textInputAction: TextInputAction.next,
           ),
         ],
       ),
@@ -382,6 +391,7 @@ class PklPage extends GetView<PklController> {
                   return inputValidator(e, "Nama pelanggar");
                 }
               : null,
+          textInputAction: TextInputAction.next,
         ),
         Obx(
           () {
@@ -411,6 +421,7 @@ class PklPage extends GetView<PklController> {
           readOnly: type == LaporanType.history,
           keyboardType: TextInputType.number,
           validator: controller.nikValidator,
+          textInputAction: TextInputAction.next,
         ),
         Obx(
           () {
@@ -440,6 +451,7 @@ class PklPage extends GetView<PklController> {
                   label: "Jenis Kelamin",
                   placeholder: "Input Jenis Kelamin",
                   readOnly: true,
+                  textInputAction: TextInputAction.next,
                 )
               : AppDropdown<String>(
                   items: [
@@ -474,6 +486,7 @@ class PklPage extends GetView<PklController> {
                   return inputValidator(e, "Alamat pelanggar");
                 }
               : null,
+          textInputAction: TextInputAction.done,
         )
       ],
     );
