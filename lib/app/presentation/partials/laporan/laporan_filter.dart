@@ -5,7 +5,9 @@ import 'package:eport/app/presentation/widgets/app_input.dart';
 import 'package:eport/app/presentation/widgets/popover.dart';
 import 'package:eport/styles/color_constants.dart';
 import 'package:eport/styles/text_styles.dart';
+import 'package:eport/utils/download_file.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -344,16 +346,56 @@ class _LaporanFilterState extends State<LaporanFilter> {
               height: 28.h,
               fit: BoxFit.cover,
             ),
-            Image.asset(
-              "assets/icons/excel.png",
-              width: 28.w,
-              height: 28.h,
-              fit: BoxFit.cover,
+            GestureDetector(
+              onTap: () async {
+                String url = "${dotenv.env['BASE_URL']}/api/rekap";
+                // const url =
+                //     "https://fdw3pxjx-3000.asse.devtunnels.ms/api/rekap";
+                downloadFile(url);
+              },
+              child: Image.asset(
+                "assets/icons/excel.png",
+                width: 28.w,
+                height: 28.h,
+                fit: BoxFit.cover,
+              ),
             ),
           ],
         ),
         SizedBox(height: 20.h),
       ],
+    );
+  }
+}
+
+class DownloadExcel extends StatefulWidget {
+  const DownloadExcel({super.key});
+
+  @override
+  State<DownloadExcel> createState() => _DownloadExcelState();
+}
+
+class _DownloadExcelState extends State<DownloadExcel> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  final startDate = DateTime(2024, 7, 5);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () async {
+        final url = "https://fdw3pxjx-3000.asse.devtunnels.ms/api/rekap";
+        downloadFile(url);
+      },
+      child: Image.asset(
+        "assets/icons/excel.png",
+        width: 28.w,
+        height: 28.h,
+        fit: BoxFit.cover,
+      ),
     );
   }
 }

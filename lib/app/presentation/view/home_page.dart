@@ -3,22 +3,30 @@ import 'package:eport/app/presentation/partials/home/card_information.dart';
 import 'package:eport/app/presentation/partials/home/home_service.dart';
 import 'package:eport/app/presentation/widgets/app_background.dart';
 import 'package:eport/app/presentation/widgets/app_bottombar.dart';
+import 'package:eport/app/presentation/widgets/app_button.dart';
 import 'package:eport/app/presentation/widgets/app_input.dart';
 import 'package:eport/global_settings.dart';
 import 'package:eport/routes/app_route.dart';
 import 'package:eport/styles/color_constants.dart';
 import 'package:eport/styles/text_styles.dart';
+import 'package:eport/utils/show_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:eport/app/controller/home_controller.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class HomePage extends GetView<HomeController> {
   GlobalController globalController = GlobalController.i;
   HomePage({super.key});
 
+  void lah() async {
+    print(await FirebaseMessaging.instance.getToken());
+  }
+
   @override
   Widget build(BuildContext context) {
+    lah();
     return Scaffold(
       extendBody: true,
       backgroundColor: Colors.white,
@@ -132,6 +140,11 @@ class HomePage extends GetView<HomeController> {
                   CardInformation(),
                   SizedBox(height: 12.h),
                   CardInformation(),
+                  AppButton(
+                      onPressed: () {
+                        showAlert('asdasd');
+                      },
+                      text: "asd")
                 ],
               ),
             ),

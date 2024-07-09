@@ -9,6 +9,8 @@ import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+final navigatorKey = GlobalKey<NavigatorState>();
+
 class App extends StatelessWidget {
   const App({super.key});
 
@@ -27,6 +29,7 @@ class App extends StatelessWidget {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return GetMaterialApp(
+                  key: navigatorKey,
                   initialBinding: GlobalBinding(),
                   title: dotenv.env['PROJECT_NAME']!,
                   theme: globalTheme(),

@@ -174,7 +174,7 @@ class LaporanScaffold extends StatelessWidget {
             ),
             clipBehavior: Clip.antiAlias,
             child: AppBar(
-              backgroundColor: Colors.transparent,
+              backgroundColor: Colors.white,
               foregroundColor: Colors.transparent,
               shadowColor: Colors.transparent,
               automaticallyImplyLeading: false,
