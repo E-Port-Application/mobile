@@ -236,7 +236,7 @@ class PiketPage extends GetView<PiketController> {
                       },
                     )
                   : Container(),
-              SizedBox(height: type == LaporanType.create ? 32.h : 10.h),
+              SizedBox(height: 32.h),
               type != LaporanType.create
                   ? LaporanAction(
                       onPdf: () {},
@@ -252,7 +252,7 @@ class PiketPage extends GetView<PiketController> {
               AppButton(
                 width: 1.sw,
                 onPressed: () {},
-                text: "Batal",
+                text: LaporanController.i.cancelText(type),
                 type: AppButtonType.outlined,
               ),
             ],

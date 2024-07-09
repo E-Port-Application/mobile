@@ -120,7 +120,7 @@ class PklPage extends GetView<PklController> {
                     ? phase == 1
                         ? "Batal"
                         : "Kembali"
-                    : "Batal",
+                    : LaporanController.i.cancelText(type),
                 type: AppButtonType.outlined,
               ),
             ],

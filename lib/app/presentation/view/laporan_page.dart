@@ -1,9 +1,11 @@
 import 'package:eport/app/controller/laporan_controller.dart';
 import 'package:eport/app/presentation/partials/laporan/laporan_scaffold.dart';
+import 'package:eport/app/presentation/view/pimpinan_page.dart';
 import 'package:eport/app/presentation/view/proses_page.dart';
 import 'package:eport/app/presentation/view/rencana_page.dart';
 import 'package:eport/app/presentation/view/riwayat_page.dart';
 import 'package:eport/app/presentation/widgets/scrollable_constraints.dart';
+import 'package:eport/global_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -13,6 +15,9 @@ class LaporanPage extends GetView<LaporanController> {
 
   @override
   Widget build(BuildContext context) {
+    if (Global.pimpinan) {
+      return PimpinanPage();
+    }
     return LaporanScaffold(
       title: "Laporan Kegiatan",
       child: ConstrainedBox(

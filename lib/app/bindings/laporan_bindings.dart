@@ -7,6 +7,7 @@ import 'package:eport/app/controller/personil/edit_personil_controller.dart';
 import 'package:eport/app/controller/personil/personil_controller.dart';
 import 'package:eport/app/controller/personil/riwayat_personil_controller.dart';
 import 'package:eport/app/controller/piket_controller.dart';
+import 'package:eport/app/controller/pimpinan_controller.dart';
 import 'package:eport/app/controller/pkl/edit_pkl_controller.dart';
 import 'package:eport/app/controller/pkl/pkl_controller.dart';
 import 'package:eport/app/controller/pkl/riwayat_pkl_controller.dart';
@@ -25,6 +26,7 @@ class LaporanBinding implements Bindings {
     Get.lazyPut<RencanaController>(() => RencanaController());
     Get.lazyPut<ProsesController>(() => ProsesController());
     Get.lazyPut<RiwayatController>(() => RiwayatController());
+    Get.lazyPut<PimpinanController>(() => PimpinanController());
 
     // Tibum
     Get.lazyPut<PerkadaController>(() => PerkadaController());

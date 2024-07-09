@@ -84,7 +84,8 @@ class LaporanAction extends StatelessWidget {
               ),
             ],
           ),
-          onExcel != null || onPdf != null
+          (onExcel != null || onPdf != null) &&
+                  (Get.currentRoute.contains("laporan/riwayat/"))
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [

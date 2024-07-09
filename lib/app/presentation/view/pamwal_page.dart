@@ -196,7 +196,7 @@ class PamwalPage extends GetView<PamwalController> {
               AppButton(
                 width: 1.sw,
                 onPressed: () {},
-                text: "Batal",
+                text: LaporanController.i.cancelText(type),
                 type: AppButtonType.outlined,
               ),
             ],

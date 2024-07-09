@@ -11,7 +11,9 @@ void downloadFile(String url) async {
       saveInPublicStorage: true,
       showNotification: true,
       openFileFromNotification: true,
-    );
+    ).then((value) {
+      showAlert("File berhasil didonwload", isSuccess: true);
+    });
   } catch (e) {
     showAlert(e.toString());
   }

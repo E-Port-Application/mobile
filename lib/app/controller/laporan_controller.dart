@@ -48,6 +48,10 @@ class LaporanController extends GetxController {
   Rxn<DateTime> startDateRiwayat = Rxn<DateTime>();
   Rxn<DateTime> endDateRiwayat = Rxn<DateTime>();
 
+  Rxn<ActivityModel> selectedPimpinan = Rxn<ActivityModel>();
+  Rxn<DateTime> startDatePimpinan = Rxn<DateTime>();
+  Rxn<DateTime> endDatePimpinan = Rxn<DateTime>();
+
   String buttonText(LaporanType type, {bool isPkl = false}) {
     switch (type) {
       case LaporanType.create:
@@ -56,6 +60,16 @@ class LaporanController extends GetxController {
         return "Buat Laporan Kegiatan";
       default:
         return "Unduh Laporan Kegiatan";
+    }
+  }
+
+  String cancelText(LaporanType type) {
+    print("cancel text $type");
+    switch (type) {
+      case LaporanType.create:
+        return "Batal";
+      default:
+        return "Kembali";
     }
   }
 
@@ -74,10 +88,25 @@ class LaporanController extends GetxController {
   RxBool loadingProsesData = true.obs;
   RxList<LaporanModel> riwayatData = RxList<LaporanModel>();
   RxBool loadingRiwayatData = true.obs;
+  RxList<LaporanModel> pimpinanData = RxList<LaporanModel>();
+  RxBool loadingPimpinanData = true.obs;
 
   void getMenu() async {
     menu.value =
         await convertJson<LaporanMenuModel>("assets/data/menu_laporan.json");
+  }
+
+  void getPimpinanData() {
+    loadingPimpinanData.value = true;
+    LaporanRepository.getReportData(
+      isProgress: false,
+      startDate: startDatePimpinan.value,
+      endDate: endDatePimpinan.value,
+      type: selectedPimpinan.value?.id,
+    ).then((value) {
+      pimpinanData.value = value;
+      loadingPimpinanData.value = false;
+    }).catchError((_) {});
   }
 
   void getProsesData() {
@@ -113,10 +142,13 @@ class LaporanController extends GetxController {
       });
       getProsesData();
       everAll([startDateRiwayat, endDateRiwayat, selectedRiwayat], (_) {
-        print(selectedRiwayat.value?.id);
         getRiwayatData();
       });
       getRiwayatData();
+      everAll([startDatePimpinan, endDatePimpinan, selectedPimpinan], (_) {
+        getPimpinanData();
+      });
+      getPimpinanData();
     } catch (_) {}
   }
 
