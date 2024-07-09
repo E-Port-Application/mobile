@@ -54,12 +54,17 @@ class LaporanRepository {
     startDate ??= DateTime(2000);
     endDate ??= DateTime(2100);
     try {
-      final laporanRef = store
+      var laporanRef = store
           .collection("laporan")
           .where("progress", isEqualTo: isProgress)
           .where("date", isGreaterThan: startDate)
-          .where("date", isLessThan: endDate)
-          .orderBy("date", descending: true);
+          .where("date", isLessThan: endDate);
+
+      if (type != null) {
+        laporanRef = laporanRef
+            .where("type", isEqualTo: type)
+            .orderBy("date", descending: true);
+      }
 
       var laporans = await laporanRef.get();
       return (await Future.wait(

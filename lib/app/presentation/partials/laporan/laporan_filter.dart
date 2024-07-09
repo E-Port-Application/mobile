@@ -147,7 +147,12 @@ class _LaporanFilterState extends State<LaporanFilter> {
                             ),
                           ),
                           GestureDetector(
-                            onTap: widget.onReset,
+                            onTap: () {
+                              setState(() {
+                                visible = false;
+                              });
+                              widget.onReset();
+                            },
                             child: Text(
                               'Reset',
                               style: body4BTextStyle(
@@ -186,10 +191,10 @@ class _LaporanFilterState extends State<LaporanFilter> {
                                         style: body4TextStyle(
                                           size: 13.sp,
                                           color: data.id == widget.value?.id
-                                              ? ColorConstants.primary[50]
+                                              ? ColorConstants.primary[70]
                                               : ColorConstants.slate[900],
                                           weight: data.id == widget.value?.id
-                                              ? FontWeight.w600
+                                              ? FontWeight.bold
                                               : FontWeight.normal,
                                         ),
                                       ),
@@ -349,8 +354,6 @@ class _LaporanFilterState extends State<LaporanFilter> {
             GestureDetector(
               onTap: () async {
                 String url = "${dotenv.env['BASE_URL']}/api/rekap";
-                // const url =
-                //     "https://fdw3pxjx-3000.asse.devtunnels.ms/api/rekap";
                 downloadFile(url);
               },
               child: Image.asset(

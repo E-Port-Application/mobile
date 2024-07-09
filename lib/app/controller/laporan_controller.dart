@@ -108,11 +108,12 @@ class LaporanController extends GetxController {
 
   void getData() async {
     try {
-      everAll([startDateProses, endDateProses], (_) {
+      everAll([startDateProses, endDateProses, selectedProses], (_) {
         getProsesData();
       });
       getProsesData();
-      everAll([startDateRiwayat, endDateRiwayat], (_) {
+      everAll([startDateRiwayat, endDateRiwayat, selectedRiwayat], (_) {
+        print(selectedRiwayat.value?.id);
         getRiwayatData();
       });
       getRiwayatData();
