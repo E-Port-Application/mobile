@@ -112,7 +112,7 @@ class _CalendarFilterState extends State<CalendarFilter> {
               color: ColorConstants.primary[60]!.withOpacity(.2),
               shape: BoxShape.circle,
             ),
-            rangeHighlightColor: ColorConstants.primary[70]!.withOpacity(.2),
+            rangeHighlightColor: ColorConstants.primary[50]!.withOpacity(.2),
           ),
           rangeSelectionMode: RangeSelectionMode.toggledOn,
           onRangeSelected: (start, end, focusedDay) {

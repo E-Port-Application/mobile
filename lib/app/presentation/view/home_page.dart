@@ -86,11 +86,11 @@ class HomePage extends GetView<HomeController> {
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               Text(
-                                "E-Port",
+                                "Satpol Saja",
                                 style: body1BTextStyle(),
                               ),
                               Text(
-                                "Sistem Layanan Satuan Polisi Pamong Praja Kota Batu",
+                                "Sistem administrasi Terpadu dan Pelaporan Online Satgas Polri Pamong Praja",
                                 style: body5TextStyle(
                                   weight: FontWeight.w600,
                                   color: Colors.black,

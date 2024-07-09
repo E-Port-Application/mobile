@@ -32,7 +32,7 @@ class AppRadio<T> extends StatelessWidget {
       onTap: () {
         onChange(data.value);
       },
-      splashColor: ColorConstants.primary[70]!.withOpacity(.25),
+      splashColor: ColorConstants.primary[50]!.withOpacity(.25),
       child: Container(
         padding: EdgeInsets.symmetric(
           vertical: 12.h,

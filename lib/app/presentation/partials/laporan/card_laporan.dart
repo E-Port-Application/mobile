@@ -251,7 +251,7 @@ class _CardLaporanState extends State<CardLaporan> {
                       Text(
                         widget.data.location ?? "Lokasi",
                         style: body6BTextStyle(
-                          color: ColorConstants.primary[70],
+                          color: ColorConstants.primary[50],
                         ),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
@@ -396,7 +396,7 @@ class _CardLaporanState extends State<CardLaporan> {
                         Text(
                           widget.data.location ?? "Lokasi",
                           style: body6BTextStyle(
-                            color: ColorConstants.primary[70],
+                            color: ColorConstants.primary[50],
                           ),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,

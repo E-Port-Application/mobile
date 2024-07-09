@@ -17,14 +17,19 @@ class ColorConstants {
   };
 
   static Map<int, Color> primary = {
-    20: Color(0xffBCC29A),
-    30: Color(0xff8CA367),
-    40: Color(0xff6B8534),
-    50: Color(0xff4C6601),
-    60: Color(0xff1B5201),
-    70: Color(0xff143D01),
-    80: Color(0xff0B2901),
-    90: Color(0xff000B14),
+    0: Color(0xffCECEC7),
+    5: Color(0xffC1C1BA),
+    10: Color(0xffB5B5AD),
+    15: Color(0xffA8A8A0),
+    20: Color(0xff9C9C93),
+    30: Color(0xff82827A),
+    40: Color(0xff696960),
+    50: Color(0xff505046),
+    60: Color(0xff404038),
+    70: Color(0xff30302A),
+    80: Color(0xff20201C),
+    85: Color(0xff181815),
+    90: Color(0xff10100E),
   };
 
   static Map<int, Color> info = {
@@ -63,7 +68,7 @@ class ColorConstants {
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
       colors: [
-        const Color(0xff446927).withOpacity(.4),
+        ColorConstants.primary[70]!.withOpacity(.4),
         const Color(0xffFFFFFF).withOpacity(0),
       ],
     ),
@@ -72,21 +77,21 @@ class ColorConstants {
       end: Alignment.topCenter,
       colors: [
         const Color(0xffFFFFFF).withOpacity(1),
-        const Color(0xff446927).withOpacity(.41),
+        ColorConstants.primary[70]!.withOpacity(.41),
       ],
     ),
     3: LinearGradient(
       begin: Alignment.centerLeft,
       end: Alignment.centerRight,
       colors: [
-        ColorConstants.primary[70]!,
+        ColorConstants.primary[50]!,
         ColorConstants.primary[60]!,
       ],
     ),
     4: LinearGradient(
       begin: Alignment.bottomLeft,
       end: Alignment.topRight,
-      colors: [Color(0xffADBAA7), Color(0xff78946B)],
+      colors: [ColorConstants.primary[40]!, ColorConstants.primary[60]!],
     ),
   };
 
@@ -128,7 +133,7 @@ class ColorConstants {
 }
 
 final ColorScheme appColorScheme = ColorScheme(
-  primary: ColorConstants.primary[70]!,
+  primary: ColorConstants.primary[50]!,
   secondary: ColorConstants.slate[500]!,
   background: ColorConstants.slate[25]!,
   surface: ColorConstants.slate[50]!,

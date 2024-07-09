@@ -151,7 +151,7 @@ class _LaporanFilterState extends State<LaporanFilter> {
                             child: Text(
                               'Reset',
                               style: body4BTextStyle(
-                                color: ColorConstants.primary[70],
+                                color: ColorConstants.primary[50],
                                 decoration: TextDecoration.underline,
                               ),
                             ),
@@ -186,7 +186,7 @@ class _LaporanFilterState extends State<LaporanFilter> {
                                         style: body4TextStyle(
                                           size: 13.sp,
                                           color: data.id == widget.value?.id
-                                              ? ColorConstants.primary[70]
+                                              ? ColorConstants.primary[50]
                                               : ColorConstants.slate[900],
                                           weight: data.id == widget.value?.id
                                               ? FontWeight.w600

@@ -66,7 +66,7 @@ class AppBottombar extends StatelessWidget {
                                           val.label,
                                           style: body5BTextStyle(
                                             color: path == val.path
-                                                ? ColorConstants.primary[70]
+                                                ? ColorConstants.primary[50]
                                                 : ColorConstants.slate[500],
                                           ),
                                         ),
@@ -93,7 +93,7 @@ class AppBottombar extends StatelessWidget {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(40.w),
                                   ),
-                                  color: ColorConstants.primary[70],
+                                  color: ColorConstants.primary[50],
                                   padding: EdgeInsets.all(8.w),
                                   height: 65.h,
                                   minWidth: 65.w,

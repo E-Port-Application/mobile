@@ -36,47 +36,17 @@ class _OnboardPageState extends State<OnboardPage>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Expanded(flex: 2, child: Container()),
+            Expanded(flex: 4, child: Container()),
             AnimatedOpacity(
               opacity: isMounted ? 1 : 0,
               duration: Duration(seconds: 1),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(1.sw),
-                  boxShadow: [ColorConstants.shadow[3]!],
-                ),
-                foregroundDecoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(1.sw),
-                  gradient: LinearGradient(
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                    colors: [
-                      const Color(0xff446927).withOpacity(.4),
-                      const Color(0xffFFFFFF).withOpacity(0),
-                    ],
-                  ),
-                ),
-                clipBehavior: Clip.antiAlias,
-                child: AspectRatio(
-                  aspectRatio: 1 / 1,
-                  child: Stack(
-                    clipBehavior: Clip.antiAlias,
-                    children: [
-                      Positioned(
-                        bottom: -40.h,
-                        child: Image.asset(
-                          "assets/images/onboard/visual.png",
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+              child: Image.asset(
+                "assets/images/onboard/visual.png",
               ),
             ),
-            Expanded(child: Container()),
+            SizedBox(height: 20.h),
             Text(
-              "E-Port hadir untuk memudahkan\npelaporan anda",
+              "Satpol Saja hadir untuk\nmemudahkan pelaporan anda",
               style: h4BTextStyle(
                 color: ColorConstants.slate[800],
               ),
@@ -110,10 +80,7 @@ class _OnboardPageState extends State<OnboardPage>
               text: "Daftar",
               boxShadow: [ColorConstants.shadow[3]!],
             ),
-            Expanded(
-              flex: 2,
-              child: Container(),
-            ),
+            SizedBox(height: 40.h),
           ],
         ),
       ),

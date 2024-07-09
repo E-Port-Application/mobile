@@ -138,14 +138,14 @@ class _AppDropdownState<T> extends State<AppDropdown<T>> {
                             height: 20.h,
                             width: 1.w,
                             color: isFocused
-                                ? ColorConstants.primary[70]
+                                ? ColorConstants.primary[50]
                                 : ColorConstants.slate[500],
                           ),
                           SizedBox(width: 6.w),
                           Icon(
                             Icons.keyboard_arrow_down,
                             color: isFocused
-                                ? ColorConstants.primary[70]
+                                ? ColorConstants.primary[50]
                                 : ColorConstants.slate[500],
                           ),
                         ],
@@ -293,7 +293,7 @@ class _AppDropdownState<T> extends State<AppDropdown<T>> {
           ? (isFocused
               ? [
                   BoxShadow(
-                    color: ColorConstants.primary[70]!.withOpacity(.4),
+                    color: ColorConstants.primary[50]!.withOpacity(.4),
                     offset: Offset(0, 0),
                     blurRadius: 4,
                   ),

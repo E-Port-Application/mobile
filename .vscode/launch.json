@@ -5,14 +5,14 @@
       "name": "internal",
       "request": "launch",
       "type": "dart",
-      "program": "lib/main_internal.dart",
+      "program": "lib/main_int.dart",
       "args": ["--flavor", "internal", "--target", "lib/main_int.dart"]
     },
     {
       "name": "external",
       "request": "launch",
       "type": "dart",
-      "program": "lib/main_external.dart",
+      "program": "lib/main_ext.dart",
       "args": ["--flavor", "external", "--target", "lib/main_ext.dart"]
     }
   ]

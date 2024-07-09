@@ -142,7 +142,7 @@ class _OnboardPageState extends State<OnboardPage>
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12.w),
                         color: e == index
-                            ? ColorConstants.primary[70]
+                            ? ColorConstants.primary[50]
                             : ColorConstants.slate[200],
                       ),
                     ),

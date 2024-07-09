@@ -76,7 +76,7 @@ class AppModal extends StatelessWidget {
                         text: secondaryText,
                         type: AppButtonType.outlined,
                         textStyle: body3BTextStyle(
-                          color: ColorConstants.primary[70],
+                          color: ColorConstants.primary[50],
                         ),
                       ),
                     ),

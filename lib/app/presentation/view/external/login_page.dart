@@ -177,7 +177,7 @@ class LoginPage extends GetView<LoginController> {
                         "Belum punya akun? ",
                         style: body3TextStyle(
                           weight: FontWeight.w500,
-                          color: ColorConstants.primary[70],
+                          color: ColorConstants.primary[50],
                         ),
                       ),
                       GestureDetector(

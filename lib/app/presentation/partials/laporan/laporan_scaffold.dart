@@ -114,7 +114,7 @@ class LaporanScaffold extends StatelessWidget {
                                     height: 36.h,
                                     decoration: BoxDecoration(
                                       color: active
-                                          ? ColorConstants.primary[70]
+                                          ? ColorConstants.primary[50]
                                           : ColorConstants.slate[50],
                                       borderRadius: BorderRadius.circular(8.w),
                                     ),

@@ -73,14 +73,14 @@ class _AppLocationState extends State<AppLocation> {
           children: [
             Icon(
               Icons.location_on_rounded,
-              color: ColorConstants.primary[70],
+              color: ColorConstants.primary[50],
               size: 18.w,
             ),
             SizedBox(width: 8.w),
             Text(
               "Lokasi ${isFetch ? "Anda" : ""}",
               style: body3BTextStyle(
-                color: ColorConstants.primary[70],
+                color: ColorConstants.primary[50],
               ),
             ),
             SizedBox(width: 24.w),
