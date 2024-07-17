@@ -188,6 +188,7 @@ class LoginPage extends GetView<LoginController> {
                           "Daftar",
                           style: body3BTextStyle(),
                         ),
+                        // tes
                       ),
                     ],
                   ),
