@@ -19,7 +19,8 @@ class HomePage extends GetView<HomeController> {
   HomePage({super.key});
 
   void lah() async {
-    print(await FirebaseMessaging.instance.getToken());
+    Global.pimpinan = true;
+    // print(await FirebaseMessaging.instance.getToken());
   }
 
   @override
