@@ -12,20 +12,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:eport/app/controller/home_controller.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 
 class HomePage extends GetView<HomeController> {
   GlobalController globalController = GlobalController.i;
   HomePage({super.key});
 
-  void lah() async {
-    Global.pimpinan = true;
-    // print(await FirebaseMessaging.instance.getToken());
-  }
-
   @override
   Widget build(BuildContext context) {
-    lah();
     return Scaffold(
       extendBody: true,
       backgroundColor: Colors.white,
@@ -45,11 +38,17 @@ class HomePage extends GetView<HomeController> {
                 children: [
                   SizedBox(height: 20.h),
                   Obx(
-                    () => Text(
-                      "Hello, Bang ${globalController.user.value?.displayName}",
-                      style: h1BTextStyle(),
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                    () => globalController.user.value!.displayName != null
+                        ? Text(
+                            "Hello, Bang ${globalController.user.value?.displayName}",
+                            style: h1BTextStyle(),
+                            overflow: TextOverflow.ellipsis,
+                          )
+                        : Text(
+                            "Selamat Datang ${globalController.user.value?.email?.split("@").first}",
+                            style: h1BTextStyle(),
+                            overflow: TextOverflow.ellipsis,
+                          ),
                   ),
                   SizedBox(height: 28.h),
                   Global.isExt()

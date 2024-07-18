@@ -75,7 +75,7 @@ class LoginPage extends GetView<LoginController> {
                   ),
                   SizedBox(height: 32.h),
                   AppButton(
-                    onPressed: () {},
+                    onPressed: controller.emailSignin,
                     text: "Login",
                     width: 1.sw,
                   ),

@@ -32,10 +32,11 @@ class GlobalController extends GetxController {
       (User? user) async {
         if (user != null) {
           this.user.value = user;
-          // userData.value = await UserRepository.get();
+          if (this.user.value?.email == "test+pimpinan+1@gmail.com") {
+            Global.pimpinan = true;
+          }
         } else {
           this.user.value = null;
-          // userData.value = null;
         }
       },
     );

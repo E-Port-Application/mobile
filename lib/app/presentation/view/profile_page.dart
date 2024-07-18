@@ -49,20 +49,21 @@ class ProfilePage extends GetView<ProfileController> {
                               borderRadius: BorderRadius.circular(1.sw),
                             ),
                             clipBehavior: Clip.hardEdge,
-                            child:
-                                data?.photoURL != null || data?.photoURL != ""
-                                    ? Image.network(
-                                        data?.photoURL ?? '',
-                                        width: 115.w,
-                                        height: 115.h,
-                                        fit: BoxFit.cover,
-                                      )
-                                    : Image.asset(
-                                        "assets/images/default_pp.jpg",
-                                        width: 115.w,
-                                        height: 115.h,
-                                        fit: BoxFit.cover,
-                                      ),
+                            child: data == null ||
+                                    data.photoURL == null ||
+                                    data.photoURL == ""
+                                ? Image.asset(
+                                    "assets/images/default_pp.jpg",
+                                    width: 115.w,
+                                    height: 115.h,
+                                    fit: BoxFit.cover,
+                                  )
+                                : Image.network(
+                                    data.photoURL!,
+                                    width: 115.w,
+                                    height: 115.h,
+                                    fit: BoxFit.cover,
+                                  ),
                           ),
                           Positioned(
                             top: 0.h,
@@ -99,7 +100,9 @@ class ProfilePage extends GetView<ProfileController> {
                         margin: EdgeInsets.only(bottom: 3.h),
                       ),
                       child: Text(
-                        data?.displayName ?? "",
+                        data?.displayName ??
+                            data?.email?.split("@").first ??
+                            "",
                         style: h3BTextStyle(),
                       ),
                     ),

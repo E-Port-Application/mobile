@@ -17,10 +17,11 @@ class LoginController extends GetxController {
   }.obs;
 
   String? emailValidator(e) {
-    if (e!.isEmpty) {
+    if (e == null || e!.isEmpty) {
       return "Email can't be empty";
     }
-    if (!e.isEmail) {
+
+    if (!(e as String).isEmail) {
       return "Email invalid";
     }
     return null;
@@ -33,13 +34,27 @@ class LoginController extends GetxController {
     return null;
   }
 
+  RxBool isLoading = true.obs;
   void emailSignin() async {
     if (formKey.currentState!.validate()) {
-      return;
+      try {
+        isLoading.value = true;
+        final email = form['email']!.text.trim();
+        final password = form['password']!.text.trim();
+        await auth.signInWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+
+        isLoading.value = false;
+        Get.offAllNamed(AppRoute.home);
+      } catch (err) {
+        isLoading.value = false;
+        showAlert("Email or Password is invalid");
+      }
     }
   }
 
-  RxBool isLoading = true.obs;
   void googleSignin() async {
     try {
       isLoading.value = true;

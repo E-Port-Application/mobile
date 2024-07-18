@@ -53,94 +53,97 @@ class LoginPage extends GetView<LoginController> {
                           borderRadius: BorderRadius.circular(20.w),
                           boxShadow: [ColorConstants.shadow[5]!],
                         ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Text(
-                              "Login",
-                              style: h1BTextStyle(size: 40.sp),
-                              textAlign: TextAlign.center,
-                            ),
-                            AppInput(
-                              label: "Email",
-                              controller: controller.form['email']!,
-                              placeholder: "Masukkan Email Anda",
-                              validator: controller.emailValidator,
-                            ),
-                            SizedBox(height: 12.h),
-                            AppInput(
-                              label: "Password",
-                              controller: controller.form['password']!,
-                              obscureText: true,
-                              placeholder: "Masukkan Passowrd Anda",
-                              validator: controller.passwordValidator,
-                            ),
-                            SizedBox(height: 12.h),
-                            Align(
-                              alignment: Alignment.topRight,
-                              child: Text(
-                                "Lupa Password?",
-                                style: body3TextStyle(
-                                    color: ColorConstants.slate[700]),
+                        child: Form(
+                          key: controller.formKey,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Text(
+                                "Login",
+                                style: h1BTextStyle(size: 40.sp),
+                                textAlign: TextAlign.center,
                               ),
-                            ),
-                            SizedBox(height: 20.h),
-                            AppButton(
-                              onPressed: () {},
-                              text: "Login",
-                            ),
-                            SizedBox(height: 20.h),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20.w),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Divider(
-                                      thickness: .5,
-                                      color: ColorConstants.slate[900],
-                                      height: 1,
-                                    ),
-                                  ),
-                                  SizedBox(width: 16.w),
-                                  Text(
-                                    "Masuk dengan",
-                                    style: body4TextStyle(
-                                      height: 1,
-                                    ),
-                                  ),
-                                  SizedBox(width: 16.w),
-                                  Expanded(
-                                    child: Divider(
-                                      thickness: .5,
-                                      color: ColorConstants.slate[900],
-                                      height: 1,
-                                    ),
-                                  ),
-                                ],
+                              AppInput(
+                                label: "Email",
+                                controller: controller.form['email']!,
+                                placeholder: "Masukkan Email Anda",
+                                validator: controller.emailValidator,
                               ),
-                            ),
-                            SizedBox(height: 20.h),
-                            AppButton(
-                              onPressed: controller.googleSignin,
-                              text: "",
-                              width: 1.sw,
-                              type: AppButtonType.outlined,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SvgPicture.asset(
-                                    "assets/icons/google.svg",
-                                    width: 24.w,
-                                  ),
-                                  SizedBox(width: 8.w),
-                                  Text(
-                                    "Google",
-                                    style: body2BTextStyle(),
-                                  )
-                                ],
+                              SizedBox(height: 12.h),
+                              AppInput(
+                                label: "Password",
+                                controller: controller.form['password']!,
+                                obscureText: true,
+                                placeholder: "Masukkan Passowrd Anda",
+                                validator: controller.passwordValidator,
                               ),
-                            ),
-                          ],
+                              SizedBox(height: 12.h),
+                              Align(
+                                alignment: Alignment.topRight,
+                                child: Text(
+                                  "Lupa Password?",
+                                  style: body3TextStyle(
+                                      color: ColorConstants.slate[700]),
+                                ),
+                              ),
+                              SizedBox(height: 20.h),
+                              AppButton(
+                                onPressed: controller.emailSignin,
+                                text: "Login",
+                              ),
+                              SizedBox(height: 20.h),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Divider(
+                                        thickness: .5,
+                                        color: ColorConstants.slate[900],
+                                        height: 1,
+                                      ),
+                                    ),
+                                    SizedBox(width: 16.w),
+                                    Text(
+                                      "Masuk dengan",
+                                      style: body4TextStyle(
+                                        height: 1,
+                                      ),
+                                    ),
+                                    SizedBox(width: 16.w),
+                                    Expanded(
+                                      child: Divider(
+                                        thickness: .5,
+                                        color: ColorConstants.slate[900],
+                                        height: 1,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: 20.h),
+                              AppButton(
+                                onPressed: controller.googleSignin,
+                                text: "",
+                                width: 1.sw,
+                                type: AppButtonType.outlined,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SvgPicture.asset(
+                                      "assets/icons/google.svg",
+                                      width: 24.w,
+                                    ),
+                                    SizedBox(width: 8.w),
+                                    Text(
+                                      "Google",
+                                      style: body2BTextStyle(),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       Align(
@@ -188,7 +191,6 @@ class LoginPage extends GetView<LoginController> {
                           "Daftar",
                           style: body3BTextStyle(),
                         ),
-                        // tes
                       ),
                     ],
                   ),
