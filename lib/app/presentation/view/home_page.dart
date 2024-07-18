@@ -38,7 +38,7 @@ class HomePage extends GetView<HomeController> {
                 children: [
                   SizedBox(height: 20.h),
                   Obx(
-                    () => globalController.user.value!.displayName != null
+                    () => globalController.user.value?.displayName != null
                         ? Text(
                             "Hello, Bang ${globalController.user.value?.displayName}",
                             style: h1BTextStyle(),
