@@ -66,6 +66,14 @@
           }
         },
         {
+          "client_id": "776112355962-t27cpi9gohe15ekao0i6rjodnjq4mg40.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mfadlihs.eport.int",
+            "certificate_hash": "9bd446abd8f75ecd83ca256802f66a6ef09d977c"
+          }
+        },
+        {
           "client_id": "776112355962-f3c6ma0chk6ip21ihf8h2jl620jarie0.apps.googleusercontent.com",
           "client_type": 3
         }
