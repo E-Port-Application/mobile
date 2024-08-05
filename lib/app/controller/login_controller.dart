@@ -1,6 +1,6 @@
 import 'package:eport/app/presentation/widgets/app_loading.dart';
+import 'package:eport/app/repository/auth_repository.dart';
 import 'package:eport/firebase_options.dart';
-import 'package:eport/routes/app_route.dart';
 import 'package:eport/utils/show_alert.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -35,21 +35,22 @@ class LoginController extends GetxController {
   }
 
   RxBool isLoading = true.obs;
+
   void emailSignin() async {
     if (formKey.currentState!.validate()) {
       try {
         isLoading.value = true;
+        showLoadingDialog(Get.context!, isLoading);
         final email = form['email']!.text.trim();
         final password = form['password']!.text.trim();
-        await auth.signInWithEmailAndPassword(
+        final authData = await auth.signInWithEmailAndPassword(
           email: email,
           password: password,
         );
 
-        isLoading.value = false;
-        Get.offAllNamed(AppRoute.home);
+        await AuthRepository.roleValidate(authData, isLoading);
       } catch (err) {
-        isLoading.value = false;
+        closeLoading(isLoading);
         showAlert("Email or Password is invalid");
       }
     }
@@ -61,7 +62,7 @@ class LoginController extends GetxController {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       showLoadingDialog(Get.context!, isLoading);
       if (googleUser == null) {
-        isLoading.value = false;
+        closeLoading(isLoading);
         return;
       }
       final GoogleSignInAuthentication googleAuth =
@@ -71,11 +72,10 @@ class LoginController extends GetxController {
         idToken: googleAuth.idToken,
       );
 
-      await auth.signInWithCredential(credential);
-      isLoading.value = false;
-      Get.offAllNamed(AppRoute.home);
+      final authData = await auth.signInWithCredential(credential);
+      await AuthRepository.roleValidate(authData, isLoading);
     } on Exception catch (err) {
-      isLoading.value = false;
+      closeLoading(isLoading);
       showAlert(err.toString());
     }
   }

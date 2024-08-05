@@ -59,4 +59,6 @@ class AppRoute {
   static String riwayatPamwal(String id) => "/laporan/riwayat/pamwal/$id";
   static String riwayatPerizinan(String id) => "/laporan/riwayat/perizinan/$id";
   static String riwayatPiket(String id) => "/laporan/riwayat/piket/$id";
+
+  static String reportExternal = "/external/laporan";
 }

@@ -5,6 +5,7 @@ import 'package:eport/app/presentation/widgets/app_input.dart';
 import 'package:eport/app/presentation/widgets/scrollable_constraints.dart';
 import 'package:eport/styles/color_constants.dart';
 import 'package:eport/styles/text_styles.dart';
+import 'package:eport/utils/input_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -22,6 +23,30 @@ class RegisterPage extends GetView<RegisterController> {
         ),
         child: Stack(
           children: [
+            Positioned(
+              top: -100.h,
+              right: -50.w,
+              child: Container(
+                width: 300.w,
+                height: 300.h,
+                decoration: BoxDecoration(
+                  color: ColorConstants.primary[10]!.withOpacity(.3),
+                  borderRadius: BorderRadius.circular(300.w),
+                ),
+              ),
+            ),
+            Positioned(
+              top: -60.h,
+              right: -10.w,
+              child: Container(
+                width: 200.w,
+                height: 200.h,
+                decoration: BoxDecoration(
+                  color: ColorConstants.primary[10]!.withOpacity(.3),
+                  borderRadius: BorderRadius.circular(200.w),
+                ),
+              ),
+            ),
             SafeArea(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -37,7 +62,7 @@ class RegisterPage extends GetView<RegisterController> {
                           "Halo, apa kabar?",
                           style: h1BTextStyle(
                             size: 28.sp,
-                            color: ColorConstants.primary[80],
+                            color: ColorConstants.slate[200],
                             height: 1.5,
                           ),
                         ),
@@ -45,8 +70,8 @@ class RegisterPage extends GetView<RegisterController> {
                         Text(
                           "Ayo isi data dirimu!",
                           style: body2TextStyle(
-                            color: ColorConstants.primary[80],
                             weight: FontWeight.w500,
+                            color: ColorConstants.slate[200],
                           ),
                         ),
                       ],
@@ -77,141 +102,151 @@ class RegisterPage extends GetView<RegisterController> {
                           ),
                           boxShadow: [ColorConstants.shadow[5]!],
                         ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Text(
-                              "Daftar",
-                              style: h1BTextStyle(size: 40.sp),
-                              textAlign: TextAlign.center,
-                            ),
-                            AppInput(
-                              label: "NIK",
-                              controller: controller.form['nik']!,
-                              placeholder: "Masukkan NIK 16 digit",
-                              validator: controller.emailValidator,
-                            ),
-                            SizedBox(height: 10.h),
-                            AppInput(
-                              label: "Nama",
-                              controller: controller.form['name']!,
-                              placeholder: "Masukkan Nama Anda",
-                              validator: controller.emailValidator,
-                            ),
-                            SizedBox(height: 10.h),
-                            AppInput(
-                              label: "Email",
-                              controller: controller.form['email']!,
-                              placeholder: "Masukkan Email Anda",
-                              validator: controller.emailValidator,
-                            ),
-                            SizedBox(height: 10.h),
-                            AppInput(
-                              label: "Password",
-                              controller: controller.form['password']!,
-                              obscureText: true,
-                              placeholder: "Masukkan Passowrd Anda",
-                              validator: controller.passwordValidator,
-                            ),
-                            SizedBox(height: 10.h),
-                            AppInput(
-                              label: "Konfirmasi Password",
-                              controller: controller.form['confirmPassword']!,
-                              obscureText: true,
-                              placeholder: "Masukkan Passowrd Anda",
-                              validator: controller.passwordValidator,
-                            ),
-                            SizedBox(height: 12.h),
-                            Align(
-                              alignment: Alignment.topRight,
-                              child: Text(
-                                "Lupa Password?",
-                                style: body3TextStyle(
-                                    color: ColorConstants.slate[700]),
+                        child: Form(
+                          key: controller.formKey,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Text(
+                                "Daftar",
+                                style: h1BTextStyle(size: 40.sp),
+                                textAlign: TextAlign.center,
                               ),
-                            ),
-                            SizedBox(height: 20.h),
-                            AppButton(
-                              onPressed: () {},
-                              text: "Daftar",
-                            ),
-                            SizedBox(height: 20.h),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20.w),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Divider(
-                                      thickness: .5,
-                                      color: ColorConstants.slate[900],
-                                      height: 1,
-                                    ),
-                                  ),
-                                  SizedBox(width: 16.w),
-                                  Text(
-                                    "Daftar dengan",
-                                    style: body4TextStyle(
-                                      height: 1,
-                                    ),
-                                  ),
-                                  SizedBox(width: 16.w),
-                                  Expanded(
-                                    child: Divider(
-                                      thickness: .5,
-                                      color: ColorConstants.slate[900],
-                                      height: 1,
-                                    ),
-                                  ),
-                                ],
+                              AppInput(
+                                label: "NIK",
+                                controller: controller.form['nik']!,
+                                placeholder: "Masukkan NIK 16 digit",
+                                validator: controller.nikValidator,
+                                textInputAction: TextInputAction.next,
                               ),
-                            ),
-                            SizedBox(height: 20.h),
-                            AppButton(
-                              onPressed: controller.googleSignin,
-                              text: "",
-                              width: 1.sw,
-                              type: AppButtonType.outlined,
-                              child: Row(
+                              SizedBox(height: 10.h),
+                              AppInput(
+                                label: "Nama",
+                                controller: controller.form['name']!,
+                                placeholder: "Masukkan Nama Anda",
+                                validator: (e) {
+                                  return inputValidator(e, "Nama");
+                                },
+                                textInputAction: TextInputAction.next,
+                              ),
+                              SizedBox(height: 10.h),
+                              AppInput(
+                                label: "Email",
+                                controller: controller.form['email']!,
+                                placeholder: "Masukkan Email Anda",
+                                validator: controller.emailValidator,
+                                textInputAction: TextInputAction.next,
+                              ),
+                              SizedBox(height: 10.h),
+                              AppInput(
+                                label: "Password",
+                                controller: controller.form['password']!,
+                                obscureText: true,
+                                placeholder: "Masukkan Passowrd Anda",
+                                validator: controller.passwordValidator,
+                                textInputAction: TextInputAction.next,
+                              ),
+                              SizedBox(height: 10.h),
+                              AppInput(
+                                label: "Konfirmasi Password",
+                                controller: controller.form['confirmPassword']!,
+                                obscureText: true,
+                                placeholder: "Masukkan Passowrd Anda",
+                                validator: controller.passwordValidator,
+                                textInputAction: TextInputAction.done,
+                              ),
+                              SizedBox(height: 12.h),
+                              Align(
+                                alignment: Alignment.topRight,
+                                child: Text(
+                                  "Lupa Password?",
+                                  style: body3TextStyle(
+                                      color: ColorConstants.slate[700]),
+                                ),
+                              ),
+                              SizedBox(height: 20.h),
+                              AppButton(
+                                onPressed: controller.emailRegister,
+                                text: "Daftar",
+                              ),
+                              SizedBox(height: 20.h),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Divider(
+                                        thickness: .5,
+                                        color: ColorConstants.slate[900],
+                                        height: 1,
+                                      ),
+                                    ),
+                                    SizedBox(width: 16.w),
+                                    Text(
+                                      "Daftar dengan",
+                                      style: body4TextStyle(
+                                        height: 1,
+                                      ),
+                                    ),
+                                    SizedBox(width: 16.w),
+                                    Expanded(
+                                      child: Divider(
+                                        thickness: .5,
+                                        color: ColorConstants.slate[900],
+                                        height: 1,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: 20.h),
+                              AppButton(
+                                onPressed: controller.googleSignin,
+                                text: "",
+                                width: 1.sw,
+                                type: AppButtonType.outlined,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SvgPicture.asset(
+                                      "assets/icons/google.svg",
+                                      width: 24.w,
+                                    ),
+                                    SizedBox(width: 8.w),
+                                    Text(
+                                      "Google",
+                                      style: body2BTextStyle(),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: 40.h),
+                              Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  SvgPicture.asset(
-                                    "assets/icons/google.svg",
-                                    width: 24.w,
-                                  ),
-                                  SizedBox(width: 8.w),
                                   Text(
-                                    "Google",
-                                    style: body2BTextStyle(),
-                                  )
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: 40.h),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Sudah punya akun? ",
-                                  style: body3TextStyle(
-                                    weight: FontWeight.w500,
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Get.toNamed(Login.path());
-                                  },
-                                  child: Text(
-                                    "Login",
-                                    style: body3BTextStyle(
-                                      color: ColorConstants.primary[60],
+                                    "Sudah punya akun? ",
+                                    style: body3TextStyle(
+                                      weight: FontWeight.w500,
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 20.h),
-                          ],
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.toNamed(Login.path());
+                                    },
+                                    child: Text(
+                                      "Login",
+                                      style: body3BTextStyle(
+                                        color: ColorConstants.primary[60],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 20.h),
+                            ],
+                          ),
                         ),
                       ),
                       Align(

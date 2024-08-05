@@ -19,16 +19,19 @@ class _OnboardPageState extends State<OnboardPage>
   var data = [
     {
       "title": "E-Port hadir untuk memudahkan\npelaporan anda",
-      "description": "Aplikasi resmi pelaporan pelanggaran Kota Batu"
+      "description": "Aplikasi resmi pelaporan pelanggaran Kota Batu",
+      "thumbnail": "assets/images/onboard/external_1.png",
     },
     {
       "title": "Kemudahan di Tangan Anda",
-      "description": "Laporkan pelanggaran ketertiban dengan cepat\ndan tepat."
+      "description": "Laporkan pelanggaran ketertiban dengan cepat\ndan tepat.",
+      "thumbnail": "assets/images/onboard/external_2.png",
     },
     {
       "title": "Transparansi dan Pembaharuan",
       "description":
-          "Pantau perkembangan laporanmu dan berita\nseputar penertiban masyarakat."
+          "Pantau perkembangan laporanmu dan berita\nseputar penertiban masyarakat.",
+      "thumbnail": "assets/images/onboard/external_3.png",
     },
   ];
 
@@ -53,47 +56,9 @@ class _OnboardPageState extends State<OnboardPage>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Expanded(flex: 2, child: Container()),
-            AnimatedOpacity(
-              opacity: isMounted ? 1 : 0,
-              duration: Duration(seconds: 1),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(1.sw),
-                  boxShadow: [ColorConstants.shadow[3]!],
-                ),
-                foregroundDecoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(1.sw),
-                  gradient: LinearGradient(
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                    colors: [
-                      const Color(0xff446927).withOpacity(.4),
-                      const Color(0xffFFFFFF).withOpacity(0),
-                    ],
-                  ),
-                ),
-                clipBehavior: Clip.antiAlias,
-                child: AspectRatio(
-                  aspectRatio: 1 / 1,
-                  child: Stack(
-                    clipBehavior: Clip.antiAlias,
-                    children: [
-                      Positioned(
-                        bottom: -40.h,
-                        child: Image.asset(
-                          "assets/images/onboard/visual.png",
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
             Expanded(child: Container()),
             Container(
-              constraints: BoxConstraints(maxHeight: 100.h),
+              constraints: BoxConstraints(maxHeight: 480.h),
               child: PageView(
                   onPageChanged: (e) {
                     setState(() {
@@ -105,6 +70,15 @@ class _OnboardPageState extends State<OnboardPage>
                       .map(
                         (e) => Column(
                           children: [
+                            AnimatedOpacity(
+                              opacity: isMounted ? 1 : 0,
+                              duration: Duration(seconds: 1),
+                              child: Image.asset(
+                                e['thumbnail']!,
+                                height: 380.h,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                             SizedBox(
                                 height: 60.h,
                                 child: Column(
@@ -128,41 +102,48 @@ class _OnboardPageState extends State<OnboardPage>
                       )
                       .toList()),
             ),
-            SizedBox(height: 28.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [0, 1, 2]
-                  .map(
-                    (e) => AnimatedContainer(
-                      duration: Duration(milliseconds: 300),
-                      margin: EdgeInsets.symmetric(horizontal: 4.w),
-                      curve: Curves.easeInOut,
-                      height: 12.h,
-                      width: e == index ? 40.w : 12.w,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12.w),
-                        color: e == index
-                            ? ColorConstants.primary[50]
-                            : ColorConstants.slate[200],
-                      ),
-                    ),
-                  )
-                  .toList(),
-            ),
-            Expanded(
-              flex: 3,
-              child: Container(),
-            ),
-            AppButton(
-              onPressed: () {
-                Get.toNamed(Login.path());
-              },
-              text: "Login",
-            ),
-            SizedBox(height: 20.h),
-            Expanded(
-              flex: 2,
-              child: Container(),
+            Expanded(child: Container()),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [0, 1, 2]
+                      .map(
+                        (e) => AnimatedContainer(
+                          duration: Duration(milliseconds: 300),
+                          margin: EdgeInsets.symmetric(horizontal: 4.w),
+                          curve: Curves.easeInOut,
+                          height: 12.h,
+                          width: e == index ? 40.w : 12.w,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12.w),
+                            color: e == index
+                                ? ColorConstants.primary[50]
+                                : ColorConstants.slate[200],
+                          ),
+                        ),
+                      )
+                      .toList(),
+                ),
+                SizedBox(height: 28.h),
+                AppButton(
+                  onPressed: () {
+                    Get.toNamed(Login.path());
+                  },
+                  text: "Login",
+                ),
+                SizedBox(height: 12.h),
+                AppButton(
+                  onPressed: () {
+                    Get.toNamed(Register.path());
+                  },
+                  variant: AppButtonVariant.secondary,
+                  text: "Register",
+                  boxShadow: [ColorConstants.shadow[3]!],
+                ),
+                SizedBox(height: 28.h),
+              ],
             ),
           ],
         ),

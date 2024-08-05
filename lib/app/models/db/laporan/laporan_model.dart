@@ -13,6 +13,7 @@ class LaporanModel extends BaseModel implements ModelFactory {
   final DateTime date;
   Object? data;
   String? location;
+  final bool? isExternal;
 
   LaporanModel({
     required super.id,
@@ -21,6 +22,7 @@ class LaporanModel extends BaseModel implements ModelFactory {
     required this.date,
     required super.createdAt,
     required super.updatedAt,
+    this.isExternal,
     this.data,
     this.location,
   });

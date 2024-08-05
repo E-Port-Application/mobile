@@ -296,6 +296,15 @@ List<GetPage<dynamic>> appPage() {
         child: RiwayatPersonilPage(),
       ),
       binding: LaporanBinding(),
-    )
+    ),
+    GetPage(
+      name: AppRoute.reportExternal,
+      page: () => Portal(
+        child: KransosPage(
+          type: LaporanType.create,
+        ),
+      ),
+      binding: LaporanBinding(),
+    ),
   ];
 }

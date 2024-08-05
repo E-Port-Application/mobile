@@ -10,6 +10,7 @@ import 'package:eport/app/presentation/widgets/app_input.dart';
 import 'package:eport/app/presentation/widgets/app_location.dart';
 import 'package:eport/app/presentation/widgets/app_search_select.dart';
 import 'package:eport/app/types/laporan_type.dart';
+import 'package:eport/global_settings.dart';
 import 'package:eport/styles/color_constants.dart';
 import 'package:eport/styles/text_styles.dart';
 import 'package:eport/utils/datepicker.dart';
@@ -20,7 +21,9 @@ import 'package:get/get.dart';
 
 class KransosPage extends GetView<KransosController> {
   final LaporanType type;
-  const KransosPage({
+  final bool isExternal = Global.isExt();
+
+  KransosPage({
     super.key,
     required this.type,
   });
@@ -241,7 +244,9 @@ class KransosPage extends GetView<KransosController> {
               AppButton(
                 width: 1.sw,
                 onPressed: controller.submit,
-                text: LaporanController.i.buttonText(type),
+                text: Global.isExt()
+                    ? "Buat Laporan"
+                    : LaporanController.i.buttonText(type),
               ),
               SizedBox(height: 8.h),
               AppButton(

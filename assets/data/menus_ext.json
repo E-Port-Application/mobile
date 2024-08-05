@@ -6,17 +6,10 @@
     "icon-active": "assets/icons/home-active.svg"
   },
   {
-    "label": "Laporan Saya",
-    "path": "/home",
+    "label": "Laporan",
+    "path": "/external/laporan",
     "icon-inactive": "assets/icons/laporan-inactive.svg",
     "icon-active": "assets/icons/laporan-active.svg"
-  },
-  {
-    "label": "Laporan",
-    "path": "/laporannn",
-    "icon-inactive": "assets/icons/laporan-inactive.svg",
-    "icon-active": "assets/icons/laporan-active.svg",
-    "focus": true
   },
   {
     "label": "Notifikasi",

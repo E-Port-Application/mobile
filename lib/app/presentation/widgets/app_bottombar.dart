@@ -1,5 +1,4 @@
 import 'package:eport/app/controller/global_controller.dart';
-import 'package:eport/global_settings.dart';
 import 'package:eport/styles/color_constants.dart';
 import 'package:eport/styles/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -79,36 +78,6 @@ class AppBottombar extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Global.isExt()
-                        ? Positioned(
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            child: Center(
-                              child: SizedBox(
-                                width: 65.w,
-                                height: 65.h,
-                                child: MaterialButton(
-                                  onPressed: () {},
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(40.w),
-                                  ),
-                                  color: ColorConstants.primary[50],
-                                  padding: EdgeInsets.all(8.w),
-                                  height: 65.h,
-                                  minWidth: 65.w,
-                                  child: Center(
-                                    child: SvgPicture.asset(
-                                      "assets/icons/add.svg",
-                                      width: 24.w,
-                                      height: 24.h,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          )
-                        : Container()
                   ],
                 ),
               )

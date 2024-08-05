@@ -17,6 +17,7 @@ import 'package:eport/app/models/db/reklame/reklame_model.dart';
 import 'package:eport/app/presentation/widgets/app_loading.dart';
 import 'package:eport/app/repository/pelanggar_repository.dart';
 import 'package:eport/firebase_options.dart';
+import 'package:eport/global_settings.dart';
 import 'package:eport/utils/convert_timestamp.dart';
 import 'package:eport/utils/form_converter.dart';
 import 'package:eport/utils/show_alert.dart';
@@ -258,6 +259,7 @@ class LaporanRepository {
             createdAt: DateTime.now(),
             updatedAt: DateTime.now(),
             location: location,
+            isExternal: Global.isExt(),
           ).toJson();
 
           if (type == "pkl") {
@@ -275,8 +277,10 @@ class LaporanRepository {
         });
 
         await closeLoading(isLoading);
-        showAlert("Berhasil membuat rencana kegiatan patroli $title",
-            isSuccess: true);
+        final alertText = Global.isExt()
+            ? "Berhasil membuat laporan"
+            : "Berhasil membuat rencana kegiatan patroli $title";
+        showAlert(alertText, isSuccess: true);
         LaporanController.i.getData();
         Get.back();
       }
