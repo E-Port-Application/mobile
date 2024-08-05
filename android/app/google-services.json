@@ -22,6 +22,22 @@
           }
         },
         {
+          "client_id": "776112355962-krmetd66e4f30qraejvgn1c8io9clcoe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mfadlihs.eport",
+            "certificate_hash": "5ce5a1f39fc1f3478abd6a541f01091961a35d56"
+          }
+        },
+        {
+          "client_id": "776112355962-o9igitmge1ts7kcghs7qq1001qdofehc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mfadlihs.eport",
+            "certificate_hash": "9bd446abd8f75ecd83ca256802f66a6ef09d977c"
+          }
+        },
+        {
           "client_id": "776112355962-f3c6ma0chk6ip21ihf8h2jl620jarie0.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -57,6 +73,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "776112355962-hnfr7qdi12743cqhdhj4d9nt8hpp8e8c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mfadlihs.eport.int",
+            "certificate_hash": "5ce5a1f39fc1f3478abd6a541f01091961a35d56"
+          }
+        },
         {
           "client_id": "776112355962-lt2278r3p34k6pbimtom2k98h7b5ntj9.apps.googleusercontent.com",
           "client_type": 1,
