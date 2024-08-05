@@ -19,6 +19,7 @@ class HomePage extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    print(Global.role);
     return Scaffold(
       extendBody: true,
       backgroundColor: Colors.white,

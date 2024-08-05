@@ -56,6 +56,7 @@ class LoginPage extends GetView<LoginController> {
                     controller: controller.form['email']!,
                     placeholder: "Masukkan Email Anda",
                     validator: controller.emailValidator,
+                    textInputAction: TextInputAction.next,
                   ),
                   SizedBox(height: 10.h),
                   AppInput(

@@ -1,4 +1,5 @@
 import 'package:eport/app/models/common/menu/menu_model.dart';
+import 'package:eport/app/repository/auth_repository.dart';
 import 'package:eport/firebase_options.dart';
 import 'package:eport/global_settings.dart';
 import 'package:eport/utils/convert_json.dart';
@@ -23,18 +24,11 @@ class GlobalController extends GetxController {
   void onInit() {
     super.onInit();
     getMenu();
-    auth.userChanges().listen((event) {
-      if (event != null) {
-        user.value = event;
-      }
-    });
     auth.authStateChanges().listen(
       (User? user) async {
         if (user != null) {
           this.user.value = user;
-          if (this.user.value?.email == "test+pimpinan+1@gmail.com") {
-            Global.pimpinan = true;
-          }
+          AuthRepository.assignRole(user);
         } else {
           this.user.value = null;
         }

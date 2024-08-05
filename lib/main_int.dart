@@ -1,6 +1,5 @@
 import 'package:eport/app.dart';
 import 'package:eport/global_settings.dart';
-import 'package:eport/services/api/firebase_api.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';

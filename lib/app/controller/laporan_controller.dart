@@ -3,6 +3,7 @@ import 'package:eport/app/models/common/menu/laporan_menu_model.dart';
 import 'package:eport/app/models/db/laporan/laporan_model.dart';
 import 'package:eport/app/repository/laporan_repository.dart';
 import 'package:eport/app/types/laporan_type.dart';
+import 'package:eport/global_settings.dart';
 import 'package:eport/utils/convert_json.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -36,6 +37,10 @@ class LaporanController extends GetxController {
     ActivityModel(
       label: "Perizinan",
       id: "perizinan",
+    ),
+    ActivityModel(
+      label: "Piket",
+      id: "piket",
     ),
   ]);
 
@@ -111,11 +116,16 @@ class LaporanController extends GetxController {
 
   void getProsesData() {
     loadingProsesData.value = true;
+    final type = selectedProses.value?.id == "laporan-masyarakat"
+        ? null
+        : selectedProses.value?.id;
+    final externalFilter = selectedProses.value?.id == "laporan-masyarakat";
     LaporanRepository.getReportData(
       isProgress: true,
       startDate: startDateProses.value,
       endDate: endDateProses.value,
-      type: selectedProses.value?.id,
+      type: type,
+      externalFilter: externalFilter,
     ).then((value) {
       prosesData.value = value;
       loadingProsesData.value = false;
@@ -124,11 +134,16 @@ class LaporanController extends GetxController {
 
   void getRiwayatData() {
     loadingRiwayatData.value = true;
+    final type = selectedProses.value?.id == "laporan-masyarakat"
+        ? null
+        : selectedProses.value?.id;
+    final externalFilter = selectedProses.value?.id == "laporan-masyarakat";
     LaporanRepository.getReportData(
       isProgress: false,
       startDate: startDateRiwayat.value,
       endDate: endDateRiwayat.value,
-      type: selectedRiwayat.value?.id,
+      type: type,
+      externalFilter: externalFilter,
     ).then((value) {
       riwayatData.value = value;
       loadingRiwayatData.value = false;
@@ -157,5 +172,11 @@ class LaporanController extends GetxController {
     super.onInit();
     getMenu();
     getData();
+    if (Global.role == "admin") {
+      activities.add(ActivityModel(
+        label: "Laporan Masyarakat",
+        id: "laporan-masyarakat",
+      ));
+    }
   }
 }

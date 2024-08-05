@@ -12,6 +12,7 @@ class UserModel implements ModelFactory {
   final String? photoURL;
   final String uid;
   final bool internal;
+  String? role = "default";
 
   UserModel({
     required this.displayName,
@@ -21,6 +22,7 @@ class UserModel implements ModelFactory {
     required this.photoURL,
     required this.uid,
     required this.internal,
+    this.role = "default",
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>

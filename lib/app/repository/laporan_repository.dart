@@ -51,6 +51,7 @@ class LaporanRepository {
     DateTime? startDate,
     DateTime? endDate,
     String? type,
+    bool? externalFilter = false,
   }) async {
     startDate ??= DateTime(2000);
     endDate ??= DateTime(2100);
@@ -61,6 +62,12 @@ class LaporanRepository {
           .where("date", isGreaterThan: startDate)
           .where("date", isLessThan: endDate);
 
+      if (externalFilter!) {
+        laporanRef = laporanRef.where("isExternal", isEqualTo: true);
+      }
+      if (Global.role != "admin") {
+        laporanRef = laporanRef.where("isExternal", isEqualTo: false);
+      }
       if (type != null) {
         laporanRef = laporanRef
             .where("type", isEqualTo: type)

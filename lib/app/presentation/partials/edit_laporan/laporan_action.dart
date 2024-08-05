@@ -103,7 +103,7 @@ class LaporanAction extends StatelessWidget {
                                   try {
                                     String id = getId();
                                     openLink(Uri.parse(
-                                        "${dotenv.env['BASE_URL']!}api/pdf/$collection/$id"));
+                                        "${dotenv.env['BASE_URL']!}/api/pdf/$collection/$id"));
                                   } catch (err) {
                                     showAlert(err.toString());
                                   }
