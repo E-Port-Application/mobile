@@ -1,3 +1,4 @@
+import 'package:eport/app/presentation/view/external/laporan_page.dart';
 import 'package:eport/app/presentation/view/external/onboard_page.dart'
     as onboard_external;
 import 'package:eport/app/presentation/view/internal/login_page.dart'
@@ -13,6 +14,7 @@ import 'package:eport/app/presentation/view/external/register_page.dart'
 import 'package:eport/global_settings.dart';
 import 'package:eport/routes/app_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_portal/flutter_portal.dart';
 
 class Onboard {
   static Widget internal() => onboard_internal.OnboardPage();
@@ -42,4 +44,10 @@ class Register {
         ? AppRoute.registerExternal
         : AppRoute.registerInternal;
   }
+}
+
+class External {
+  static Widget laporan() => Portal(child: LaporanExternalPage());
+  static Widget createLaporan() => LaporanExternalPage();
+  static Widget historyLaporan() => LaporanExternalPage();
 }

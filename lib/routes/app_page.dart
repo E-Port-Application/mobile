@@ -1,5 +1,6 @@
 import 'package:eport/app/bindings/auth_bindings.dart';
 import 'package:eport/app/bindings/laporan_bindings.dart';
+import 'package:eport/app/bindings/laporan_external_binding.dart';
 import 'package:eport/app/bindings/profile_bindings.dart';
 import 'package:eport/app/controller/piket_page.dart';
 import 'package:eport/app/presentation/view/pamwal_page.dart';
@@ -299,12 +300,8 @@ List<GetPage<dynamic>> appPage() {
     ),
     GetPage(
       name: AppRoute.reportExternal,
-      page: () => Portal(
-        child: KransosPage(
-          type: LaporanType.create,
-        ),
-      ),
-      binding: LaporanBinding(),
+      page: () => External.laporan(),
+      binding: LaporanExternalBinding(),
     ),
   ];
 }

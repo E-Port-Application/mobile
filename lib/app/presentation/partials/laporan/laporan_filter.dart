@@ -1,5 +1,4 @@
 import 'package:eport/app/models/common/activity/activity_model.dart';
-import 'package:eport/app/models/db/laporan/laporan_model.dart';
 import 'package:eport/app/presentation/partials/laporan/calendar_filter.dart';
 import 'package:eport/app/presentation/widgets/app_input.dart';
 import 'package:eport/app/presentation/widgets/popover.dart';
@@ -20,9 +19,10 @@ class LaporanFilter extends StatefulWidget {
   final ActivityCallback onActivity;
   final List<ActivityModel> activities;
   final ActivityModel? value;
-  final List<LaporanModel> data;
+  final List data;
   final List<DateTime?> filterDate;
   final HandleDateCallback onDate;
+  final String titleDate;
 
   const LaporanFilter({
     super.key,
@@ -33,6 +33,7 @@ class LaporanFilter extends StatefulWidget {
     required this.onDate,
     this.value,
     this.filterDate = const [null, null],
+    this.titleDate = "Tanggal Kegiatan",
   });
 
   @override

@@ -52,6 +52,7 @@ class ColorConstants {
     70: Color(0xff047443),
     80: Color(0xff024E2D),
   };
+
   static Map<int, Color> errors = {
     10: Color(0xffFBCCCC),
     20: Color(0xffF69999),
@@ -61,6 +62,17 @@ class ColorConstants {
     60: Color(0xffBA0000),
     70: Color(0xff8C0000),
     80: Color(0xff5D0000),
+  };
+
+  static Map<int, Color> warning = {
+    10: Color(0xffFFF5CC),
+    20: Color(0xffFFEB99),
+    30: Color(0xffFFE066),
+    40: Color(0xffFFD633),
+    50: Color(0xffFFCC00),
+    60: Color(0xffCCA300),
+    70: Color(0xff997A00),
+    80: Color(0xff665200),
   };
 
   static Map<int, Gradient> gradient = {

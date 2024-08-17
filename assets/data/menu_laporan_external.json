@@ -1,0 +1,10 @@
+[
+  {
+    "label": "Buat Laporan",
+    "path": "/laporan/pengajuan"
+  },
+  {
+    "label": "Riwayat Laporan",
+    "path": "/laporan/proses"
+  }
+]

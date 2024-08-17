@@ -19,6 +19,9 @@ class LaporanPage extends GetView<LaporanController> {
       return PimpinanPage();
     }
     return LaporanScaffold(
+      menu: controller.menu,
+      controller: controller.pageController,
+      current: controller.current,
       title: "Laporan Kegiatan",
       child: ConstrainedBox(
         constraints: BoxConstraints(

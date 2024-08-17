@@ -89,7 +89,7 @@ class HomePage extends GetView<HomeController> {
                                 style: body1BTextStyle(),
                               ),
                               Text(
-                                "Sistem administrasi Terpadu dan Pelaporan Online Satgas Polri Pamong Praja",
+                                "Sistem administrasi Terpadu dan Pelaporan Online Satuan Polisi Pamong Praja",
                                 style: body5TextStyle(
                                   weight: FontWeight.w600,
                                   color: Colors.black,

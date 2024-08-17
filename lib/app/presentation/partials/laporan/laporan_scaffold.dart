@@ -1,4 +1,4 @@
-import 'package:eport/app/controller/laporan_controller.dart';
+import 'package:eport/app/models/common/menu/laporan_menu_model.dart';
 import 'package:eport/app/presentation/widgets/scrollable_constraints.dart';
 import 'package:eport/extensions/map_indexed.dart';
 import 'package:eport/styles/color_constants.dart';
@@ -12,21 +12,34 @@ class LaporanScaffold extends StatelessWidget {
   final int index;
   final String title;
   final bool isDetail;
+  final RxList<LaporanMenuModel> menu;
+  final RxInt current;
+  final PageController controller;
+
   const LaporanScaffold({
     super.key,
     required this.child,
+    required this.menu,
+    required this.current,
+    required this.controller,
     this.index = 0,
     this.title = "Laporan",
     this.isDetail = false,
   });
 
-  const LaporanScaffold.detail({
-    super.key,
-    required this.child,
-    this.index = 0,
-    this.title = "Laporan",
-    this.isDetail = true,
-  });
+  factory LaporanScaffold.detail({
+    required Widget child,
+    String title = "Laporan",
+  }) {
+    return LaporanScaffold(
+      title: title,
+      controller: PageController(),
+      menu: <LaporanMenuModel>[].obs,
+      current: 0.obs,
+      isDetail: true,
+      child: child,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,17 +105,15 @@ class LaporanScaffold extends StatelessWidget {
                   child: Obx(
                     () => Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: LaporanController.i.menu.mapIndexed(
+                        children: menu.mapIndexed(
                           (i, data) {
-                            bool active =
-                                i == LaporanController.i.current.value;
+                            bool active = i == current.value;
                             return Expanded(
                               child: Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 8.w),
                                 child: GestureDetector(
                                   onTap: () {
-                                    LaporanController.i.pageController
-                                        .animateToPage(
+                                    controller.animateToPage(
                                       i,
                                       duration: Duration(milliseconds: 250),
                                       curve: Curves.linear,
