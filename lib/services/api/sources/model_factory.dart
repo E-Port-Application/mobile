@@ -21,7 +21,6 @@ abstract class ModelFactory {
     } else if (strType == (LaporanModel).toString()) {
       return LaporanModel.fromJson(json);
     }
-
     throw UnimplementedError();
   }
 }

@@ -2,6 +2,8 @@ import 'package:eport/app/models/common/activity/activity_model.dart';
 import 'package:eport/app/presentation/partials/laporan/calendar_filter.dart';
 import 'package:eport/app/presentation/widgets/app_input.dart';
 import 'package:eport/app/presentation/widgets/popover.dart';
+import 'package:eport/app/repository/rekap_repository.dart';
+import 'package:eport/global_settings.dart';
 import 'package:eport/styles/color_constants.dart';
 import 'package:eport/styles/text_styles.dart';
 import 'package:eport/utils/download_file.dart';
@@ -342,64 +344,41 @@ class _LaporanFilterState extends State<LaporanFilter> {
               ),
             ),
             SizedBox(width: 20.w),
-            Text(
-              "Unduh Laporan",
-              style: body5BTextStyle(),
-            ),
-            Image.asset(
-              "assets/icons/pdf.png",
-              width: 28.w,
-              height: 28.h,
-              fit: BoxFit.cover,
-            ),
-            GestureDetector(
-              onTap: () async {
-                String url = "${dotenv.env['BASE_URL']}/api/rekap";
-                downloadFile(url);
-              },
-              child: Image.asset(
-                "assets/icons/excel.png",
-                width: 28.w,
-                height: 28.h,
-                fit: BoxFit.cover,
-              ),
-            ),
+            Global.isExt()
+                ? Container()
+                : Row(
+                    children: [
+                      Text(
+                        "Unduh Laporan",
+                        style: body5BTextStyle(),
+                      ),
+                      Image.asset(
+                        "assets/icons/pdf.png",
+                        width: 28.w,
+                        height: 28.h,
+                        fit: BoxFit.cover,
+                      ),
+                      GestureDetector(
+                        onTap: () async {
+                          RekapRepository.get()
+                              .then((value) {})
+                              .catchError((_) {});
+                          // String url = "${dotenv.env['BASE_URL']}/api/rekap";
+                          // downloadFile(url);
+                        },
+                        child: Image.asset(
+                          "assets/icons/excel.png",
+                          width: 28.w,
+                          height: 28.h,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ],
+                  ),
           ],
         ),
         SizedBox(height: 20.h),
       ],
-    );
-  }
-}
-
-class DownloadExcel extends StatefulWidget {
-  const DownloadExcel({super.key});
-
-  @override
-  State<DownloadExcel> createState() => _DownloadExcelState();
-}
-
-class _DownloadExcelState extends State<DownloadExcel> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  final startDate = DateTime(2024, 7, 5);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () async {
-        final url = "https://fdw3pxjx-3000.asse.devtunnels.ms/api/rekap";
-        downloadFile(url);
-      },
-      child: Image.asset(
-        "assets/icons/excel.png",
-        width: 28.w,
-        height: 28.h,
-        fit: BoxFit.cover,
-      ),
     );
   }
 }
