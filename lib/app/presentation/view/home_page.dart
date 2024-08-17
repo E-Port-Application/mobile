@@ -1,6 +1,7 @@
 import 'package:eport/app/controller/global_controller.dart';
 import 'package:eport/app/presentation/partials/home/card_information.dart';
 import 'package:eport/app/presentation/partials/home/home_service.dart';
+import 'package:eport/app/presentation/partials/home/my_laporan.dart';
 import 'package:eport/app/presentation/widgets/app_background.dart';
 import 'package:eport/app/presentation/widgets/app_bottombar.dart';
 import 'package:eport/app/presentation/widgets/app_input.dart';
@@ -127,18 +128,25 @@ class HomePage extends GetView<HomeController> {
                           ],
                         ),
                   SizedBox(height: 12.h),
-                  Text(
-                    "Informasi Terbaru",
-                    style: body2BTextStyle(),
-                  ),
-                  SizedBox(height: 20.h),
-                  CardInformation(),
-                  SizedBox(height: 12.h),
-                  CardInformation(),
-                  SizedBox(height: 12.h),
-                  CardInformation(),
-                  SizedBox(height: 12.h),
-                  CardInformation(),
+                  !Global.isExt()
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Text(
+                              "Informasi Terbaru",
+                              style: body2BTextStyle(),
+                            ),
+                            SizedBox(height: 20.h),
+                            CardInformation(),
+                            SizedBox(height: 12.h),
+                            CardInformation(),
+                            SizedBox(height: 12.h),
+                            CardInformation(),
+                            SizedBox(height: 12.h),
+                            CardInformation(),
+                          ],
+                        )
+                      : MyLaporan(),
                 ],
               ),
             ),
