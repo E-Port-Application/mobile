@@ -2,52 +2,20 @@ import 'package:eport/app/models/db/laporan_external/laporan_external_model.dart
 import 'package:eport/app/presentation/widgets/app_button.dart';
 import 'package:eport/app/presentation/widgets/app_shimmer.dart';
 import 'package:eport/global_settings.dart';
+import 'package:eport/routes/app_route.dart';
 import 'package:eport/styles/color_constants.dart';
 import 'package:eport/styles/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-// class MasyarakatCard extends StatelessWidget {
-// final bool isLoading;
-// final LaporanExternalModel data;
-// final DateFormat dateFormat = DateFormat("dd MMMM yyyy");
-
-// MasyarakatCard({
-//   super.key,
-//   required this.data,
-//   this.isLoading = false,
-// });
-
-// factory MasyarakatCard.loading() {
-//   LaporanExternalModel data = LaporanExternalModel(
-//     createdAt: DateTime.now(),
-//     id: "",
-//     image: "",
-//     keluhan: "",
-//     keterangan: "",
-//     location: "",
-//     nama: "",
-//     nik: "",
-//     status: 0,
-//     tanggal: DateTime.now(),
-//     uid: "",
-//     updatedAt: DateTime.now(),
-//   );
-
-//   return MasyarakatCard(
-//     data: data,
-//     isLoading: true,
-//   );
-// }
-
-// }
-
-class MasyarakatCard extends StatefulWidget {
+class MasyarakatCard extends StatelessWidget {
   final bool isLoading;
   final LaporanExternalModel data;
+  final DateFormat dateFormat = DateFormat("dd MMMM yyyy");
 
-  const MasyarakatCard({
+  MasyarakatCard({
     super.key,
     required this.data,
     this.isLoading = false,
@@ -76,15 +44,8 @@ class MasyarakatCard extends StatefulWidget {
   }
 
   @override
-  State<MasyarakatCard> createState() => _MasyarakatCardState();
-}
-
-class _MasyarakatCardState extends State<MasyarakatCard> {
-  final DateFormat dateFormat = DateFormat("dd MMMM yyyy");
-
-  @override
   Widget build(BuildContext context) {
-    if (widget.isLoading) {
+    if (isLoading) {
       return _loadingWidget();
     }
 
@@ -107,7 +68,7 @@ class _MasyarakatCardState extends State<MasyarakatCard> {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8.w),
                   child: Image.network(
-                    widget.data.image,
+                    data.image,
                     width: 85.w,
                     height: 80.h,
                     fit: BoxFit.cover,
@@ -120,19 +81,22 @@ class _MasyarakatCardState extends State<MasyarakatCard> {
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "Laporan ${widget.data.keluhan}",
-                            style: body3BTextStyle(
-                              color: ColorConstants.slate[900],
+                          Flexible(
+                            child: Text(
+                              "Laporan ${data.keluhan}",
+                              style: body3BTextStyle(
+                                color: ColorConstants.slate[900],
+                              ),
                             ),
                           ),
                           _status(),
                         ],
                       ),
-                      SizedBox(height: 3.h),
+                      SizedBox(height: 4.h),
                       Text(
-                        widget.data.nama,
+                        data.nama,
                         style: body6TextStyle(
                           color: ColorConstants.primary[60],
                           weight: FontWeight.bold,
@@ -140,7 +104,7 @@ class _MasyarakatCardState extends State<MasyarakatCard> {
                       ),
                       SizedBox(height: 4.h),
                       Text(
-                        dateFormat.format(widget.data.tanggal),
+                        dateFormat.format(data.tanggal),
                         style: body4TextStyle(
                           color: ColorConstants.slate[500],
                         ),
@@ -169,6 +133,7 @@ class _MasyarakatCardState extends State<MasyarakatCard> {
                 child: AppButton(
                   onPressed: () {
                     // TODO
+                    Get.toNamed(AppRoute.prosesMasyarakat(data.id));
                   },
                   text: "Lihat Laporan",
                   padding: EdgeInsets.symmetric(
@@ -192,7 +157,7 @@ class _MasyarakatCardState extends State<MasyarakatCard> {
     Color textColor;
     String text;
 
-    switch (widget.data.status) {
+    switch (data.status) {
       case 0:
         if (Global.isExt()) {
           bgColor = ColorConstants.info[10]!;

@@ -1,5 +1,6 @@
-import 'package:eport/app/controller/external/masyarakat_controller.dart';
 import 'package:eport/app/controller/external/laporan_controller.dart';
+import 'package:eport/app/controller/external/masyarakat_detail_controller.dart';
+import 'package:eport/app/presentation/partials/edit_laporan/laporan_action.dart';
 import 'package:eport/app/presentation/partials/laporan/laporan_image.dart';
 import 'package:eport/app/presentation/partials/laporan/laporan_scaffold.dart';
 import 'package:eport/app/presentation/partials/laporan/upload_photo.dart';
@@ -8,6 +9,7 @@ import 'package:eport/app/presentation/widgets/app_input.dart';
 import 'package:eport/app/presentation/widgets/app_location.dart';
 import 'package:eport/app/presentation/widgets/app_search_select.dart';
 import 'package:eport/app/types/laporan_type.dart';
+import 'package:eport/global_settings.dart';
 import 'package:eport/styles/color_constants.dart';
 import 'package:eport/styles/text_styles.dart';
 import 'package:eport/utils/datepicker.dart';
@@ -16,25 +18,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class MasyarakatPage extends GetView<MasyarakatController> {
+class MasyarakatDetailPage extends GetView<MasyarakatDetailController> {
   final LaporanType type;
-  const MasyarakatPage({
+  const MasyarakatDetailPage({
     super.key,
     required this.type,
   });
 
   @override
   Widget build(BuildContext context) {
-    if (type == LaporanType.create) {
-      return SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-          child: content(),
-        ),
-      );
-    }
-
     return LaporanScaffold.detail(
       title: "Detail Laporan Masyarakat",
       child: content(),
@@ -54,7 +46,7 @@ class MasyarakatPage extends GetView<MasyarakatController> {
             LaporanImage(
               image: controller.image.value,
               imageUrl: controller.imageUrl.value,
-              type: type,
+              type: LaporanType.history,
               removePhoto: controller.removePhoto,
             ),
             AppInput(
@@ -80,7 +72,7 @@ class MasyarakatPage extends GetView<MasyarakatController> {
               controller: controller.form['nama']!,
               label: "Nama Lengkap",
               placeholder: "Nama Lengkap",
-              readOnly: type == LaporanType.history,
+              readOnly: true,
               validator: type == LaporanType.update
                   ? (e) {
                       return inputValidator(e, "Nama lengkap");
@@ -93,7 +85,7 @@ class MasyarakatPage extends GetView<MasyarakatController> {
               controller: controller.form['nik']!,
               label: "NIK",
               placeholder: "Input NIK",
-              readOnly: type == LaporanType.history,
+              readOnly: true,
               keyboardType: TextInputType.number,
               validator: controller.nikValidator,
               textInputAction: TextInputAction.next,
@@ -137,8 +129,8 @@ class MasyarakatPage extends GetView<MasyarakatController> {
               controller: controller.form['keterangan']!,
               maxLines: 8,
               label: "Keterangan",
+              readOnly: true,
               placeholder: "Masukkan Keterangan",
-              readOnly: type == LaporanType.history,
               hint: "Tulis Keterangan dengan baik dan benar!",
               validator: type == LaporanType.update
                   ? (e) {
@@ -176,12 +168,22 @@ class MasyarakatPage extends GetView<MasyarakatController> {
               },
             ),
             SizedBox(height: 32.h),
-            AppButton(
-              width: 1.sw,
-              onPressed: controller.submit,
-              text: LaporanExternalController.i.buttonText(type),
+            LaporanAction(
+              isMasyarakat: true,
+              collection: "reklame",
             ),
-            SizedBox(height: 8.h),
+            !Global.isExt()
+                ? Column(
+                    children: [
+                      AppButton(
+                        width: 1.sw,
+                        onPressed: controller.submit,
+                        text: LaporanExternalController.i.buttonText(type),
+                      ),
+                      SizedBox(height: 8.h),
+                    ],
+                  )
+                : Container(),
             AppButton(
               width: 1.sw,
               onPressed: () {

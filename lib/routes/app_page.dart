@@ -3,6 +3,7 @@ import 'package:eport/app/bindings/laporan_bindings.dart';
 import 'package:eport/app/bindings/laporan_external_binding.dart';
 import 'package:eport/app/bindings/profile_bindings.dart';
 import 'package:eport/app/controller/piket_page.dart';
+import 'package:eport/app/presentation/view/external/masyarakat_detail_page.dart';
 import 'package:eport/app/presentation/view/pamwal_page.dart';
 import 'package:eport/app/presentation/view/personil/edit_personil_page.dart';
 import 'package:eport/app/presentation/view/personil/riwayat_personil_page.dart';
@@ -301,6 +302,20 @@ List<GetPage<dynamic>> appPage() {
     GetPage(
       name: AppRoute.reportExternal,
       page: () => External.laporan(),
+      binding: LaporanExternalBinding(),
+    ),
+    GetPage(
+      name: AppRoute.prosesMasyarakat(":id"),
+      page: () => Portal(
+        child: MasyarakatDetailPage(type: LaporanType.update),
+      ),
+      binding: LaporanExternalBinding(),
+    ),
+    GetPage(
+      name: AppRoute.riwayatMasyarakat(":id"),
+      page: () => Portal(
+        child: MasyarakatDetailPage(type: LaporanType.history),
+      ),
       binding: LaporanExternalBinding(),
     ),
   ];

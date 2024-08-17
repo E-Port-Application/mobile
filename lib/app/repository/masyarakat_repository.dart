@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eport/app/controller/cache_controller.dart';
+import 'package:eport/app/controller/external/laporan_controller.dart';
 import 'package:eport/app/controller/global_controller.dart';
 import 'package:eport/app/models/db/laporan_external/laporan_external_model.dart';
 import 'package:eport/app/presentation/widgets/app_loading.dart';
@@ -50,6 +51,17 @@ class MasyarakatRepository {
       final ref = store.collection("masyarakat").doc(id);
       var data = await ref.get();
       return LaporanExternalModel.fromJson(data.data()!);
+    } catch (err) {
+      showAlert(err.toString());
+      rethrow;
+    }
+  }
+
+  static Future remove(String id) async {
+    try {
+      var a = storage.child("laporan/masyarakat/$id.jpg");
+      a.delete().then((_) {}).catchError((_) {});
+      await store.collection("masyarakat").doc(id).delete();
     } catch (err) {
       showAlert(err.toString());
       rethrow;
@@ -121,7 +133,11 @@ class MasyarakatRepository {
         await closeLoading(isLoading);
         const alertText = "Berhasil membuat Laporan";
         showAlert(alertText, isSuccess: true);
-        Get.back();
+        LaporanExternalController.i.pageController.animateToPage(
+          1,
+          duration: Duration(milliseconds: 250),
+          curve: Curves.linear,
+        );
       }
     } catch (err) {
       await closeLoading(isLoading);

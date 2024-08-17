@@ -16,8 +16,9 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
-class MasyarakatController extends GetxController {
-  static MasyarakatController get i => Get.find<MasyarakatController>();
+class MasyarakatDetailController extends GetxController {
+  static MasyarakatDetailController get i =>
+      Get.find<MasyarakatDetailController>();
   Rx<LaporanType> type = LaporanType.create.obs;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   RxBool isProses = false.obs;

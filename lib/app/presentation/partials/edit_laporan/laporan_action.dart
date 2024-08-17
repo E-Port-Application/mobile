@@ -1,6 +1,8 @@
+import 'package:eport/app/controller/external/laporan_controller.dart';
 import 'package:eport/app/controller/laporan_controller.dart';
 import 'package:eport/app/presentation/widgets/app_modal.dart';
 import 'package:eport/app/repository/laporan_repository.dart';
+import 'package:eport/app/repository/masyarakat_repository.dart';
 import 'package:eport/styles/color_constants.dart';
 import 'package:eport/styles/text_styles.dart';
 import 'package:eport/utils/get_id.dart';
@@ -15,12 +17,14 @@ class LaporanAction extends StatelessWidget {
   final VoidCallback? onPdf;
   final VoidCallback? onExcel;
   final String collection;
+  final bool isMasyarakat;
 
   const LaporanAction({
     super.key,
     this.onExcel,
-    required this.collection,
     this.onPdf,
+    required this.collection,
+    this.isMasyarakat = false,
   });
 
   @override
@@ -51,6 +55,17 @@ class LaporanAction extends StatelessWidget {
                             secondaryText: "Batal",
                             onPrimary: () async {
                               try {
+                                if (isMasyarakat) {
+                                  await MasyarakatRepository.remove(getId());
+                                  LaporanExternalController.i.getData();
+                                  showAlert(
+                                    "Berhasil hapus data laporan",
+                                    isSuccess: true,
+                                  );
+                                  Get.back();
+                                  Get.back();
+                                  return;
+                                }
                                 await LaporanRepository.remove(
                                   collection,
                                   getId(),
