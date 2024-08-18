@@ -5,9 +5,9 @@ import 'package:eport/app/models/db/personil/personil_model.dart';
 import 'package:eport/app/repository/laporan_repository.dart';
 import 'package:eport/app/repository/pengamanan_repository.dart';
 import 'package:eport/app/types/laporan_type.dart';
-import 'package:eport/utils/download_file.dart';
 import 'package:eport/utils/filepicker_handler.dart';
 import 'package:eport/utils/get_id.dart';
+import 'package:eport/utils/open_link.dart';
 import 'package:eport/utils/show_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -65,10 +65,11 @@ class PengamananController extends GetxController {
   void submit() async {
     isLoading.value = true;
     if (type.value == LaporanType.history) {
-      downloadFile(
-          "${dotenv.env['BASE_URL']}/api/pdf/${"pengamanan"}/${data.value!.id}");
+      openLink(Uri.parse(
+          "${dotenv.env['BASE_URL']}/api/pdf/pengamanan/${data.value!.id}"));
       return;
     }
+
     if (type.value == LaporanType.update) {
       LaporanRepository.update(
         data.value!.id,

@@ -34,6 +34,10 @@ class RencanaPage extends GetView<RencanaController> {
         },
         {
           "label": "Operasi Kegiatan",
+        },
+        {
+          "label": "Laporan Masyarakat",
+          "path": AppRoute.reportExternal,
         }
       ]
           .map(

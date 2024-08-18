@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:eport/app/controller/cache_controller.dart';
+import 'package:eport/app/controller/external/laporan_controller.dart';
 import 'package:eport/app/controller/global_controller.dart';
 import 'package:eport/app/models/db/laporan_external/laporan_external_model.dart';
 import 'package:eport/app/models/db/laporan_type/laporan_type_model.dart';
+import 'package:eport/app/presentation/widgets/app_loading.dart';
 import 'package:eport/app/presentation/widgets/app_radio.dart';
 import 'package:eport/app/repository/laporan_repository.dart';
 import 'package:eport/app/repository/masyarakat_repository.dart';
@@ -138,17 +140,50 @@ class MasyarakatDetailController extends GetxController {
   }
 
   RxBool isLoading = false.obs;
-  void submit() {
-    if (formKey.currentState!.validate()) {
-      if (type.value == LaporanType.create) {
-        MasyarakatRepository.create(
-          isLoading,
-          formKey,
-          form,
-          image.value!,
-          ["nik"],
-        );
-      }
+  void submit() async {
+    if (data.value == null) {
+      return;
     }
+
+    if (formKey.currentState!.validate()) {
+      if (isProses.value) {
+        isLoading.value = true;
+        showLoadingDialog(Get.context!, isLoading);
+        await MasyarakatRepository.update(data.value!.id, 2);
+        await closeLoading(isLoading);
+        Get.back();
+        LaporanExternalController.i.pageController.animateToPage(
+          1,
+          duration: Duration(milliseconds: 250),
+          curve: Curves.linear,
+        );
+
+        return;
+      }
+
+      // if (type) {
+      //   MasyarakatRepository.create(
+      //     isLoading,
+      //     formKey,
+      //     form,
+      //     image.value!,
+      //     ["nik"],
+      //   );
+      // }
+    }
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    data.listen((value) {
+      if (value == null) {
+        return;
+      }
+      if (value.status == 2) {
+        return;
+      }
+      MasyarakatRepository.update(value.id, 1);
+    });
   }
 }

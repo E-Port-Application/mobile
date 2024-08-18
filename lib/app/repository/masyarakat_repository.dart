@@ -20,6 +20,7 @@ class MasyarakatRepository {
     DateTime? startDate,
     DateTime? endDate,
     String? type,
+    bool? isMasuk,
   }) async {
     startDate ??= DateTime(2000);
     endDate ??= DateTime(2100);
@@ -29,12 +30,27 @@ class MasyarakatRepository {
           .where("tanggal", isGreaterThan: startDate)
           .where("tanggal", isLessThan: endDate);
 
+      if (isMasuk != null) {
+        if (isMasuk) {
+          ref = ref.where("status", isEqualTo: 0);
+        } else {
+          ref = ref.where(
+            Filter.or(
+              Filter("status", isEqualTo: 1),
+              Filter("status", isEqualTo: 2),
+            ),
+          );
+        }
+      }
+
       if (Global.isExt()) {
         ref = ref.where("uid", isEqualTo: GlobalController.i.user.value!.uid);
       }
+
       if (type != null) {
         ref = ref.where("keluhan", isEqualTo: type);
       }
+
       ref = ref.orderBy("tanggal", descending: true);
       var dataJson = await ref.get();
       return dataJson.docs
@@ -62,6 +78,17 @@ class MasyarakatRepository {
       var a = storage.child("laporan/masyarakat/$id.jpg");
       a.delete().then((_) {}).catchError((_) {});
       await store.collection("masyarakat").doc(id).delete();
+    } catch (err) {
+      showAlert(err.toString());
+      rethrow;
+    }
+  }
+
+  static Future update(String id, int status) async {
+    try {
+      final ref = store.collection("masyarakat").doc(id);
+      await ref.update({"status": status});
+      LaporanExternalController.i.getData();
     } catch (err) {
       showAlert(err.toString());
       rethrow;
@@ -133,6 +160,7 @@ class MasyarakatRepository {
         await closeLoading(isLoading);
         const alertText = "Berhasil membuat Laporan";
         showAlert(alertText, isSuccess: true);
+        LaporanExternalController.i.getData();
         LaporanExternalController.i.pageController.animateToPage(
           1,
           duration: Duration(milliseconds: 250),

@@ -3,6 +3,7 @@ import 'package:eport/app/models/common/menu/laporan_menu_model.dart';
 import 'package:eport/app/models/db/laporan_external/laporan_external_model.dart';
 import 'package:eport/app/repository/masyarakat_repository.dart';
 import 'package:eport/app/types/laporan_type.dart';
+import 'package:eport/global_settings.dart';
 import 'package:eport/utils/convert_json.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -78,8 +79,15 @@ class LaporanExternalController extends GetxController {
   Rxn<DateTime> startDateRiwayat = Rxn<DateTime>();
   Rxn<DateTime> endDateRiwayat = Rxn<DateTime>();
 
+  Rxn<ActivityModel> selectedMasuk = Rxn<ActivityModel>();
+  Rxn<DateTime> startDateMasuk = Rxn<DateTime>();
+  Rxn<DateTime> endDateMasuk = Rxn<DateTime>();
+
   RxList<LaporanExternalModel> riwayatData = RxList<LaporanExternalModel>();
   RxBool loadingRiwayatData = true.obs;
+
+  RxList<LaporanExternalModel> masukData = RxList<LaporanExternalModel>();
+  RxBool loadingMasukData = true.obs;
 
   void getMenu() async {
     menu.value = await convertJson<LaporanMenuModel>(
@@ -118,11 +126,26 @@ class LaporanExternalController extends GetxController {
   void getRiwayatData() {
     loadingRiwayatData.value = true;
     final type = selectedRiwayat.value?.id;
-    MasyarakatRepository.getAll(type: type).then((value) async {
+    bool? isMasuk = Global.isExt() ? null : false;
+    MasyarakatRepository.getAll(
+      type: type,
+      isMasuk: isMasuk,
+    ).then((value) async {
       riwayatData.value = value;
       loadingRiwayatData.value = false;
     }).catchError((_) {
       loadingRiwayatData.value = false;
+    });
+  }
+
+  void getMasukData() {
+    loadingMasukData.value = true;
+    final type = selectedMasuk.value?.id;
+    MasyarakatRepository.getAll(type: type, isMasuk: true).then((value) async {
+      masukData.value = value;
+      loadingMasukData.value = false;
+    }).catchError((_) {
+      loadingMasukData.value = false;
     });
   }
 
@@ -132,6 +155,10 @@ class LaporanExternalController extends GetxController {
         getRiwayatData();
       });
       getRiwayatData();
+      everAll([startDateMasuk, endDateMasuk, selectedMasuk], (_) {
+        getMasukData();
+      });
+      getMasukData();
     } catch (_) {}
   }
 }

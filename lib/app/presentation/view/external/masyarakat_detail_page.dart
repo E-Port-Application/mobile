@@ -172,7 +172,7 @@ class MasyarakatDetailPage extends GetView<MasyarakatDetailController> {
               isMasyarakat: true,
               collection: "reklame",
             ),
-            !Global.isExt()
+            !Global.isExt() && controller.data.value?.status != 2
                 ? Column(
                     children: [
                       AppButton(
