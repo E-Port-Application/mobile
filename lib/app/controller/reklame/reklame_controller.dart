@@ -145,6 +145,9 @@ class ReklameController extends GetxController {
   void submit() async {
     isLoading.value = true;
     if (isRiwayat.value) {
+      LaporanRepository.pdf("reklame", getId(), isLoading)
+          .then((value) {})
+          .catchError((_) {});
       return;
     }
     if (isEdit.value) {

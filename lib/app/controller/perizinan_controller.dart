@@ -69,6 +69,9 @@ class PerizinanController extends GetxController {
   void submit() async {
     isLoading.value = true;
     if (type.value == LaporanType.history) {
+      LaporanRepository.pdf("reklame", getId(), isLoading)
+          .then((value) {})
+          .catchError((_) {});
       return;
     }
     if (type.value == LaporanType.update) {

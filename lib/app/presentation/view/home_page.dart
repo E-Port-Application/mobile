@@ -1,5 +1,4 @@
 import 'package:eport/app/controller/global_controller.dart';
-import 'package:eport/app/presentation/partials/home/card_information.dart';
 import 'package:eport/app/presentation/partials/home/home_service.dart';
 import 'package:eport/app/presentation/partials/home/my_laporan.dart';
 import 'package:eport/app/presentation/widgets/app_background.dart';
@@ -42,7 +41,7 @@ class HomePage extends GetView<HomeController> {
                   Obx(
                     () => globalController.user.value?.displayName != null
                         ? Text(
-                            "Hello, Bang ${globalController.user.value?.displayName}",
+                            "Hello, ${globalController.user.value?.displayName}",
                             style: h1BTextStyle(),
                             overflow: TextOverflow.ellipsis,
                           )
@@ -128,25 +127,7 @@ class HomePage extends GetView<HomeController> {
                           ],
                         ),
                   SizedBox(height: 12.h),
-                  !Global.isExt()
-                      ? Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Text(
-                              "Informasi Terbaru",
-                              style: body2BTextStyle(),
-                            ),
-                            SizedBox(height: 20.h),
-                            CardInformation(),
-                            SizedBox(height: 12.h),
-                            CardInformation(),
-                            SizedBox(height: 12.h),
-                            CardInformation(),
-                            SizedBox(height: 12.h),
-                            CardInformation(),
-                          ],
-                        )
-                      : MyLaporan(),
+                  MyLaporan(),
                 ],
               ),
             ),

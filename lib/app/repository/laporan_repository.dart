@@ -18,8 +18,11 @@ import 'package:eport/app/presentation/widgets/app_loading.dart';
 import 'package:eport/app/repository/pelanggar_repository.dart';
 import 'package:eport/firebase_options.dart';
 import 'package:eport/global_settings.dart';
+import 'package:eport/services/api/fetch_data.dart';
+import 'package:eport/services/api/request_method.dart';
 import 'package:eport/utils/convert_timestamp.dart';
 import 'package:eport/utils/form_converter.dart';
+import 'package:eport/utils/open_link.dart';
 import 'package:eport/utils/show_alert.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -124,6 +127,26 @@ class LaporanRepository {
       final pklRef = store.collection("reklame");
       var data = await pklRef.doc(id).get();
       return ReklameModel.fromJson(data.data()!);
+    } catch (err) {
+      showAlert(err.toString());
+      rethrow;
+    }
+  }
+
+  static Future pdf(String type, String id, RxBool? isLoading) async {
+    try {
+      if (isLoading != null) {
+        isLoading.value = true;
+        showLoadingDialog(Get.context!, isLoading);
+      }
+      var data = await fetchData<String>(
+        url: "/api/pdf/$type/$id",
+        method: RequestMethod.GET,
+      );
+      if (isLoading != null) {
+        await closeLoading(isLoading);
+      }
+      openLink(Uri.parse(data.data!));
     } catch (err) {
       showAlert(err.toString());
       rethrow;

@@ -7,10 +7,8 @@ import 'package:eport/app/repository/pengamanan_repository.dart';
 import 'package:eport/app/types/laporan_type.dart';
 import 'package:eport/utils/filepicker_handler.dart';
 import 'package:eport/utils/get_id.dart';
-import 'package:eport/utils/open_link.dart';
 import 'package:eport/utils/show_alert.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -65,8 +63,9 @@ class PengamananController extends GetxController {
   void submit() async {
     isLoading.value = true;
     if (type.value == LaporanType.history) {
-      openLink(Uri.parse(
-          "${dotenv.env['BASE_URL']}/api/pdf/pengamanan/${data.value!.id}"));
+      LaporanRepository.pdf("pengamanan", getId(), isLoading)
+          .then((value) {})
+          .catchError((_) {});
       return;
     }
 

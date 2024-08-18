@@ -196,6 +196,9 @@ class PklController extends GetxController {
   RxBool isLoading = true.obs;
   void submit() async {
     if (type.value == LaporanType.history) {
+      LaporanRepository.pdf("pkl", getId(), isLoading)
+          .then((value) {})
+          .catchError((_) {});
       return;
     }
     if (type.value == LaporanType.create) {
@@ -205,7 +208,6 @@ class PklController extends GetxController {
         }
         return;
       }
-
       LaporanRepository.create(
         isLoading,
         formKey,

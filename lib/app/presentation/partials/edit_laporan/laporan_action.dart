@@ -6,10 +6,8 @@ import 'package:eport/app/repository/masyarakat_repository.dart';
 import 'package:eport/styles/color_constants.dart';
 import 'package:eport/styles/text_styles.dart';
 import 'package:eport/utils/get_id.dart';
-import 'package:eport/utils/open_link.dart';
 import 'package:eport/utils/show_alert.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -116,9 +114,10 @@ class LaporanAction extends StatelessWidget {
                             ? GestureDetector(
                                 onTap: () async {
                                   try {
-                                    String id = getId();
-                                    openLink(Uri.parse(
-                                        "${dotenv.env['BASE_URL']!}/api/pdf/$collection/$id"));
+                                    LaporanRepository.pdf(
+                                            collection, getId(), null)
+                                        .then((value) {})
+                                        .catchError((_) {});
                                   } catch (err) {
                                     showAlert(err.toString());
                                   }

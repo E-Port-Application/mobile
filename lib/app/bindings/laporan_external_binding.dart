@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 class LaporanExternalBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<LaporanExternalController>(() => LaporanExternalController());
+    Get.put<LaporanExternalController>(LaporanExternalController());
     Get.lazyPut<RiwayatLaporanController>(() => RiwayatLaporanController());
     Get.lazyPut<LaporanMasukController>(() => LaporanMasukController());
     Get.lazyPut<MasyarakatController>(() => MasyarakatController());

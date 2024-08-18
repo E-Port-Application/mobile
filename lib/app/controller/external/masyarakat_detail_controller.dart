@@ -10,6 +10,7 @@ import 'package:eport/app/presentation/widgets/app_radio.dart';
 import 'package:eport/app/repository/laporan_repository.dart';
 import 'package:eport/app/repository/masyarakat_repository.dart';
 import 'package:eport/app/types/laporan_type.dart';
+import 'package:eport/global_settings.dart';
 import 'package:eport/utils/filepicker_handler.dart';
 import 'package:eport/utils/get_id.dart';
 import 'package:eport/utils/show_alert.dart';
@@ -176,6 +177,9 @@ class MasyarakatDetailController extends GetxController {
   @override
   void onReady() {
     super.onReady();
+    if (Global.isExt()) {
+      return;
+    }
     data.listen((value) {
       if (value == null) {
         return;
