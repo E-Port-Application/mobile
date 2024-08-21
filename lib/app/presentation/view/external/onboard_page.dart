@@ -56,53 +56,55 @@ class _OnboardPageState extends State<OnboardPage>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Expanded(child: Container()),
-            Container(
-              constraints: BoxConstraints(maxHeight: 480.h),
-              child: PageView(
-                  onPageChanged: (e) {
-                    setState(() {
-                      index = e;
-                    });
-                  },
-                  physics: BouncingScrollPhysics(),
-                  children: data
-                      .map(
-                        (e) => Column(
-                          children: [
-                            AnimatedOpacity(
-                              opacity: isMounted ? 1 : 0,
-                              duration: Duration(seconds: 1),
-                              child: Image.asset(
-                                e['thumbnail']!,
-                                height: 380.h,
-                                fit: BoxFit.cover,
+            SizedBox(height: .11.sh),
+            // Expanded(child: Container()),
+            Expanded(
+              child: Container(
+                constraints: BoxConstraints(maxHeight: 520.h),
+                child: PageView(
+                    onPageChanged: (e) {
+                      setState(() {
+                        index = e;
+                      });
+                    },
+                    physics: BouncingScrollPhysics(),
+                    children: data
+                        .map(
+                          (e) => Column(
+                            children: [
+                              AnimatedOpacity(
+                                opacity: isMounted ? 1 : 0,
+                                duration: Duration(seconds: 1),
+                                child: Image.asset(
+                                  e['thumbnail']!,
+                                  height: 380.h,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                                height: 60.h,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      e['title']!,
-                                      style: h4BTextStyle(),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ],
-                                )),
-                            SizedBox(height: 4.h),
-                            Text(
-                              e['description']!,
-                              style: body3TextStyle(),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
-                        ),
-                      )
-                      .toList()),
+                              SizedBox(
+                                  height: 64.h,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        e['title']!,
+                                        style: h4BTextStyle(),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ],
+                                  )),
+                              SizedBox(height: 4.h),
+                              Text(
+                                e['description']!,
+                                style: body3TextStyle(),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        )
+                        .toList()),
+              ),
             ),
-            Expanded(child: Container()),
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [

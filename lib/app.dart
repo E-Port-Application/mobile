@@ -29,6 +29,7 @@ class App extends StatelessWidget {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return GetMaterialApp(
+                  debugShowCheckedModeBanner: false,
                   key: navigatorKey,
                   initialBinding: GlobalBinding(),
                   title: dotenv.env['PROJECT_NAME']!,

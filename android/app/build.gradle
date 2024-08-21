@@ -104,7 +104,7 @@ android {
         }
 
         external {
-            resValue "string", "app_name", "E-Port"
+            resValue "string", "app_name", "Satpol Saja"
         }
     }
 }
