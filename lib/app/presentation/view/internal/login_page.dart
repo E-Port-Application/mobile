@@ -1,5 +1,4 @@
 import 'package:eport/app/controller/login_controller.dart';
-import 'package:eport/app/presentation/view/variant.dart';
 import 'package:eport/app/presentation/widgets/app_button.dart';
 import 'package:eport/app/presentation/widgets/app_input.dart';
 import 'package:eport/app/presentation/widgets/scrollable_constraints.dart';
@@ -7,7 +6,6 @@ import 'package:eport/styles/color_constants.dart';
 import 'package:eport/styles/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class LoginPage extends GetView<LoginController> {
@@ -80,83 +78,30 @@ class LoginPage extends GetView<LoginController> {
                     text: "Login",
                     width: 1.sw,
                   ),
-                  SizedBox(height: 32.h),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Divider(
-                            thickness: .5,
-                            color: ColorConstants.slate[600],
-                            height: 1,
-                          ),
-                        ),
-                        SizedBox(width: 16.w),
-                        Text(
-                          "Masuk dengan",
-                          style: body4TextStyle(
-                            height: 1,
-                          ),
-                        ),
-                        SizedBox(width: 16.w),
-                        Expanded(
-                          child: Divider(
-                            thickness: .5,
-                            color: ColorConstants.slate[600],
-                            height: 1,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 32.h),
-                  AppButton(
-                    onPressed: controller.googleSignin,
-                    text: "",
-                    width: 1.sw,
-                    type: AppButtonType.outlined,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          "assets/icons/google.svg",
-                          width: 24.w,
-                        ),
-                        SizedBox(width: 8.w),
-                        Text(
-                          "Google",
-                          style: body2BTextStyle(),
-                        )
-                      ],
-                    ),
-                  ),
+                  SizedBox(height: 80.h),
                   Expanded(child: Container()),
-                  SizedBox(height: 20.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        "Belum punya akun? ",
-                        style: body3TextStyle(
-                          weight: FontWeight.w500,
-                        ),
+                      Image.asset(
+                        "assets/images/batu-government.png",
+                        height: 36.h,
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          Get.toNamed(Register.path());
-                        },
+                      SizedBox(width: 12.w),
+                      Image.asset(
+                        "assets/images/pamong-praja.png",
+                        height: 36.h,
+                      ),
+                      SizedBox(width: 20.w),
+                      Flexible(
                         child: Text(
-                          "Daftar",
-                          style: body3BTextStyle(
-                            color: ColorConstants.primary[60],
-                          ),
+                          "Dikelola di bawah Satuan Polisi Pamong\nPraja Kota Batu dan Pemerintah Kota Batu",
+                          style: body4TextStyle(),
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(height: 48.h),
-                  Expanded(child: Container()),
+                  SizedBox(height: 32.h),
                 ],
               ),
             ),

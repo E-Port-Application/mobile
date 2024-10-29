@@ -94,7 +94,7 @@ android {
 
     productFlavors {
         internal {
-            resValue "string", "app_name", "Sapa Satpol"
+            resValue "string", "app_name", "Sapa Satpol Internal"
             applicationIdSuffix ".int"
         }
 

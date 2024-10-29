@@ -52,10 +52,14 @@ class LoginController extends GetxController {
         await AuthRepository.roleValidate(authData, isLoading);
       } catch (err) {
         closeLoading(isLoading);
+        print(err);
         showAlert("Email or Password is invalid");
       }
     }
   }
+
+
+  
 
   void googleSignin() async {
     try {

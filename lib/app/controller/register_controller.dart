@@ -21,10 +21,11 @@ class RegisterController extends GetxController {
   }.obs;
 
   String? emailValidator(e) {
-    if (e!.isEmpty) {
-      return "Email tidak boleh kosong";
+    if (e == null || e!.isEmpty) {
+      return "Email can't be empty";
     }
-    if (!e.isEmail) {
+
+    if (!(e as String).isEmail) {
       return "Email invalid";
     }
     return null;
@@ -41,16 +42,50 @@ class RegisterController extends GetxController {
     return null;
   }
 
-  String? passwordValidator(e) {
-    if (e!.isEmpty) {
+  String? passwordValidator(String? e) {
+    if (e == null || e.isEmpty) {
       return "Password tidak boleh kosong";
+    }
+    if (e.length < 8) {
+      return "Password harus memiliki minimal 8 karakter";
+    }
+    if (!RegExp(r'[0-9]').hasMatch(e)) {
+      return "Password harus mengandung setidaknya 1 angka";
+    }
+    if (!RegExp(r'[A-Z]').hasMatch(e)) {
+      return "Password harus mengandung setidaknya 1 huruf kapital";
+    }
+    if (!RegExp(r'[#@\$_-]').hasMatch(e)) {
+      return "Password harus mengandung setidaknya 1 karakter spesial (#, @, \$, _, -)";
+    }
+    return null;
+  }
+
+  String? confirmPasswordValidator(String? confirmPassword) {
+    if (confirmPassword == null || confirmPassword.isEmpty) {
+      return "Konfirmasi password tidak boleh kosong";
+    }
+
+    if (confirmPassword != form['password']!.text) {
+      return "Konfirmasi password harus sama dengan password";
     }
     return null;
   }
 
   void emailRegister() async {
     if (formKey.currentState!.validate()) {
-      return;
+      try {
+        isLoading.value = true;
+        showLoadingDialog(Get.context!, isLoading);
+        final authData = await auth.createUserWithEmailAndPassword(
+          email: form['email']!.text,
+          password: form['password']!.text,
+        );
+        await AuthRepository.roleValidate(authData, isLoading);
+      } catch (err) {
+        closeLoading(isLoading);
+        showAlert(err.toString());
+      }
     }
   }
 

@@ -70,16 +70,6 @@ class _OnboardPageState extends State<OnboardPage>
               },
               text: "Login",
             ),
-            SizedBox(height: 20.h),
-            AppButton(
-              onPressed: () {
-                Get.toNamed(Register.path());
-              },
-              variant: AppButtonVariant.secondary,
-              foregroundColor: ColorConstants.slate[300],
-              text: "Daftar",
-              boxShadow: [ColorConstants.shadow[3]!],
-            ),
             SizedBox(height: 40.h),
           ],
         ),

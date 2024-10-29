@@ -22,7 +22,7 @@ class MyLaporan extends GetView<HomeController> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            "Informasi Terbaru",
+            "Laporan Terbaru",
             style: body2BTextStyle(),
           ),
           SizedBox(height: 20.h),

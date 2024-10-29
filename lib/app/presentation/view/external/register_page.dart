@@ -153,7 +153,7 @@ class RegisterPage extends GetView<RegisterController> {
                                 controller: controller.form['confirmPassword']!,
                                 obscureText: true,
                                 placeholder: "Masukkan Passowrd Anda",
-                                validator: controller.passwordValidator,
+                                validator: controller.confirmPasswordValidator,
                                 textInputAction: TextInputAction.done,
                               ),
                               SizedBox(height: 12.h),

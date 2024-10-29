@@ -18,7 +18,7 @@ class _OnboardPageState extends State<OnboardPage>
   bool isMounted = false;
   var data = [
     {
-      "title": "E-Port hadir untuk memudahkan\npelaporan anda",
+      "title": "Sapa Satpol hadir untuk memudahkan\npelaporan anda",
       "description": "Aplikasi resmi pelaporan pelanggaran Kota Batu",
       "thumbnail": "assets/images/onboard/external_1.png",
     },

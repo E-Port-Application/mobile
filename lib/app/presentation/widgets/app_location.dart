@@ -30,7 +30,8 @@ class _AppLocationState extends State<AppLocation> {
   void initState() {
     super.initState();
     setState(() {
-      if (Get.currentRoute.contains("rencana")) {
+      if (Get.currentRoute.contains("rencana") |
+          Get.currentRoute.contains("kegiatan")) {
         isFetch = true;
       }
       address = widget.address;

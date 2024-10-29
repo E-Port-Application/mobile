@@ -47,15 +47,8 @@ class AppButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (type == AppButtonType.outlined) {
-      return Container(
+      return SizedBox(
         width: width,
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: color ?? ColorConstants.primary[50]!,
-            width: 1.w,
-          ),
-          borderRadius: borderRadius ?? BorderRadius.circular(10.w),
-        ),
         child: OutlinedButton(
           onPressed: onPressed != null
               ? () {
@@ -66,6 +59,9 @@ class AppButton extends StatelessWidget {
               : null,
           style: OutlinedButton.styleFrom(
             backgroundColor: Colors.transparent,
+            shape: RoundedRectangleBorder(
+              borderRadius: borderRadius ?? BorderRadius.circular(10.w),
+            ),
             padding: padding ??
                 EdgeInsets.symmetric(
                   vertical: 13.h,
