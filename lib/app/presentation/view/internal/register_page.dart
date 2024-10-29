@@ -98,7 +98,7 @@ class RegisterPage extends GetView<RegisterController> {
                   SizedBox(height: 32.h),
                   AppButton(
                     onPressed: () {
-                      // const a = auth.
+                      // const a = FirebaseAuth.instance.
                     },
                     text: "Daftar",
                     width: 1.sw,

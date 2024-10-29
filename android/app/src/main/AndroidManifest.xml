@@ -37,17 +37,6 @@
             android:name="flutterEmbedding"
             android:value="2" />
 
-        <!-- File Provider untuk Flutter Downloader -->
-        <provider
-            android:name="vn.hunghd.flutterdownloader.DownloadedFileProvider"
-            android:authorities="${applicationId}.flutter_downloader.provider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths" />
-        </provider>
-
         <!-- Initializer untuk WorkManager -->
         <provider
             android:name="androidx.startup.InitializationProvider"
@@ -58,16 +47,6 @@
                 android:name="androidx.work.WorkManagerInitializer"
                 android:value="androidx.startup"
                 tools:node="remove" />
-        </provider>
-
-        <!-- Custom Initializer untuk Flutter Downloader -->
-        <provider
-            android:name="vn.hunghd.flutterdownloader.FlutterDownloaderInitializer"
-            android:authorities="${applicationId}.flutter-downloader-init"
-            android:exported="false">
-            <meta-data
-                android:name="vn.hunghd.flutterdownloader.MAX_CONCURRENT_TASKS"
-                android:value="5" />
         </provider>
     </application>
 </manifest>

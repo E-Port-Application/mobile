@@ -20,21 +20,19 @@ class ProfileMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(4.w),
-      onTap: () {
-        if (isLogout) {
-          controller.logout();
-          return;
-        }
-        if (data.path == null) {
-          return;
-        }
-        Get.toNamed(data.path!);
-      },
-      // onTap: data.path != null
-      //     ? () {
-      //         Get.toNamed(data.path!);
-      //       }
-      //     : null,
+      onTap: isLogout
+          ? () {
+              controller.logout();
+              return;
+            }
+          : data.path == null
+              ? null
+              : () {
+                  if (data.path == null) {
+                    return;
+                  }
+                  Get.toNamed(data.path!);
+                },
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 8.w),
         decoration: BoxDecoration(

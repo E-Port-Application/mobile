@@ -361,8 +361,6 @@ class _LaporanFilterState extends State<LaporanFilter> {
                           RekapRepository.get()
                               .then((value) {})
                               .catchError((_) {});
-                          // String url = "${dotenv.env['BASE_URL']}/api/rekap";
-                          // downloadFile(url);
                         },
                         child: Image.asset(
                           "assets/icons/excel.png",
