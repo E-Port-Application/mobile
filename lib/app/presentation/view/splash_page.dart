@@ -26,7 +26,7 @@ class _SplashPageState extends State<SplashPage>
       duration: Duration(seconds: 2, milliseconds: 500),
     );
 
-    for (int i = 0; i < "Satpol Saja".length; i++) {
+    for (int i = 0; i < "Sapa Satpol".length; i++) {
       _animations.add(Tween<double>(begin: -1.0, end: 0.0).animate(
         CurvedAnimation(
           parent: _controller,
@@ -63,8 +63,8 @@ class _SplashPageState extends State<SplashPage>
               builder: (context, _) {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: "Satpol Saja".characters.map((char) {
-                    int index = "Satpol Saja".indexOf(char);
+                  children: "Sapa Satpol".characters.map((char) {
+                    int index = "Sapa Satpol".indexOf(char);
                     return Transform.translate(
                       offset: Offset(0.0, _animations[index].value * 200),
                       child: Text(

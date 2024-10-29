@@ -134,6 +134,7 @@ class LaporanRepository {
   }
 
   static Future pdf(String type, String id, RxBool? isLoading) async {
+    print(id);
     try {
       if (isLoading != null) {
         isLoading.value = true;

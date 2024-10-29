@@ -46,7 +46,7 @@ class _OnboardPageState extends State<OnboardPage>
             ),
             SizedBox(height: 20.h),
             Text(
-              "Satpol Saja hadir untuk\nmemudahkan pelaporan anda",
+              "Sapa Satpol hadir untuk\nmemudahkan pelaporan anda",
               style: h4BTextStyle(
                 color: ColorConstants.slate[800],
               ),

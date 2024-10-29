@@ -85,7 +85,7 @@ class HomePage extends GetView<HomeController> {
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               Text(
-                                "Satpol Saja",
+                                "Sapa Satpol",
                                 style: body1BTextStyle(),
                               ),
                               Text(

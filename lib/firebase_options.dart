@@ -71,5 +71,5 @@ final userRef = store.collection("users");
 final jenisPklRef = store.collection("jenis-pkl");
 
 // Storage
-final storage = FirebaseStorage.instance.ref();
+Reference storage = FirebaseStorage.instance.ref();
 final ppStorage = storage.child('profile-photo');
