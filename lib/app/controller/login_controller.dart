@@ -43,6 +43,7 @@ class LoginController extends GetxController {
         showLoadingDialog(Get.context!, isLoading);
         final email = form['email']!.text.trim();
         final password = form['password']!.text.trim();
+
         final authData = await auth.signInWithEmailAndPassword(
           email: email,
           password: password,

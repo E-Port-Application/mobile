@@ -45,6 +45,7 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^4.0.0
   change_app_package_name: ^1.3.0
+  flutter_launcher_icons: ^0.14.1
 
 flutter:
   uses-material-design: true
@@ -56,6 +57,7 @@ flutter:
     - assets/icons/
     - assets/images/onboard/
     - assets/images/notification/
+    - assets/launcher_icon/
 
     # Fonts
     - assets/fonts/Poppins/
